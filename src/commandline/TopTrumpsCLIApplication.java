@@ -1,9 +1,13 @@
 package commandline;
 
+import java.io.*;
+import java.util.Scanner;
+
 /**
  * Top Trumps command line application
  */
 public class TopTrumpsCLIApplication {
+	private static Cards[] deck = new Cards[40];
 
 	/**
 	 * This main method is called by TopTrumps.java when the user specifies that they want to run in
@@ -11,9 +15,11 @@ public class TopTrumpsCLIApplication {
  	 * @param args
 	 */
 	public static void main(String[] args) {
+		//Read file and create the deck
+		deck = createDeck();
 
 		boolean writeGameLogsToFile = false; // Should we write game logs to file?
-		if (args[0].equalsIgnoreCase("true")) writeGameLogsToFile=true; // Command line selection
+		//if (args[0].equalsIgnoreCase("true")) writeGameLogsToFile=true; // Command line selection
 		
 		// State
 		boolean userWantsToQuit = false; // flag to check whether the user wants to quit the application
@@ -30,6 +36,58 @@ public class TopTrumpsCLIApplication {
 		}
 
 
+	}
+	/**
+	 * Creates the deck from the file containing the card data
+	 */
+	public static Cards[] createDeck() {
+		BufferedReader reader;
+    	Scanner in;
+    	Cards[] newDeck = new Cards[40];
+    	try {
+    		reader = new BufferedReader(new FileReader("StarCitizenDeck.txt"));
+    		in= new Scanner(reader);
+    		//Line counter
+    		int count =0;
+    		try {
+				while (in.hasNext()){
+					//Reads id from file, if this corresponds to a valid class then the class is stored as activity
+					String line = in.nextLine();
+					Scanner lineRead = new Scanner(line);
+					
+					//First line contains headers which are not of use
+					if (count ==0) { count++;}
+					
+					//While the count is less than the total number of cards read the card data from the line
+					else if (count <= 41) {
+						String desc = lineRead.next();
+						int siz = lineRead.nextInt();
+						int spe = lineRead.nextInt();
+						int ran = lineRead.nextInt();
+						int fir = lineRead.nextInt();
+						int car = lineRead.nextInt();
+						
+						//Create a new card in the correct order in the deck
+						newDeck[count] = new Cards(desc, siz, spe, ran, fir, car);
+						count++;	
+					}
+					
+				}
+				
+    		}
+    		//Close reader and scanner and return the deck
+    		finally {
+				reader.close();
+				in.close();
+				return newDeck;
+			}
+    	}
+    	//Catch input/output errors
+		catch(IOException ioe) {
+    		System.out.println("IOException error");
+    		return newDeck;
+    	}	
+		
 	}
 
 }
