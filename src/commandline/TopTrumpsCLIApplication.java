@@ -7,7 +7,8 @@ import java.util.Scanner;
  * Top Trumps command line application
  */
 public class TopTrumpsCLIApplication {
-	private static Cards[] deck = new Cards[40];
+	private static final int MAXCARDS = 40;
+	private static Cards[] deck = new Cards[MAXCARDS];
 
 	/**
 	 * This main method is called by TopTrumps.java when the user specifies that they want to run in
@@ -15,9 +16,10 @@ public class TopTrumpsCLIApplication {
  	 * @param args
 	 */
 	public static void main(String[] args) {
+		
 		//Read file and create the deck
-		deck = createDeck();
-
+		createDeck();
+		
 		boolean writeGameLogsToFile = false; // Should we write game logs to file?
 		//if (args[0].equalsIgnoreCase("true")) writeGameLogsToFile=true; // Command line selection
 		
@@ -26,12 +28,37 @@ public class TopTrumpsCLIApplication {
 		
 		// Loop until the user wants to exit the game
 		while (!userWantsToQuit) {
+			
+			//Get User input
+			 int choice = getUserChoice();
+			 
+			 /*
+			  * This may be better dealt with using a switch?
+			  */
+			 
+			//Play game
+			if (choice ==1) {
+				System.out.println("User choice was 1");
+			}
+			//Show statistics
+			if(choice ==2) {
+				System.out.println("User choice was 2");
+			}
+			//User wants to exit the game
+			if(choice ==3) {
+				System.out.println("Game closing");
+				userWantsToQuit=true;
+			}
+			
+			else {
+				System.out.println("Your choice did not match any of the options");
+			}
 
 			// ----------------------------------------------------
 			// Add your game logic here based on the requirements
 			// ----------------------------------------------------
 			
-			userWantsToQuit=true; // use this when the user wants to exit the game
+			
 			
 		}
 
@@ -40,10 +67,10 @@ public class TopTrumpsCLIApplication {
 	/**
 	 * Creates the deck from the file containing the card data
 	 */
-	public static Cards[] createDeck() {
+	public static boolean createDeck() {
 		BufferedReader reader;
     	Scanner in;
-    	Cards[] newDeck = new Cards[40];
+    	Cards[] tempDeck = new Cards[40];
     	try {
     		reader = new BufferedReader(new FileReader("StarCitizenDeck.txt"));
     		in= new Scanner(reader);
@@ -68,26 +95,45 @@ public class TopTrumpsCLIApplication {
 						int car = lineRead.nextInt();
 						
 						//Create a new card in the correct order in the deck
-						newDeck[count] = new Cards(desc, siz, spe, ran, fir, car);
-						count++;	
+						deck[(count-1)] = new Cards(desc, siz, spe, ran, fir, car);
+						//Increment
+						count++;
+						
 					}
-					
 				}
-				
     		}
     		//Close reader and scanner and return the deck
     		finally {
 				reader.close();
 				in.close();
-				return newDeck;
+				return true;
 			}
     	}
     	//Catch input/output errors
 		catch(IOException ioe) {
     		System.out.println("IOException error");
-    		return newDeck;
+    		return false;
     	}	
+    }
+	
+	/**
+	 * Prints a menu of options to the user,
+	 * reads user input from the options menu and returns this to the main.
+	 * @return
+	 */
+	private static int getUserChoice() {
+		//Prints instructions to user to enter a choice from the list
+		System.out.println(String.format("To begin a new game, press 1 "
+				+ "%nTo see past statistics press 2 %nTo exit the game press 3"));
+		int choice =0;
+		
+		//Scanner is used to read user input and choice is returned
+		Scanner scanner = new Scanner(System.in);
+		choice = scanner.nextInt();
+		return choice;
 		
 	}
-
 }
+	
+
+
