@@ -19,6 +19,7 @@ public class TopTrumpsCLIApplication {
 		
 		//Read file and create the deck
 		createDeck();
+		shuffleCards();
 		
 		boolean writeGameLogsToFile = false; // Should we write game logs to file?
 		//if (args[0].equalsIgnoreCase("true")) writeGameLogsToFile=true; // Command line selection
@@ -49,7 +50,7 @@ public class TopTrumpsCLIApplication {
 				System.out.println("Game closing");
 				userWantsToQuit=true;
 			}
-			
+			//No valid choice
 			else {
 				System.out.println("Your choice did not match any of the options");
 			}
@@ -131,6 +132,30 @@ public class TopTrumpsCLIApplication {
 		Scanner scanner = new Scanner(System.in);
 		choice = scanner.nextInt();
 		return choice;
+		
+	}
+	
+	/**
+	 * Method to shuffle the deck before starting a new game so the same order is not used each time
+	 * @return
+	 */
+	private static boolean shuffleCards() {
+		for(int i = deck.length-1; i>0; i--) {
+			System.out.println(deck[i].getDescription() + i);
+		}
+		for(int i = deck.length-1; i>0; i--) {
+			int rand = (int)(Math.random()*(i+1));
+			Cards temp = deck[rand];
+			deck[i] = deck[rand];
+			deck[rand]= temp;
+			
+		}
+		System.out.println("");
+		for(int i = deck.length-1; i>0; i--) {
+			System.out.println(deck[i].getDescription() + i);
+		}
+		
+		return true;
 		
 	}
 }
