@@ -17,7 +17,7 @@ public class Cards {
 	private int Range;
 	private int Firepower;
 	private int Cargo;
-	
+
 	/**
 	 * Constructor taking each of the instance variables as input
 	 * @param Desc
@@ -34,9 +34,12 @@ public class Cards {
 		Range = Ran;
 		Firepower = Fir;
 		Cargo = Car;
-		
+
 	}
-	
+
+	// Default constructor to enable hand-arrays in other classes to be of type Cards
+	public Cards(){}
+
 	/**
 	 * Getter methods for each of the attributes
 	 * @return
