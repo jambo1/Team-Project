@@ -17,7 +17,7 @@ public class TopTrumpsCLIApplication {
 	 */
 	public static void main(String[] args) {
 		
-		//Read file and create the deck
+		//Read file and create the deck, then shuffle it
 		createDeck();
 		shuffleCards();
 		
@@ -140,9 +140,11 @@ public class TopTrumpsCLIApplication {
 	 * @return
 	 */
 	private static boolean shuffleCards() {
+		//Print method to test the deck is actually shuffled
 		for(int i = deck.length-1; i>0; i--) {
 			System.out.println(deck[i].getDescription() + i);
 		}
+		//Replace the cards in a random order back into the deck
 		for(int i = deck.length-1; i>0; i--) {
 			int rand = (int)(Math.random()*(i+1));
 			Cards temp = deck[rand];
@@ -150,6 +152,7 @@ public class TopTrumpsCLIApplication {
 			deck[rand]= temp;
 			
 		}
+		//Print deck to ensure it has been shuffled
 		System.out.println("");
 		for(int i = deck.length-1; i>0; i--) {
 			System.out.println(deck[i].getDescription() + i);
