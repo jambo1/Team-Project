@@ -52,16 +52,22 @@ import java.util.concurrent.TimeUnit;
       // Method that gets the index for the best category for a card.
       private int selectCategory(Cards topCard) {
         // I'm not entirely sure how this TimeUnit thing works, or if it has any drawbacks.
-        TimeUnit.SECONDS.sleep(3);
-        int bestCategory;
+        try {
+          TimeUnit.SECONDS.sleep(3);
+        }
+        catch (InterruptedException e) {
+          System.err.println("Timer interrupted.");
+        }
+        int bestCategory = 0;
         int bestValue = 0;
-        int [] values =  {topCard.getSize,
-                          topCard.getSpeed,
-                          topCard.getRange,
-                          topCard.getFirepower,
-                          topCard.getCargo};
+        int [] values =  {topCard.getSize(),
+                          topCard.getSpeed(),
+                          topCard.getRange(),
+                          topCard.getFirepower(),
+                          topCard.getCargo()
+                          };
 
-        for (int i = 0; i < values; i++) {
+        for (int i = 0; i < values.length; i++) {
           if (values[i] > bestValue) {
             bestValue = values[i];
             bestCategory = i + 1;

@@ -37,9 +37,6 @@ public class Cards {
 
 	}
 
-	// Default constructor to enable hand-arrays in other classes to be of type Cards
-	public Cards(){}
-
 	/**
 	 * Getter methods for each of the attributes
 	 * @return
