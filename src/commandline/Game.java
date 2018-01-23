@@ -15,7 +15,7 @@ public class Game {
 
 	public Game(Cards[] cards) {
 		deck = cards;
-		 AIplayer[] opponents = CreateAIPlayers(NUMPLAYERS-1);
+		 AIPlayer[] opponents = CreateAIPlayers(NUMPLAYERS-1);
 	}
 
 	/**
