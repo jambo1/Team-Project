@@ -11,11 +11,23 @@ public class Game {
 	private Cards[] deck = new Cards[MAXCARDS];
 	private Cards[] communalPile = new Cards[MAXCARDS];
 	private Cards[]  activeCards = new Cards[NUMPLAYERS];
-	
+	//private AIplayer[] opponents = new AIPlayer[NUMPLAYERS-1];
+
 	public Game(Cards[] cards) {
 		deck = cards;
+		 AIplayer[] opponents = CreateAIPlayers(NUMPLAYERS-1);
 	}
-	
-	
+
+	/**
+	 *	Method to create desired number of AI players. The method returns an array of AIPlayer objects.
+	 *	@return
+	 */
+	private AIPlayer[] CreateAIPlayers(int numberOfPlayers) {
+		AIPlayer [] newPlayers = new AIPlayer[numberOfPlayers];
+		for (int i = 0; i < numberOfPlayers; i++) {
+			newPlayers[i] = new AIPlayer(MAXCARDS);
+		}
+		return newPlayers;
+	}
 
 }
