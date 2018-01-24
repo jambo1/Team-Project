@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit;
     *
     *
     *
-    * @author Viktor
+    *
     */
 
     public class AIPlayer {
@@ -22,12 +22,18 @@ import java.util.concurrent.TimeUnit;
 
       }
 
-      // Method to get the top card.
+      // // Not sure if necessary?
+      // public Cards getCard(int q) {
+      //   return hand[q];
+      // }
+
+      // Gets the top card.
       public Cards getTopCard() {
         while(hand[0] == null) {
           sortCards();
         }
         Cards topCard = hand[0];
+        //topCard = hand[0];
         return topCard;
       }
 
@@ -70,5 +76,7 @@ import java.util.concurrent.TimeUnit;
         return bestCategory;
 
       }
+      
+      public Cards[] getPlayerHand() {return hand;}
 
       }
