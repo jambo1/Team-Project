@@ -12,6 +12,7 @@ public class Game {
 	 */
 	private final int MAXCARDS = 40;
 	private final int NUMPLAYERS = 5;
+	private int round;
 	private int turn;
 	private Cards[] deck = new Cards[MAXCARDS];
 	private Cards[] communalPile = new Cards[MAXCARDS];
@@ -27,11 +28,12 @@ public class Game {
 	//this is the basic running order of the game - NEED TO UTILISE GAME OVER
 	public Game(Cards[] cards) {
 		deck = cards;
+		round=0;
 		turn=0;
 		deal();
 		while(gameOver==false)	{
-		playRound(turn);
-		turn++;
+			playRound(turn);
+			round++;
 		}
 	}
 	
@@ -53,28 +55,28 @@ public class Game {
 		}
 	}
 	
-	//player of round chosen by turn counter t, based on initial value and then divisibility by no of players
+	//player of round determined by turn counter t
 	//Always prints human card to screen first, then prints result of either human choice or computer choice
 	private void playRound(int t)	{
 		System.out.println(displayCard(hp.getTopCard()));
-		if(t==0||t%5==0)	{
+		if(t==0)	{
 			System.out.println("Please select a category to play:");
 			System.out.println("1 = Size, 2 = Speed, 3 = Range, 4 = Firepower, 5 = Cargo");
 			System.out.println(playCategory(getUserChoice()));
 		}
-		else if(t==1||t%5==1)	{
+		else if(t==1)	{
 			System.out.println("Player 1 is choosing a category to play:");
 			System.out.println(playCategory(p1.selectCategory(p1.getTopCard())));
 		}
-		else if(t==2||t%5==2)	{
+		else if(t==2)	{
 			System.out.println("Player 2 is choosing a category to play:");
 			System.out.println(playCategory(p2.selectCategory(p2.getTopCard())));
 		}
-		else if(t==3||t%5==3)	{
+		else if(t==3)	{
 			System.out.println("Player 3 is choosing a category to play:");
 			System.out.println(playCategory(p3.selectCategory(p3.getTopCard())));			
 		}
-		else if(t==4||t%5==4)	{
+		else if(t==4)	{
 			System.out.println("Player 4 is choosing a category to play:");
 			System.out.println(playCategory(p4.selectCategory(p4.getTopCard())));
 		}
@@ -102,16 +104,66 @@ public class Game {
 		return dSBuild.toString();
 	}
 	
-	//creates active card array, then zeroes top card in each hand so in following round the remaining cards are pushed up
-	//(using method in AIPlayer) categories are enumerated in same order as on card (desc=0,size=1 etc.)
+	/*
+	 * creates active card array, then zeroes top card in each hand so in following round the remaining cards are pushed up
+	 * (using method in AIPlayer) categories are enumerated in same order as on card (desc=0,size=1 etc.)
+	 */
+	
 	private String playCategory(int c)	{
 		int victor=0, bestValue=0;
+		int hpOut=0, p1Out=0, p2Out=0, p3Out=0, p4Out=0, totalOut=0;
 		int[] cardValArray = new int[NUMPLAYERS];
-		activeCards[0] = hp.getTopCard();
-		activeCards[1] = p1.getTopCard();
-		activeCards[2] = p2.getTopCard();
-		activeCards[3] = p3.getTopCard();
-		activeCards[4] = p4.getTopCard();
+		if(hp.getTopCard()!=null) {
+			activeCards[0] = hp.getTopCard();
+		}
+		else if(hp.getTopCard()==null && hpOut<1) {
+			System.out.println("You are out!");
+			hpOut++;
+			totalOut++;
+		}
+		
+		if(p1.getTopCard()!=null) {
+			activeCards[1] = p1.getTopCard();
+		}
+		else if(p1.getTopCard()==null && p1Out<0) {
+			System.out.println("Player 1 is out!");
+			p1Out++;
+			totalOut++;
+		}
+		
+		if(p2.getTopCard()!=null) {
+			activeCards[2] = p2.getTopCard();
+		}
+		else if(p2.getTopCard()==null && p2Out<0) {
+			System.out.println("Player 2 is out!");
+			p2Out++;
+			totalOut++;
+		}
+		
+		if(p3.getTopCard()!=null) {
+			activeCards[3] = p3.getTopCard();
+		}
+		else if(p3.getTopCard()==null && p3Out<0) {
+			System.out.println("Player 3 is out!");
+			p3Out++;
+			totalOut++;
+		}
+		
+		if(p4.getTopCard()!=null) {
+			activeCards[4] = p4.getTopCard();
+		}
+		else if(p4.getTopCard()==null && p4Out<0) {
+			System.out.println("Player 4 is out!");
+			p4Out++;
+			totalOut++;
+		}
+		
+		/*
+		 * If 4 players are out someone has won
+		 */
+		if(totalOut ==4) {
+			playerWins();
+		}
 		
 		hp.nullTopCard();
 		p1.nullTopCard();
@@ -121,59 +173,76 @@ public class Game {
 		
 		if(c==1)	{
 			for(int i=0; i<NUMPLAYERS; i++)	{
-				cardValArray[i] = activeCards[i].getSize();
-				if(bestValue<activeCards[i].getSize())	{
-					bestValue = activeCards[i].getSize();
-					victor = i;
+				if(activeCards[i]!=null) {
+					cardValArray[i] = activeCards[i].getSize();
+					if(bestValue<activeCards[i].getSize())	{
+						bestValue = activeCards[i].getSize();
+						victor = i;
+					}
 				}
 			}
 		}
-		if(c==2)	{
+		else if(c==2)	{
 			for(int i=0; i<NUMPLAYERS; i++)	{
-				cardValArray[i] = activeCards[i].getSpeed();
-				if(bestValue<activeCards[i].getSpeed())	{
-					bestValue = activeCards[i].getSpeed();
-					victor = i;
+				if(activeCards[i]!=null) {
+					cardValArray[i] = activeCards[i].getSpeed();
+					if(bestValue<activeCards[i].getSpeed())	{
+						bestValue = activeCards[i].getSpeed();
+						victor = i;
+					}
 				}
 			}
 		}
-		if(c==3)	{
+		else if(c==3)	{
 			for(int i=0; i<NUMPLAYERS; i++)	{
-				cardValArray[i] = activeCards[i].getRange();
-				if(bestValue<activeCards[i].getRange())	{
-					bestValue = activeCards[i].getRange();
-					victor = i;
+				if(activeCards[i]!=null) {
+					cardValArray[i] = activeCards[i].getRange();
+					if(bestValue<activeCards[i].getRange())	{
+						bestValue = activeCards[i].getRange();
+						victor = i;
+					}
 				}
 			}
 		}
-		if(c==4)	{
+		else if(c==4)	{
 			for(int i=0; i<NUMPLAYERS; i++)	{
-				cardValArray[i] = activeCards[i].getFirepower();
-				if(bestValue<activeCards[i].getFirepower())	{
-					bestValue = activeCards[i].getFirepower();
-					victor = i;
+				if(activeCards[i]!=null) {
+					cardValArray[i] = activeCards[i].getFirepower();
+					if(bestValue<activeCards[i].getFirepower())	{
+						bestValue = activeCards[i].getFirepower();
+						victor = i;
+					}
 				}
 			}
 		}
-		if(c==5)	{
+		else if(c==5)	{
 			for(int i=0; i<NUMPLAYERS; i++)	{
-				cardValArray[i] = activeCards[i].getCargo();
-				if(bestValue<activeCards[i].getCargo())	{
-					bestValue = activeCards[i].getCargo();
-					victor = i;
+				if(activeCards[i]!=null) {
+					cardValArray[i] = activeCards[i].getCargo();
+					if(bestValue<activeCards[i].getCargo())	{
+						bestValue = activeCards[i].getCargo();
+						victor = i;
+					}
 				}
 			}
 		}
-		//tests for draw bases
+		else {
+			System.out.println("Your choice did not match any of the options");
+			playRound(0);
+		}
+		//tests for draw bases and passes a number above any possible player index to takePile to process a draw
 		Arrays.sort(cardValArray);
-		boolean draw = false;
 		if(cardValArray[NUMPLAYERS-1]==cardValArray[NUMPLAYERS-2])	{
-			draw = true;
+			return takePile(NUMPLAYERS);
 		}
-		return takePile(victor, draw);
+		
+		return takePile(victor);
 	}
 	
-	//scans for user input, error if not always scanning for some reason (ie. if it gets closed)
+	
+	/*
+	 * scans for user input, error if not always scanning for some reason (ie. if it gets closed)
+	 */
 	private int getUserChoice() {
 		int choice = 0;
 		Scanner sc = new Scanner(System.in);
@@ -182,9 +251,45 @@ public class Game {
 		return choice;
 	}
 	
-	//creates winner string and allocates communal and active cards to winner
-	private String takePile(int v, boolean d)	{
-		if(d==true)	{
+	
+	/*
+	 * creates winner string and allocates communal and active cards to winner
+	 */
+	private String takePile(int v)	{
+		//Show winning card if hand is not a draw
+		if(v<5) {
+			displayCard(activeCards[v]);
+		}
+		
+		//Give winner their cards
+		if(v==0)	{
+			hp.givePlayerCards(activeCards, communalPile);
+			winnerString = "You won that round!";
+			turn = 0;
+		}
+		else if(v==1)	{
+			p1.givePlayerCards(activeCards, communalPile);
+			winnerString = "Player 1 won that round!";
+			turn = 1;
+		}
+		else if(v==2)	{
+			p2.givePlayerCards(activeCards, communalPile);
+			winnerString = "Player 2 won that round!";
+			turn = 2;
+		}
+		else if(v==3)	{
+			p3.givePlayerCards(activeCards, communalPile);
+			winnerString = "Player 3 won that round!";
+			turn = 3;
+		}
+		else if(v==4)	{
+			p4.givePlayerCards(activeCards, communalPile);
+			winnerString = "Player 4 won that round!";
+			turn = 4;
+		}
+		
+		//Process draw
+		else if(v==5) {
 			int comStart =0;
 			while(communalPile[comStart]!=null)	{comStart++;}
 			for(int i=0;i<NUMPLAYERS;i++)	{
@@ -192,28 +297,29 @@ public class Game {
 			}
 			winnerString = "That round was a draw!";
 		}
-		else	{
-			if(v==0)	{
-				hp.givePlayerCards(activeCards, communalPile);
-				winnerString = "You won that round!";
-			}
-			else if(v==1)	{
-				p1.givePlayerCards(activeCards, communalPile);
-				winnerString = "Player 1 won that round!";
-			}
-			else if(v==2)	{
-				p2.givePlayerCards(activeCards, communalPile);
-				winnerString = "Player 2 won that round!";
-			}
-			else if(v==3)	{
-				p3.givePlayerCards(activeCards, communalPile);
-				winnerString = "Player 3 won that round!";
-			}
-			else if(v==4)	{
-				p4.givePlayerCards(activeCards, communalPile);
-				winnerString = "Player 4 won that round!";
-			}
-		}
+		
 		return winnerString;
+	}
+	
+	/*
+	 * Handles a player winning the game
+	 */
+	private void playerWins() {
+		if(hp.getTopCard()!=null) {
+			System.out.println("Congratulations you have won!");
+		}
+		else if(p1.getTopCard()!=null){
+			System.out.println("Player 1 has won the game!");
+		}
+		else if(p2.getTopCard()!=null){
+			System.out.println("Player 2 has won the game!");
+		}
+		else if(p3.getTopCard()!=null){
+			System.out.println("Player 3 has won the game!");
+		}
+		else if(p4.getTopCard()!=null){
+			System.out.println("Player 4 has won the game!");
+		}
+		gameOver = true;
 	}
 }

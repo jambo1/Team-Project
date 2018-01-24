@@ -141,24 +141,13 @@ public class TopTrumpsCLIApplication {
 	 * @return
 	 */
 	private static boolean shuffleCards() {
-		//Print method to test the deck is actually shuffled
-		for(int i = deck.length-1; i>0; i--) {
-			System.out.println(deck[i].getDescription() + i);
-		}
 		//Replace the cards in a random order back into the deck
 		for(int i = deck.length-1; i>0; i--) {
 			int rand = (int)(Math.random()*(i+1));
 			Cards temp = deck[rand];
 			deck[i] = deck[rand];
 			deck[rand]= temp;
-			
 		}
-		//Print deck to ensure it has been shuffled
-		System.out.println("");
-		for(int i = deck.length-1; i>0; i--) {
-			System.out.println(deck[i].getDescription() + i);
-		}
-		
 		return true;
 		
 	}
