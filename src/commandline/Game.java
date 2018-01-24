@@ -122,11 +122,11 @@ public class Game {
 			}
 		}
 		Arrays.sort(cardValArray);
+		boolean draw = false;
 		if(cardValArray[NUMPLAYERS-1]==cardValArray[NUMPLAYERS-2])	{
-			boolean draw = true;
+			draw = true;
 		}
-		
-		boolean notDraw = divideSpoils(victor);
+		divideSpoils(victor, draw);
 		return winnerString;
 	}
 	
@@ -138,7 +138,30 @@ public class Game {
 		return choice;
 	}
 	
-	private boolean divideSpoils(int v)	{
-		
+	private void divideSpoils(int v, boolean d)	{
+		if(d==true)	{
+			int comStart =0;
+			while(communalPile[comStart]!=null)	{comStart++;}
+			for(int i=0;i<NUMPLAYERS;i++)	{
+				communalPile[comStart] = activeCards[i];
+			}
+		}
+		else	{
+			if(v==0)	{
+				hp;
+			}
+			else if(v==1)	{
+				p1;
+			}
+			else if(v==2)	{
+				p2;
+			}
+			else if(v==3)	{
+				p3;
+			}
+			else if(v==4)	{
+				p4;
+			}
+		}
 	}
 }
