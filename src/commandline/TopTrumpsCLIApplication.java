@@ -40,6 +40,7 @@ public class TopTrumpsCLIApplication {
 			//Play game
 			if (choice ==1) {
 				System.out.println("User choice was 1");
+				Game aGame = new Game(deck);
 			}
 			//Show statistics
 			if(choice ==2) {

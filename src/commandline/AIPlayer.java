@@ -13,14 +13,14 @@ import java.util.concurrent.TimeUnit;
        * Instance variables for the AIPlayer
        */
       private Cards[] hand;
+      private final int DECKSIZE = 40;
 
       /**
        * Constructor taking @param deckSize as input
        */
-      public AIPlayer(int deckSize) {
-          hand = new Cards[deckSize];
-
-      }
+      public AIPlayer() {
+          hand = new Cards[DECKSIZE];
+          }
 
       // // Not sure if necessary?
       // public Cards getCard(int q) {
@@ -31,6 +31,10 @@ import java.util.concurrent.TimeUnit;
       public Cards getTopCard() {
         while(hand[0] == null) {
           sortCards();
+          if(hand[0]==null)	{
+        	System.out.println("Player out?");
+        	break;
+          }
         }
         Cards topCard = hand[0];
         //topCard = hand[0];
@@ -50,7 +54,7 @@ import java.util.concurrent.TimeUnit;
       }
 
       // Method that gets the index for the best category for a card.
-      private int selectCategory(Cards topCard) {
+      public int selectCategory(Cards topCard) {
         // I'm not entirely sure how this TimeUnit thing works, or if it has any drawbacks.
         try {
           TimeUnit.SECONDS.sleep(3);
@@ -76,6 +80,29 @@ import java.util.concurrent.TimeUnit;
         return bestCategory;
 
       }
+      public void givePlayerCards(Cards[] ap, Cards[] cp)	{
+    	  int comCount = 0, activeCount = 0;
+    	  for(int i=0; i<hand.length; i++)	{
+    		  if(activeCount>4)	{break;}
+    		  
+    		  if(hand[i]==null&&cp[comCount]!=null)	{
+    			  hand[i] = cp[comCount];
+    			  comCount++;
+    		  }
+    		  else if(hand[i]==null&&ap[activeCount]!=null)	{
+    			  hand[i] = ap[activeCount];
+    			  activeCount++;
+    		  }
+    		  else if(hand[i]==null&&cp[comCount]==null&&ap[activeCount]==null)	{
+    			  break;
+    		  }
+    		  else	{
+    			  ;
+    		  }
+    	  }
+      }
+
+      public void nullTopCard()	{hand[0]=null;}
       
       public Cards[] getPlayerHand() {return hand;}
 
