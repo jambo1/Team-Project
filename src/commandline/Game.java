@@ -20,8 +20,12 @@ public class Game {
 	
 	public Game(Cards[] cards) {
 		deck = cards;
+<<<<<<< HEAD
 		deal();
 		
+=======
+		 AIPlayer[] opponents = CreateAIPlayers(NUMPLAYERS-1);
+>>>>>>> f3bcd8f938bc8c2772cac1769d611bacaea367c8
 	}
 	
 	private void deal()	{
