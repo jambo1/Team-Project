@@ -80,9 +80,14 @@ import java.util.concurrent.TimeUnit;
         return bestCategory;
 
       }
+      //THIS IS WHERE ALL OUR PROBLEMS LIE
+      /*
+       * Now starts searching for empty hand slots in array element[1], instead of [0], because when hand is
+       * empty card will be inserted into slot 2, but getTopCard() will automatically shunt it up to slot [0]
+       */
       public void givePlayerCards(Cards[] ap, Cards[] cp)	{
     	  int comCount = 0, activeCount = 0;
-    	  for(int i=0; i<hand.length; i++)	{
+    	  for(int i=1; i<hand.length; i++)	{
     		  if(activeCount>4)	{break;}
     		  
     		  if(hand[i]==null&&cp[comCount]!=null)	{

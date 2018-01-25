@@ -12,8 +12,7 @@ public class Game {
 	 */
 	private final int MAXCARDS = 40;
 	private final int NUMPLAYERS = 5;
-	private int round;
-	private int turn;
+	private int round, turn;
 	private Cards[] deck = new Cards[MAXCARDS];
 	private Cards[] communalPile = new Cards[MAXCARDS];
 	private Cards[]  activeCards = new Cards[NUMPLAYERS];
@@ -88,7 +87,7 @@ public class Game {
 	//method to make wee card on screen, can def be polished if we have time
 	private String displayCard(Cards c)	{
 		int i = 0;
-		while(hp.getPlayerHand()[i]!=null) {
+		while(hp.getPlayerHand()[i]!=null&&i<40) {
 			System.out.println(hp.getPlayerHand()[i].getDescription());
 			i++;
 		}
@@ -255,12 +254,7 @@ public class Game {
 	/*
 	 * creates winner string and allocates communal and active cards to winner
 	 */
-	private String takePile(int v)	{
-		//Show winning card if hand is not a draw
-		if(v<5) {
-			displayCard(activeCards[v]);
-		}
-		
+	private String takePile(int v)	{		
 		//Give winner their cards
 		if(v==0)	{
 			hp.givePlayerCards(activeCards, communalPile);
@@ -287,15 +281,25 @@ public class Game {
 			winnerString = "Player 4 won that round!";
 			turn = 4;
 		}
-		
 		//Process draw
 		else if(v==5) {
 			int comStart =0;
 			while(communalPile[comStart]!=null)	{comStart++;}
 			for(int i=0;i<NUMPLAYERS;i++)	{
 				communalPile[comStart] = activeCards[i];
+				//activeCards[i] = null; //THIS IS A TEST TO EMPTY ACTIVE PILE, may not actually be needed
 			}
 			winnerString = "That round was a draw!";
+		}
+		
+		//Show winning card if hand is not a draw
+		if(v<5) {
+			displayCard(activeCards[v]);
+			int comClearer = 0;
+			while(communalPile[comClearer]!=null)	{
+				communalPile[comClearer]=null;
+				comClearer++;
+			}
 		}
 		
 		return winnerString;
