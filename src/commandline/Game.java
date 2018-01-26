@@ -57,7 +57,12 @@ public class Game {
 	//player of round determined by turn counter t
 	//Always prints human card to screen first, then prints result of either human choice or computer choice
 	private void playRound(int t)	{
+		try {
 		System.out.println(displayCard(hp.getTopCard()));
+		}
+		catch(NullPointerException n)	{
+			System.out.println("No card :(");
+		}
 		if(t==0)	{
 			System.out.println("Please select a category to play:");
 			System.out.println("1 = Size, 2 = Speed, 3 = Range, 4 = Firepower, 5 = Cargo");
@@ -82,15 +87,24 @@ public class Game {
 		else	{
 			System.out.println("play round is fucked");
 		}
+		
+		hp.nullTopCard();
+		p1.nullTopCard();
+		p2.nullTopCard();
+		p3.nullTopCard();
+		p4.nullTopCard();
+		
+		hp.sortCards();
+		p1.sortCards();
+		p2.sortCards();
+		p3.sortCards();
+		p4.sortCards();
+		
 	}
 	
 	//method to make wee card on screen, can def be polished if we have time
 	private String displayCard(Cards c)	{
-		int i = 0;
-		while(hp.getPlayerHand()[i]!=null&&i<40) {
-			System.out.println(hp.getPlayerHand()[i].getDescription());
-			i++;
-		}
+		
 		StringBuilder dSBuild = new StringBuilder("");
 		dSBuild.append("______________________________\r\n"); //30
 		dSBuild.append(String.format("| %26s |\r\n", c.getDescription()));
@@ -124,7 +138,7 @@ public class Game {
 		if(p1.getTopCard()!=null) {
 			activeCards[1] = p1.getTopCard();
 		}
-		else if(p1.getTopCard()==null && p1Out<0) {
+		else if(p1.getTopCard()==null && p1Out<1) {
 			System.out.println("Player 1 is out!");
 			p1Out++;
 			totalOut++;
@@ -133,7 +147,7 @@ public class Game {
 		if(p2.getTopCard()!=null) {
 			activeCards[2] = p2.getTopCard();
 		}
-		else if(p2.getTopCard()==null && p2Out<0) {
+		else if(p2.getTopCard()==null && p2Out<1) {
 			System.out.println("Player 2 is out!");
 			p2Out++;
 			totalOut++;
@@ -142,7 +156,7 @@ public class Game {
 		if(p3.getTopCard()!=null) {
 			activeCards[3] = p3.getTopCard();
 		}
-		else if(p3.getTopCard()==null && p3Out<0) {
+		else if(p3.getTopCard()==null && p3Out<1) {
 			System.out.println("Player 3 is out!");
 			p3Out++;
 			totalOut++;
@@ -151,11 +165,22 @@ public class Game {
 		if(p4.getTopCard()!=null) {
 			activeCards[4] = p4.getTopCard();
 		}
-		else if(p4.getTopCard()==null && p4Out<0) {
+		else if(p4.getTopCard()==null && p4Out<1) {
 			System.out.println("Player 4 is out!");
 			p4Out++;
 			totalOut++;
 		}
+		
+		System.out.println("-----HUMAN HAND --------");
+		hp.printHand();
+		System.out.println("-----P1 HAND --------");
+		p1.printHand();
+		System.out.println("-----P2 HAND --------");
+		p2.printHand();
+		System.out.println("-----P3 HAND --------");
+		p3.printHand();
+		System.out.println("-----P4 HAND --------");
+		p4.printHand();
 		
 		/*
 		 * If 4 players are out someone has won
@@ -163,12 +188,6 @@ public class Game {
 		if(totalOut ==4) {
 			playerWins();
 		}
-		
-		hp.nullTopCard();
-		p1.nullTopCard();
-		p2.nullTopCard();
-		p3.nullTopCard();
-		p4.nullTopCard();
 		
 		if(c==1)	{
 			for(int i=0; i<NUMPLAYERS; i++)	{
@@ -283,21 +302,30 @@ public class Game {
 		}
 		//Process draw
 		else if(v==5) {
-			int comStart =0;
-			while(communalPile[comStart]!=null)	{comStart++;}
+			int comStart = 0;
+			while(communalPile[comStart]!= null)	{comStart++;}
+			System.out.println("---------------Active going to Comm---------");
 			for(int i=0;i<NUMPLAYERS;i++)	{
 				communalPile[comStart] = activeCards[i];
-				//activeCards[i] = null; //THIS IS A TEST TO EMPTY ACTIVE PILE, may not actually be needed
+				System.out.println(communalPile[comStart].getDescription() + "----------pre com"); //THIS IS A TEST TO EMPTY ACTIVE PILE, may not actually be needed
 			}
 			winnerString = "That round was a draw!";
 		}
 		
 		//Show winning card if hand is not a draw
 		if(v<5) {
-			displayCard(activeCards[v]);
+			System.out.println("----------Round Winning Card----------");
+			System.out.println(displayCard(activeCards[v]));
+			System.out.println("---------------------------------------");
 			int comClearer = 0;
-			while(communalPile[comClearer]!=null)	{
-				communalPile[comClearer]=null;
+			for(int i=0; i<communalPile.length; i++)	{
+		//		System.out.println("Pre-clear val");
+			//	System.out.println(communalPile[i]);
+				communalPile[i]=null;
+		//		System.out.println("Post-clear val");
+			//	if(communalPile[comClearer]==null)	{
+				//	System.out.println("null");
+			//	}
 				comClearer++;
 			}
 		}

@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
       // }
 
       // Gets the top card.
-      public Cards getTopCard() {
+/*      public Cards getTopCard() {
         while(hand[0] == null) {
           sortCards();
           if(hand[0]==null)	{
@@ -40,17 +40,22 @@ import java.util.concurrent.TimeUnit;
         //topCard = hand[0];
         return topCard;
       }
-
+*/
       // Method that puts the cards of the hand in the first n slots of the hand
-      private void sortCards() {
-        for(int i = 0; i < hand.length; i++) {
-          if(i+1 != hand.length) {
-            hand[i] = hand[i+1];
-          }
-          else {
-            hand[i] = null;
-          }
-        }
+       public void sortCards() {
+    	  if(hand[0]==null&&hand[1]!=null)	{
+    		  for(int i = 0; i < hand.length; i++) {
+    			  if(i+1 != hand.length) {
+    				  hand[i] = hand[i+1];
+    			  }
+    			  else	{
+    				  hand[i] = null;
+    			  }
+    		  }
+    	  }
+    	  else	{
+    		  ;
+    	  }
       }
 
       // Method that gets the index for the best category for a card.
@@ -66,7 +71,7 @@ import java.util.concurrent.TimeUnit;
         int bestValue = 0;
         int [] values =  {topCard.getSize(),
                           topCard.getSpeed(),
-                          topCard.getRange(),
+                    topCard.getRange(),
                           topCard.getFirepower(),
                           topCard.getCargo()
                           };
@@ -87,13 +92,25 @@ import java.util.concurrent.TimeUnit;
        */
       public void givePlayerCards(Cards[] ap, Cards[] cp)	{
     	  int comCount = 0, activeCount = 0;
-    	  for(int i=1; i<hand.length; i++)	{
+    	 int p=0,l=0;
+    	  while(p<40) {
+    		  if(cp[p]!=null) {
+    		  System.out.println(cp[p].getDescription() + "-------com");
+    		  }
+    		  p++;
+    	  }
+    	  while(l<5&&ap[l]!=null) {
+    		  System.out.println(ap[l].getDescription() + "--------act");
+    		  l++;
+    	  }
+    	  for(int i=0; i<hand.length; i++)	{
+    		  
     		  if(activeCount>4)	{break;}
     		  
     		  if(hand[i]==null&&cp[comCount]!=null)	{
-    			  hand[i] = cp[comCount];
+    			  hand[i]=cp[comCount];
     			  comCount++;
-    		  }
+    			  }
     		  else if(hand[i]==null&&ap[activeCount]!=null)	{
     			  hand[i] = ap[activeCount];
     			  activeCount++;
@@ -109,6 +126,15 @@ import java.util.concurrent.TimeUnit;
 
       public void nullTopCard()	{hand[0]=null;}
       
+      public Cards getTopCard()	{return hand[0];}
       public Cards[] getPlayerHand() {return hand;}
-
+      
+      public void printHand() {
+    	  int i = 0;
+    	  while(getPlayerHand()[i]!=null&&i<40) {
+    		  System.out.println(getPlayerHand()[i].getDescription());
+    		  i++;
+    	  }
       }
+
+    }
