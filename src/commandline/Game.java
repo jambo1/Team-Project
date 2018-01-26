@@ -88,12 +88,14 @@ public class Game {
 			System.out.println("play round is fucked");
 		}
 		
+		//Set the top card in each hand to null
 		hp.nullTopCard();
 		p1.nullTopCard();
 		p2.nullTopCard();
 		p3.nullTopCard();
 		p4.nullTopCard();
 		
+		//Move each card in each hand down one slot
 		hp.sortCards();
 		p1.sortCards();
 		p2.sortCards();
@@ -189,6 +191,7 @@ public class Game {
 			playerWins();
 		}
 		
+		//Handle choice of first card category
 		if(c==1)	{
 			for(int i=0; i<NUMPLAYERS; i++)	{
 				if(activeCards[i]!=null) {
@@ -200,6 +203,7 @@ public class Game {
 				}
 			}
 		}
+		//Handle choice of second card category
 		else if(c==2)	{
 			for(int i=0; i<NUMPLAYERS; i++)	{
 				if(activeCards[i]!=null) {
@@ -211,6 +215,7 @@ public class Game {
 				}
 			}
 		}
+		//Handle choice of third card category
 		else if(c==3)	{
 			for(int i=0; i<NUMPLAYERS; i++)	{
 				if(activeCards[i]!=null) {
@@ -222,6 +227,7 @@ public class Game {
 				}
 			}
 		}
+		//Handle choice of fourth card category
 		else if(c==4)	{
 			for(int i=0; i<NUMPLAYERS; i++)	{
 				if(activeCards[i]!=null) {
@@ -233,6 +239,7 @@ public class Game {
 				}
 			}
 		}
+		//Handle choice of fifth card category
 		else if(c==5)	{
 			for(int i=0; i<NUMPLAYERS; i++)	{
 				if(activeCards[i]!=null) {
@@ -244,11 +251,12 @@ public class Game {
 				}
 			}
 		}
+		//Any other user choice returns error message and starts round again
 		else {
 			System.out.println("Your choice did not match any of the options");
 			playRound(0);
 		}
-		//tests for draw bases and passes a number above any possible player index to takePile to process a draw
+		//tests for draw basis and passes a number above any possible player index to takePile to process a draw
 		Arrays.sort(cardValArray);
 		if(cardValArray[NUMPLAYERS-1]==cardValArray[NUMPLAYERS-2])	{
 			return takePile(NUMPLAYERS);
@@ -304,10 +312,14 @@ public class Game {
 		else if(v==5) {
 			int comStart = 0;
 			while(communalPile[comStart]!= null)	{comStart++;}
-			System.out.println("---------------Active going to Comm---------");
+			System.out.println("----------Active cards going to Communal---------");
 			for(int i=0;i<NUMPLAYERS;i++)	{
-				communalPile[comStart] = activeCards[i];
-				System.out.println(communalPile[comStart].getDescription() + "----------pre com"); //THIS IS A TEST TO EMPTY ACTIVE PILE, may not actually be needed
+				//place all the non null activecards into the communal pile
+				if(activeCards[i]!=null) {
+					communalPile[comStart] = activeCards[i];
+					System.out.println(communalPile[comStart].getDescription() + "----------pre com"); //THIS IS A TEST TO EMPTY ACTIVE PILE, may not actually be needed
+					comStart++;
+				}
 			}
 			winnerString = "That round was a draw!";
 		}
@@ -317,20 +329,23 @@ public class Game {
 			System.out.println("----------Round Winning Card----------");
 			System.out.println(displayCard(activeCards[v]));
 			System.out.println("---------------------------------------");
-			int comClearer = 0;
-			for(int i=0; i<communalPile.length; i++)	{
-		//		System.out.println("Pre-clear val");
-			//	System.out.println(communalPile[i]);
-				communalPile[i]=null;
-		//		System.out.println("Post-clear val");
-			//	if(communalPile[comClearer]==null)	{
-				//	System.out.println("null");
-			//	}
-				comClearer++;
-			}
+			//Clear communal pile
+			clearComPile();
 		}
-		
+		//clear active pile
+		clearActivePile();
 		return winnerString;
+	}
+	private void clearComPile() {
+		  for(int j=0;j<MAXCARDS;j++) {
+			  communalPile[j]=null;
+		  }
+	}
+	
+	private void clearActivePile() {
+		  for(int j=0;j<NUMPLAYERS;j++) {
+			  activeCards[j]=null;
+		  }
 	}
 	
 	/*

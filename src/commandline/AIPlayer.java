@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
        */
       private Cards[] hand;
       private final int DECKSIZE = 40;
+      private final int NUMPLAYERS =5;
 
       /**
        * Constructor taking @param deckSize as input
@@ -61,12 +62,12 @@ import java.util.concurrent.TimeUnit;
       // Method that gets the index for the best category for a card.
       public int selectCategory(Cards topCard) {
         // I'm not entirely sure how this TimeUnit thing works, or if it has any drawbacks.
-        try {
-          TimeUnit.SECONDS.sleep(3);
-        }
-        catch (InterruptedException e) {
-          System.err.println("Timer interrupted.");
-        }
+       // try {
+         // TimeUnit.SECONDS.sleep(3);
+        //}
+       // catch (InterruptedException e) {
+         // System.err.println("Timer interrupted.");
+       // }
         int bestCategory = 0;
         int bestValue = 0;
         int [] values =  {topCard.getSize(),
@@ -89,9 +90,10 @@ import java.util.concurrent.TimeUnit;
       /*
        * Now starts searching for empty hand slots in array element[1], instead of [0], because when hand is
        * empty card will be inserted into slot 2, but getTopCard() will automatically shunt it up to slot [0]
+       * ap = active pile, cp = communal pile
        */
       public void givePlayerCards(Cards[] ap, Cards[] cp)	{
-    	  int comCount = 0, activeCount = 0;
+    	 int comCount = 0, activeCount = 0;
     	 int p=0,l=0;
     	  while(p<40) {
     		  if(cp[p]!=null) {
@@ -116,11 +118,8 @@ import java.util.concurrent.TimeUnit;
     			  activeCount++;
     		  }
     		  else if(hand[i]==null&&cp[comCount]==null&&ap[activeCount]==null)	{
-    			  break;
     		  }
-    		  else	{
-    			  ;
-    		  }
+    		  
     	  }
       }
 
