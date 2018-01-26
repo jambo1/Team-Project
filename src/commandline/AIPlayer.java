@@ -94,9 +94,7 @@ import java.util.concurrent.TimeUnit;
     	  int comCount = 0, activeCount = 0;
     	 int p=0,l=0;
     	  while(p<40) {
-    		  if(cp[p]!=null) {
-    		  System.out.println(cp[p].getDescription() + "-------com");
-    		  }
+    		  System.out.println(cp[p] + "-------com");
     		  p++;
     	  }
     	  while(l<5&&ap[l]!=null) {

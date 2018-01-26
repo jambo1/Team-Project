@@ -23,6 +23,7 @@ public class Game {
 	private AIPlayer p4 = new AIPlayer();
 	private String winnerString;
 	private boolean gameOver = false;
+	private int hpOut=0, p1Out=0, p2Out=0, p3Out=0, p4Out=0, totalOut=0;
 	
 	//this is the basic running order of the game - NEED TO UTILISE GAME OVER
 	public Game(Cards[] cards) {
@@ -124,51 +125,45 @@ public class Game {
 	
 	private String playCategory(int c)	{
 		int victor=0, bestValue=0;
-		int hpOut=0, p1Out=0, p2Out=0, p3Out=0, p4Out=0, totalOut=0;
 		int[] cardValArray = new int[NUMPLAYERS];
-		if(hp.getTopCard()!=null) {
+		if(hp.getTopCard()!=null&&hpOut<1) {
 			activeCards[0] = hp.getTopCard();
 		}
-		else if(hp.getTopCard()==null && hpOut<1) {
+		else if(hp.getTopCard()==null && hpOut>0) {
 			System.out.println("You are out!");
-			hpOut++;
-			totalOut++;
+			hpOut=1;
 		}
 		
-		if(p1.getTopCard()!=null) {
+		if(p1.getTopCard()!=null&&p1Out<1) {
 			activeCards[1] = p1.getTopCard();
 		}
-		else if(p1.getTopCard()==null && p1Out<1) {
+		else if(p1.getTopCard()==null && p1Out>0) {
 			System.out.println("Player 1 is out!");
-			p1Out++;
-			totalOut++;
+			p1Out=1;
 		}
 		
-		if(p2.getTopCard()!=null) {
+		if(p2.getTopCard()!=null&&p1Out<1) {
 			activeCards[2] = p2.getTopCard();
 		}
-		else if(p2.getTopCard()==null && p2Out<1) {
+		else if(p2.getTopCard()==null && p2Out>0) {
 			System.out.println("Player 2 is out!");
-			p2Out++;
-			totalOut++;
+			p2Out=1;
 		}
 		
-		if(p3.getTopCard()!=null) {
+		if(p3.getTopCard()!=null&&p3Out<1) {
 			activeCards[3] = p3.getTopCard();
 		}
-		else if(p3.getTopCard()==null && p3Out<1) {
+		else if(p3.getTopCard()==null && p3Out>0) {
 			System.out.println("Player 3 is out!");
-			p3Out++;
-			totalOut++;
+			p3Out=1;
 		}
 		
-		if(p4.getTopCard()!=null) {
+		if(p4.getTopCard()!=null&&p4Out<1) {
 			activeCards[4] = p4.getTopCard();
 		}
-		else if(p4.getTopCard()==null && p4Out<1) {
+		else if(p4.getTopCard()==null && p4Out>0) {
 			System.out.println("Player 4 is out!");
-			p4Out++;
-			totalOut++;
+			p4Out=1;
 		}
 		
 		System.out.println("-----HUMAN HAND --------");
@@ -185,6 +180,7 @@ public class Game {
 		/*
 		 * If 4 players are out someone has won
 		 */
+		totalOut = hpOut+p1Out+p2Out+p3Out+p4Out;
 		if(totalOut ==4) {
 			playerWins();
 		}
@@ -278,26 +274,31 @@ public class Game {
 		if(v==0)	{
 			hp.givePlayerCards(activeCards, communalPile);
 			winnerString = "You won that round!";
+			comClearer();
 			turn = 0;
 		}
 		else if(v==1)	{
 			p1.givePlayerCards(activeCards, communalPile);
 			winnerString = "Player 1 won that round!";
+			comClearer();
 			turn = 1;
 		}
 		else if(v==2)	{
 			p2.givePlayerCards(activeCards, communalPile);
 			winnerString = "Player 2 won that round!";
+			comClearer();
 			turn = 2;
 		}
 		else if(v==3)	{
 			p3.givePlayerCards(activeCards, communalPile);
 			winnerString = "Player 3 won that round!";
+			comClearer();
 			turn = 3;
 		}
 		else if(v==4)	{
 			p4.givePlayerCards(activeCards, communalPile);
 			winnerString = "Player 4 won that round!";
+			comClearer();
 			turn = 4;
 		}
 		//Process draw
@@ -307,13 +308,14 @@ public class Game {
 			System.out.println("---------------Active going to Comm---------");
 			for(int i=0;i<NUMPLAYERS;i++)	{
 				communalPile[comStart] = activeCards[i];
-				System.out.println(communalPile[comStart].getDescription() + "----------pre com"); //THIS IS A TEST TO EMPTY ACTIVE PILE, may not actually be needed
+				System.out.println(communalPile[comStart].getDescription() + "----------pre com");
+				comStart++;
 			}
 			winnerString = "That round was a draw!";
 		}
 		
 		//Show winning card if hand is not a draw
-		if(v<5) {
+	/*	if(v<5) {
 			System.out.println("----------Round Winning Card----------");
 			System.out.println(displayCard(activeCards[v]));
 			System.out.println("---------------------------------------");
@@ -329,7 +331,7 @@ public class Game {
 				comClearer++;
 			}
 		}
-		
+		*/
 		return winnerString;
 	}
 	
@@ -353,5 +355,11 @@ public class Game {
 			System.out.println("Player 4 has won the game!");
 		}
 		gameOver = true;
+	}
+	
+	private void comClearer()	{
+		for(int i=0; i<MAXCARDS; i++)	{
+			communalPile[i]=null;
+		}
 	}
 }
