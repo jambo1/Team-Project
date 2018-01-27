@@ -106,28 +106,48 @@ import java.util.concurrent.TimeUnit;
     		  l++;
     	  }
     	  for(int i=0; i<hand.length; i++)	{
-    		  
+    		  //break if activecount is 5
     		  if(activeCount>4)	{break;}
-    		  
+    		  //Add the communal pile cards first
     		  if(hand[i]==null&&cp[comCount]!=null)	{
     			  hand[i]=cp[comCount];
     			  comCount++;
     			  }
+    		  //Add the active pile cards second
     		  else if(hand[i]==null&&ap[activeCount]!=null)	{
     			  hand[i] = ap[activeCount];
     			  activeCount++;
     		  }
-    		  else if(hand[i]==null&&cp[comCount]==null&&ap[activeCount]==null)	{
+    		  //Else increment active count to account for when a player is put out which leaves empty slots in the active pile
+    		  else if(hand[i]==null&&ap[activeCount]==null){
+    			  activeCount++;
+    		  }
+    		  else {
+    			  ;
     		  }
     		  
     	  }
       }
-
+      
+      /**
+       * Sets the top card in the hand to null
+       */
       public void nullTopCard()	{hand[0]=null;}
       
+      /**
+       * Returns the top card
+       * @return
+       */
       public Cards getTopCard()	{return hand[0];}
+      /**
+       * Returns the platers hand
+       * @return
+       */
       public Cards[] getPlayerHand() {return hand;}
       
+      /**
+       * Prints the players hand
+       */
       public void printHand() {
     	  int i = 0;
     	  while(getPlayerHand()[i]!=null&&i<40) {

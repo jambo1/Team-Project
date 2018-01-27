@@ -336,12 +336,18 @@ public class Game {
 		clearActivePile();
 		return winnerString;
 	}
+	/**
+	 * Sets all cards in the communal pile to null after a player has won them and taken them
+	 */
 	private void clearComPile() {
 		  for(int j=0;j<MAXCARDS;j++) {
 			  communalPile[j]=null;
 		  }
 	}
 	
+	/**
+	 * Clears the active pile after the cards have been given to the winner or communal pile
+	 */
 	private void clearActivePile() {
 		  for(int j=0;j<NUMPLAYERS;j++) {
 			  activeCards[j]=null;
