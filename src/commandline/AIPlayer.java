@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
       private Cards[] hand;
       private final int DECKSIZE = 40;
       private final int NUMPLAYERS =5;
+      private boolean timer = true;
 
       /**
        * Constructor taking @param deckSize as input
@@ -62,12 +63,14 @@ import java.util.concurrent.TimeUnit;
       // Method that gets the index for the best category for a card.
       public int selectCategory(Cards topCard) {
         // I'm not entirely sure how this TimeUnit thing works, or if it has any drawbacks.
-       // try {
-         // TimeUnit.SECONDS.sleep(3);
-        //}
-       // catch (InterruptedException e) {
-         // System.err.println("Timer interrupted.");
-       // }
+        if(timer ==true){
+        	try {
+	          TimeUnit.SECONDS.sleep(3);
+	        }
+	        catch (InterruptedException e) {
+	          System.err.println("Timer interrupted.");
+	        }
+        }
         int bestCategory = 0;
         int bestValue = 0;
         int [] values =  {topCard.getSize(),
@@ -155,5 +158,7 @@ import java.util.concurrent.TimeUnit;
     		  i++;
     	  }
       }
+      
+      public void turnOffTimer() {timer = false;}
 
     }

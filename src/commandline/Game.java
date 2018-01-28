@@ -23,6 +23,7 @@ public class Game {
 	private AIPlayer p4 = new AIPlayer();
 	private String winnerString;
 	private boolean gameOver = false;
+	private int hpOut=0, p1Out=0, p2Out=0, p3Out=0, p4Out=0, totalOut=0;
 	
 	//this is the basic running order of the game - NEED TO UTILISE GAME OVER
 	public Game(Cards[] cards) {
@@ -126,7 +127,7 @@ public class Game {
 	
 	private String playCategory(int c)	{
 		int victor=0, bestValue=0;
-		int hpOut=0, p1Out=0, p2Out=0, p3Out=0, p4Out=0, totalOut=0;
+		
 		int[] cardValArray = new int[NUMPLAYERS];
 		if(hp.getTopCard()!=null) {
 			activeCards[0] = hp.getTopCard();
@@ -135,6 +136,7 @@ public class Game {
 			System.out.println("You are out!");
 			hpOut++;
 			totalOut++;
+			hp.turnOffTimer();
 		}
 		
 		if(p1.getTopCard()!=null) {
