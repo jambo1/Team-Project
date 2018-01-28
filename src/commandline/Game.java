@@ -37,7 +37,7 @@ public class Game {
 		}
 	}
 	
-	//deals the cards, human player starts with same card all the time atm, might be shuffle error
+	//deals the cards
 	private void deal()	{
 		int cardCount = 0, playerCount=0;
 		while(cardCount<MAXCARDS)	{
@@ -69,37 +69,42 @@ public class Game {
 			System.out.println("1 = Size, 2 = Speed, 3 = Range, 4 = Firepower, 5 = Cargo");
 			System.out.println(playCategory(getUserChoice()));
 		}
-		else if(t==1)	{
+		/*else if(t==0&&hpOut==1)	{
+			t++;
+			return;
+		}*/
+		if(t==1)	{
 			System.out.println("Player 1 is choosing a category to play:");
 			System.out.println(playCategory(p1.selectCategory(p1.getTopCard())));
 		}
-		else if(t==2)	{
+		/*else if(t==1&&p1Out==1)	{
+			t++;
+			return;
+		}*/
+		if(t==2)	{
 			System.out.println("Player 2 is choosing a category to play:");
 			System.out.println(playCategory(p2.selectCategory(p2.getTopCard())));
 		}
-		else if(t==3)	{
+		/*else if(t==2&&p2Out==1)	{
+			t++;
+			return;
+		}*/
+		if(t==3)	{
 			System.out.println("Player 3 is choosing a category to play:");
 			System.out.println(playCategory(p3.selectCategory(p3.getTopCard())));			
 		}
-		else if(t==4)	{
+		/*else if(t==3&&p3Out==1)	{
+			t++;
+			return;
+		}*/
+		if(t==4)	{
 			System.out.println("Player 4 is choosing a category to play:");
 			System.out.println(playCategory(p4.selectCategory(p4.getTopCard())));
 		}
-		else	{
-			System.out.println("play round is fucked");
-		}
-		
-		hp.nullTopCard();
-		p1.nullTopCard();
-		p2.nullTopCard();
-		p3.nullTopCard();
-		p4.nullTopCard();
-		
-		hp.sortCards();
-		p1.sortCards();
-		p2.sortCards();
-		p3.sortCards();
-		p4.sortCards();
+		/*else if (t==4&&p4Out==1)	{
+			t=0;
+			return;
+		}*/
 		
 	}
 	
@@ -131,6 +136,7 @@ public class Game {
 		}
 		else if(hp.getTopCard()==null && hpOut>0) {
 			System.out.println("You are out!");
+			activeCards[0] = null;
 			hpOut=1;
 		}
 		
@@ -139,6 +145,7 @@ public class Game {
 		}
 		else if(p1.getTopCard()==null && p1Out>0) {
 			System.out.println("Player 1 is out!");
+			activeCards[1] = null;
 			p1Out=1;
 		}
 		
@@ -147,6 +154,7 @@ public class Game {
 		}
 		else if(p2.getTopCard()==null && p2Out>0) {
 			System.out.println("Player 2 is out!");
+			activeCards[2] = null;
 			p2Out=1;
 		}
 		
@@ -155,6 +163,7 @@ public class Game {
 		}
 		else if(p3.getTopCard()==null && p3Out>0) {
 			System.out.println("Player 3 is out!");
+			activeCards[3] = null;
 			p3Out=1;
 		}
 		
@@ -163,6 +172,7 @@ public class Game {
 		}
 		else if(p4.getTopCard()==null && p4Out>0) {
 			System.out.println("Player 4 is out!");
+			activeCards[4] = null;
 			p4Out=1;
 		}
 		
@@ -176,6 +186,18 @@ public class Game {
 		p3.printHand();
 		System.out.println("-----P4 HAND --------");
 		p4.printHand();
+		
+		hp.nullTopCard();
+		p1.nullTopCard();
+		p2.nullTopCard();
+		p3.nullTopCard();
+		p4.nullTopCard();
+		
+		hp.sortCards();
+		p1.sortCards();
+		p2.sortCards();
+		p3.sortCards();
+		p4.sortCards();
 		
 		/*
 		 * If 4 players are out someone has won
@@ -194,6 +216,9 @@ public class Game {
 						victor = i;
 					}
 				}
+				else if(activeCards[i]==null)	{
+					cardValArray[i]=-1;
+				}
 			}
 		}
 		else if(c==2)	{
@@ -204,6 +229,9 @@ public class Game {
 						bestValue = activeCards[i].getSpeed();
 						victor = i;
 					}
+				}
+				else if(activeCards[i]==null)	{
+					cardValArray[i]=-1;
 				}
 			}
 		}
@@ -216,6 +244,9 @@ public class Game {
 						victor = i;
 					}
 				}
+				else if(activeCards[i]==null)	{
+					cardValArray[i]=-1;
+				}
 			}
 		}
 		else if(c==4)	{
@@ -227,6 +258,9 @@ public class Game {
 						victor = i;
 					}
 				}
+				else if(activeCards[i]==null)	{
+					cardValArray[i]=-1;
+				}
 			}
 		}
 		else if(c==5)	{
@@ -237,6 +271,9 @@ public class Game {
 						bestValue = activeCards[i].getCargo();
 						victor = i;
 					}
+				}
+				else if(activeCards[i]==null)	{
+					cardValArray[i]=-1;
 				}
 			}
 		}
@@ -308,8 +345,13 @@ public class Game {
 			System.out.println("---------------Active going to Comm---------");
 			for(int i=0;i<NUMPLAYERS;i++)	{
 				communalPile[comStart] = activeCards[i];
+				if(communalPile[comStart]==null)	{
+					System.out.println(comStart + "null----------pre com");
+				}
+				else {
 				System.out.println(communalPile[comStart].getDescription() + "----------pre com");
 				comStart++;
+				}
 			}
 			winnerString = "That round was a draw!";
 		}

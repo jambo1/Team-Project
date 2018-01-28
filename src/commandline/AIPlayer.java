@@ -92,13 +92,18 @@ import java.util.concurrent.TimeUnit;
        */
       public void givePlayerCards(Cards[] ap, Cards[] cp)	{
     	  int comCount = 0, activeCount = 0;
-    	 int p=0,l=0;
+    	 int p=0,l=0,m=0;
     	  while(p<40) {
     		  System.out.println(cp[p] + "-------com");
     		  p++;
     	  }
-    	  while(l<5&&ap[l]!=null) {
+    	  while(l<5) {
+    		  if(ap[l]==null)	{
+    			  System.out.println(l + "null--------act");
+    		  }
+    		  else {
     		  System.out.println(ap[l].getDescription() + "--------act");
+    		  }
     		  l++;
     	  }
     	  for(int i=0; i<hand.length; i++)	{
@@ -114,11 +119,12 @@ import java.util.concurrent.TimeUnit;
     			  activeCount++;
     		  }
     		  else if(hand[i]==null&&cp[comCount]==null&&ap[activeCount]==null)	{
-    			  break;
-    		  }
-    		  else	{
     			  ;
     		  }
+    	  }
+    	  while(m<5)	{
+    		  ap[m]=null;
+    		  m++;
     	  }
       }
 
