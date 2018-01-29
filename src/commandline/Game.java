@@ -35,6 +35,7 @@ public class Game {
 			playRound(turn);
 			round++;
 		}
+		deal();
 	}
 	
 	//deals the cards
