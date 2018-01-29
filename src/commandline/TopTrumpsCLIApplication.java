@@ -1,6 +1,8 @@
 package commandline;
 
 import java.io.*;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Scanner;
 
 /**
@@ -19,7 +21,7 @@ public class TopTrumpsCLIApplication {
 		
 		//Read file and create the deck, then shuffle it
 		createDeck();
-		shuffleCards();
+		Collections.shuffle(Arrays.asList(deck));
 		
 		boolean writeGameLogsToFile = false; // Should we write game logs to file?
 		//if (args[0].equalsIgnoreCase("true")) writeGameLogsToFile=true; // Command line selection
@@ -40,6 +42,7 @@ public class TopTrumpsCLIApplication {
 			//Play game
 			if (choice ==1) {
 				System.out.println("User choice was 1");
+				Game aGame = new Game(deck);
 			}
 			//Show statistics
 			if(choice ==2) {
@@ -139,28 +142,17 @@ public class TopTrumpsCLIApplication {
 	 * Method to shuffle the deck before starting a new game so the same order is not used each time
 	 * @return
 	 */
-	private static boolean shuffleCards() {
-		//Print method to test the deck is actually shuffled
-		for(int i = deck.length-1; i>0; i--) {
-			System.out.println(deck[i].getDescription() + i);
-		}
+	/*private static boolean shuffleCards() {
 		//Replace the cards in a random order back into the deck
 		for(int i = deck.length-1; i>0; i--) {
 			int rand = (int)(Math.random()*(i+1));
 			Cards temp = deck[rand];
 			deck[i] = deck[rand];
 			deck[rand]= temp;
-			
 		}
-		//Print deck to ensure it has been shuffled
-		System.out.println("");
-		for(int i = deck.length-1; i>0; i--) {
-			System.out.println(deck[i].getDescription() + i);
-		}
-		
 		return true;
 		
-	}
+	}*/
 }
 	
 
