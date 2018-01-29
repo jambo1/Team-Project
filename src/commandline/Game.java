@@ -131,10 +131,11 @@ public class Game {
 	private String playCategory(int c)	{
 		int victor=0, bestValue=0;
 		int[] cardValArray = new int[NUMPLAYERS];
+		
 		if(hp.getTopCard()!=null&&hpOut<1) {
 			activeCards[0] = hp.getTopCard();
 		}
-		else if(hp.getTopCard()==null && hpOut>0) {
+		else if(hp.getTopCard()==null) {
 			System.out.println("You are out!");
 			activeCards[0] = null;
 			hpOut=1;
@@ -143,7 +144,7 @@ public class Game {
 		if(p1.getTopCard()!=null&&p1Out<1) {
 			activeCards[1] = p1.getTopCard();
 		}
-		else if(p1.getTopCard()==null && p1Out>0) {
+		else if(p1.getTopCard()==null) {
 			System.out.println("Player 1 is out!");
 			activeCards[1] = null;
 			p1Out=1;
@@ -152,7 +153,7 @@ public class Game {
 		if(p2.getTopCard()!=null&&p1Out<1) {
 			activeCards[2] = p2.getTopCard();
 		}
-		else if(p2.getTopCard()==null && p2Out>0) {
+		else if(p2.getTopCard()==null) {
 			System.out.println("Player 2 is out!");
 			activeCards[2] = null;
 			p2Out=1;
@@ -161,7 +162,7 @@ public class Game {
 		if(p3.getTopCard()!=null&&p3Out<1) {
 			activeCards[3] = p3.getTopCard();
 		}
-		else if(p3.getTopCard()==null && p3Out>0) {
+		else if(p3.getTopCard()==null) {
 			System.out.println("Player 3 is out!");
 			activeCards[3] = null;
 			p3Out=1;
@@ -170,7 +171,7 @@ public class Game {
 		if(p4.getTopCard()!=null&&p4Out<1) {
 			activeCards[4] = p4.getTopCard();
 		}
-		else if(p4.getTopCard()==null && p4Out>0) {
+		else if(p4.getTopCard()==null) {
 			System.out.println("Player 4 is out!");
 			activeCards[4] = null;
 			p4Out=1;
@@ -203,7 +204,7 @@ public class Game {
 		 * If 4 players are out someone has won
 		 */
 		totalOut = hpOut+p1Out+p2Out+p3Out+p4Out;
-		if(totalOut ==4) {
+		if(totalOut == 4) {
 			playerWins();
 		}
 		

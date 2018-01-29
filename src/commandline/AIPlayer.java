@@ -61,12 +61,14 @@ import java.util.concurrent.TimeUnit;
       // Method that gets the index for the best category for a card.
       public int selectCategory(Cards topCard) {
         // I'm not entirely sure how this TimeUnit thing works, or if it has any drawbacks.
-        try {
+        /*
+    	try {
           TimeUnit.SECONDS.sleep(3);
         }
         catch (InterruptedException e) {
           System.err.println("Timer interrupted.");
         }
+        */
         int bestCategory = 0;
         int bestValue = 0;
         int [] values =  {topCard.getSize(),
@@ -107,7 +109,26 @@ import java.util.concurrent.TimeUnit;
     		  l++;
     	  }
     	  for(int i=0; i<hand.length; i++)	{
-    		  
+    		  if(hand[i]==null)	{
+    		  	for(int j=0; j<DECKSIZE; j++)	{
+    		  		if(cp[j]!=null)	{
+    		  			hand[i]=cp[j];
+    		  			cp[j]=null;
+    		  			break;
+    		  		}
+    		  	}
+    		  }
+    		  if(hand[i]==null)	{
+      		  	for(int j=0; j<5; j++)	{
+    		  		if(ap[j]!=null)	{
+    		  			hand[i]=ap[j];
+    		  			ap[j]=null;
+    		  			break;
+    		  		}
+    		  	}
+    		  }
+    	  }
+    		  /*
     		  if(activeCount>4)	{break;}
     		  
     		  if(hand[i]==null&&cp[comCount]!=null)	{
@@ -126,6 +147,8 @@ import java.util.concurrent.TimeUnit;
     		  ap[m]=null;
     		  m++;
     	  }
+    	  */
+    	  
       }
 
       public void nullTopCard()	{hand[0]=null;}
@@ -135,7 +158,7 @@ import java.util.concurrent.TimeUnit;
       
       public void printHand() {
     	  int i = 0;
-    	  while(getPlayerHand()[i]!=null&&i<40) {
+    	  while(i<40&&getPlayerHand()[i]!=null) {
     		  System.out.println(getPlayerHand()[i].getDescription());
     		  i++;
     	  }
