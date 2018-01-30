@@ -8,27 +8,27 @@ import java.util.concurrent.TimeUnit;
     *
     */
 
-    public class AIPlayer {
-      /*
-       * Instance variables for the AIPlayer
-       */
-      private Cards[] hand;
-      private final int DECKSIZE = 40;
+	public class AIPlayer {
+		/*
+		 * Instance variables for the AIPlayer
+		 */
+		private Cards[] hand;
+		private final int DECKSIZE = 40;
 
-      /**
-       * Constructor taking @param deckSize as input
-       */
-      public AIPlayer() {
-          hand = new Cards[DECKSIZE];
-          }
+		/**
+		 * Constructor taking @param deckSize as input
+		 */
+		public AIPlayer() {
+			hand = new Cards[DECKSIZE];
+		}
 
-      // // Not sure if necessary?
-      // public Cards getCard(int q) {
-      //   return hand[q];
-      // }
+		// Not sure if necessary?
+		// public Cards getCard(int q) {
+		//   return hand[q];
+		// }
 
-      // Gets the top card.
-/*      public Cards getTopCard() {
+		// Gets the top card.
+		/*public Cards getTopCard() {
         while(hand[0] == null) {
           sortCards();
           if(hand[0]==null)	{
@@ -41,27 +41,27 @@ import java.util.concurrent.TimeUnit;
         return topCard;
       }
 */
-      // Method that puts the cards of the hand in the first n slots of the hand
-       public void sortCards() {
-    	  if(hand[0]==null&&hand[1]!=null)	{
-    		  for(int i = 0; i < hand.length; i++) {
-    			  if(i+1 != hand.length) {
-    				  hand[i] = hand[i+1];
-    			  }
-    			  else	{
-    				  hand[i] = null;
-    			  }
-    		  }
-    	  }
-    	  else	{
-    		  ;
-    	  }
-      }
+		// Method that puts the cards of the hand in the first n slots of the hand
+		public void sortCards() {
+			if(hand[0]==null&&hand[1]!=null)	{
+				for(int i = 0; i < hand.length; i++) {
+					if(i+1 != hand.length) {
+						hand[i] = hand[i+1];
+					}
+					else	{
+						hand[i] = null;
+					}
+				}
+			}
+			else	{
+				;
+			}
+		}
 
-      // Method that gets the index for the best category for a card.
-      public int selectCategory(Cards topCard) {
-        // I'm not entirely sure how this TimeUnit thing works, or if it has any drawbacks.
-        /*
+		// Method that gets the index for the best category for a card.
+		public int selectCategory(Cards topCard) {
+		// I'm not entirely sure how this TimeUnit thing works, or if it has any drawbacks.
+		/*
     	try {
           TimeUnit.SECONDS.sleep(3);
         }
@@ -69,65 +69,64 @@ import java.util.concurrent.TimeUnit;
           System.err.println("Timer interrupted.");
         }
         */
-        int bestCategory = 0;
+		int bestCategory = 0;
         int bestValue = 0;
         int [] values =  {topCard.getSize(),
-                          topCard.getSpeed(),
-                    topCard.getRange(),
-                          topCard.getFirepower(),
-                          topCard.getCargo()
-                          };
+        		topCard.getSpeed(),
+        		topCard.getRange(),
+        		topCard.getFirepower(),
+        		topCard.getCargo()
+        };
 
         for (int i = 0; i < values.length; i++) {
-          if (values[i] > bestValue) {
-            bestValue = values[i];
-            bestCategory = i + 1;
-          }
+        	if (values[i] > bestValue) {
+        		bestValue = values[i];
+        		bestCategory = i + 1;
+        	}
         }
         return bestCategory;
-
-      }
-      //THIS IS WHERE ALL OUR PROBLEMS LIE
-      /*
-       * Now starts searching for empty hand slots in array element[1], instead of [0], because when hand is
-       * empty card will be inserted into slot 2, but getTopCard() will automatically shunt it up to slot [0]
-       */
-      public void givePlayerCards(Cards[] ap, Cards[] cp)	{
-    	  int comCount = 0, activeCount = 0;
-    	 int p=0,l=0,m=0;
-    	  while(p<40) {
-    		  System.out.println(cp[p] + "-------com");
-    		  p++;
-    	  }
-    	  while(l<5) {
-    		  if(ap[l]==null)	{
-    			  System.out.println(l + "null--------act");
-    		  }
-    		  else {
-    		  System.out.println(ap[l].getDescription() + "--------act");
-    		  }
-    		  l++;
-    	  }
-    	  for(int i=0; i<hand.length; i++)	{
-    		  if(hand[i]==null)	{
-    		  	for(int j=0; j<DECKSIZE; j++)	{
-    		  		if(cp[j]!=null)	{
-    		  			hand[i]=cp[j];
-    		  			cp[j]=null;
-    		  			break;
-    		  		}
-    		  	}
-    		  }
-    		  if(hand[i]==null)	{
-      		  	for(int j=0; j<5; j++)	{
-    		  		if(ap[j]!=null)	{
-    		  			hand[i]=ap[j];
-    		  			ap[j]=null;
-    		  			break;
-    		  		}
-    		  	}
-    		  }
-    	  }
+		}
+		//THIS IS WHERE ALL OUR PROBLEMS LIE
+		/*
+		 * Now starts searching for empty hand slots in array element[1], instead of [0], because when hand is
+		 * empty card will be inserted into slot 2, but getTopCard() will automatically shunt it up to slot [0]
+		 */
+		public void givePlayerCards(Cards[] ap, Cards[] cp)	{
+			int comCount = 0, activeCount = 0;
+			int p=0,l=0,m=0;
+			while(p<40) {
+				System.out.println(cp[p] + "-------com");
+				p++;
+			}
+			while(l<5) {
+				if(ap[l]==null)	{
+					System.out.println(l + "null--------act");
+				}
+				else {
+					System.out.println(ap[l].getDescription() + "--------act");
+				}
+				l++;
+			}
+			for(int i=0; i<hand.length; i++)	{
+				if(hand[i]==null)	{
+					for(int j=0; j<DECKSIZE; j++)	{
+						if(cp[j]!=null)	{
+							hand[i]=cp[j];
+							cp[j]=null;
+							break;
+						}
+					}
+				}
+				if(hand[i]==null)	{
+					for(int j=0; j<5; j++)	{
+						if(ap[j]!=null)	{
+							hand[i]=ap[j];
+							ap[j]=null;
+							break;
+						}
+					}
+				}
+			}
     		  /*
     		  if(activeCount>4)	{break;}
     		  
@@ -151,17 +150,16 @@ import java.util.concurrent.TimeUnit;
     	  
       }
 
-      public void nullTopCard()	{hand[0]=null;}
+		public void nullTopCard()	{hand[0]=null;}
       
-      public Cards getTopCard()	{return hand[0];}
-      public Cards[] getPlayerHand() {return hand;}
+		public Cards getTopCard()	{return hand[0];}
+		public Cards[] getPlayerHand() {return hand;}
       
-      public void printHand() {
-    	  int i = 0;
-    	  while(i<40&&getPlayerHand()[i]!=null) {
-    		  System.out.println(getPlayerHand()[i].getDescription());
-    		  i++;
-    	  }
-      }
-
-    }
+		public void printHand() {
+			int i = 0;
+			while(i<40&&getPlayerHand()[i]!=null) {
+				System.out.println(getPlayerHand()[i].getDescription());
+				i++;
+			}
+		}  
+	}

@@ -60,7 +60,7 @@ public class Game {
 	//Always prints human card to screen first, then prints result of either human choice or computer choice
 	private void playRound(int t)	{
 		try {
-		System.out.println(displayCard(hp.getTopCard()));
+			System.out.println(displayCard(hp.getTopCard()));
 		}
 		catch(NullPointerException n)	{
 			System.out.println("No card :(");
@@ -106,7 +106,6 @@ public class Game {
 			t=0;
 			return;
 		}*/
-		
 	}
 	
 	//method to make wee card on screen, can def be polished if we have time
@@ -151,7 +150,7 @@ public class Game {
 			p1Out=1;
 		}
 		
-		if(p2.getTopCard()!=null&&p1Out<1) {
+		if(p2.getTopCard()!=null&&p2Out<1) {
 			activeCards[2] = p2.getTopCard();
 		}
 		else if(p2.getTopCard()==null) {
@@ -310,6 +309,13 @@ public class Game {
 	 */
 	private String takePile(int v)	{		
 		//Give winner their cards
+		
+/*		if(v<5) {
+			System.out.println("----------Round Winning Card----------");
+			System.out.println(displayCard(activeCards[v]));
+			System.out.println("---------------------------------------");
+		}
+*/		
 		if(v==0)	{
 			hp.givePlayerCards(activeCards, communalPile);
 			winnerString = "You won that round!";
@@ -339,7 +345,7 @@ public class Game {
 			winnerString = "Player 4 won that round!";
 			comClearer();
 			turn = 4;
-		}
+		}//////////////////////////////////////////////////////////////////////////////////
 		//Process draw
 		else if(v==5) {
 			int comStart = 0;
@@ -351,13 +357,19 @@ public class Game {
 					System.out.println(comStart + "null----------pre com");
 				}
 				else {
-				System.out.println(communalPile[comStart].getDescription() + "----------pre com");
-				comStart++;
+					System.out.println(communalPile[comStart].getDescription() + "----------pre com");
+					comStart++;
 				}
 			}
 			winnerString = "That round was a draw!";
 		}
-		
+		/*
+		if(v<5) {
+			System.out.println("----------Round Winning Card----------");
+			System.out.println(displayCard(activeCards[v]));
+			System.out.println("---------------------------------------");
+		}
+		*/
 		//Show winning card if hand is not a draw
 	/*	if(v<5) {
 			System.out.println("----------Round Winning Card----------");
