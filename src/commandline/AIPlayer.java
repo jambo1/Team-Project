@@ -1,12 +1,10 @@
 package commandline;
 
 import java.util.concurrent.TimeUnit;
-  /**
-    *
-    *
-    *
-    *
-    */
+ 	/**
+ 	 * Class for players, holds their personal hand of cards and performs operations on this during gameplay
+ 	 *
+ 	 */
 
 	public class AIPlayer {
 		/*
@@ -22,7 +20,10 @@ import java.util.concurrent.TimeUnit;
 			hand = new Cards[DECKSIZE];
 		}
 		
-		// Method that puts the cards of the hand in the first n slots of the hand
+		/**
+		 * Moves all cards in the players hand down one position to process when the top card has been removed
+		 * from their hand. 
+		 */
 		public void sortCards() {
 			if(hand[0]==null&&hand[1]!=null)	{
 				for(int i = 0; i < hand.length; i++) {
@@ -39,38 +40,49 @@ import java.util.concurrent.TimeUnit;
 			}
 		}
 
-		// Method that gets the index for the best category for a card.
-		public int selectCategory(Cards topCard) {
-		// I'm not entirely sure how this TimeUnit thing works, or if it has any drawbacks.
-		/*
-    	try {
-          TimeUnit.SECONDS.sleep(3);
-        }
-        catch (InterruptedException e) {
-          System.err.println("Timer interrupted.");
-        }
-        */
+		/**
+		 * Returns the index of the best category in the card given to the method.
+		 * Used to calculate which category the AI players should use
+		 * @param topCard
+		 * @return
+		 */
+		public int selectCategory(Cards topCard, boolean timer) {
+		//If the human player is still in the game a timer is used between moves to enhance gameplay
+		if(timer == true) {
+	    	try {
+	          TimeUnit.SECONDS.sleep(3);
+	        }
+	        catch (InterruptedException e) {
+	          System.err.println("Timer interrupted.");
+	        }
+		}
+        
 		int bestCategory = 0;
         int bestValue = 0;
+        //Gets each of the values of the categories on the card
         int [] values =  {topCard.getSize(),
         		topCard.getSpeed(),
         		topCard.getRange(),
         		topCard.getFirepower(),
         		topCard.getCargo()
         };
-
+        //Loops through the values and finds the best
         for (int i = 0; i < values.length; i++) {
         	if (values[i] > bestValue) {
         		bestValue = values[i];
         		bestCategory = i + 1;
         	}
         }
+        //Returns the highest number category
         return bestCategory;
 		}
 		
-		/*
-		 * Now starts searching for empty hand slots in array element[1], instead of [0], because when hand is
-		 * empty card will be inserted into slot 2, but getTopCard() will automatically shunt it up to slot [0]
+		/**
+		 * Gives the winning player the cards they have won at the end of the round
+		 * ap = active pile
+		 * cp = communal pile
+		 * @param ap
+		 * @param cp
 		 */
 		public void givePlayerCards(Cards[] ap, Cards[] cp)	{
 /*			int p=0,l=0,m=0;
@@ -88,6 +100,7 @@ import java.util.concurrent.TimeUnit;
 				l++;
 			}
 */
+			//Gives the player the communal cards in available slots
 			for(int i=0; i<hand.length; i++)	{
 				if(hand[i]==null)	{
 					for(int j=0; j<DECKSIZE; j++)	{
@@ -98,6 +111,7 @@ import java.util.concurrent.TimeUnit;
 						}
 					}
 				}
+				//Gives the player the cards from the active pile in available slots
 				if(hand[i]==null)	{
 					for(int j=0; j<5; j++)	{
 						if(ap[j]!=null)	{
@@ -109,12 +123,17 @@ import java.util.concurrent.TimeUnit;
 				}
 			}
 		}
-
+		
+		//Sets the top card in the players hand to null
 		public void nullTopCard()	{hand[0]=null;}
-      
+		
+		//Returns the top card in the players hand
 		public Cards getTopCard()	{return hand[0];}
+		
+		//Returns the entire players hand
 		public Cards[] getPlayerHand() {return hand;}
       
+		//Prints the players hand
 		public void printHand() {
 			int i = 0;
 			while(i<40&&getPlayerHand()[i]!=null) {

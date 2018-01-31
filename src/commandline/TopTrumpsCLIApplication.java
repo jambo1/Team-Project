@@ -35,10 +35,6 @@ public class TopTrumpsCLIApplication {
 			//Get User input
 			 int choice = getUserChoice();
 			 
-			 /*
-			  * This may be better dealt with using a switch?
-			  */
-			 
 			//Play game
 			if (choice ==1) {
 				System.out.println("User choice was 1");

@@ -23,6 +23,7 @@ public class Game {
 	private AIPlayer p4 = new AIPlayer();
 	private String winnerString;
 	private boolean gameOver = false;
+	private boolean timer = true;
 	private int hpOut=0, p1Out=0, p2Out=0, p3Out=0, p4Out=0, totalOut=0, drawCount=0, drawNo=0;
 	
 	/**
@@ -88,19 +89,19 @@ public class Game {
 		//AIPlayers' turns
 		if(t==1)	{
 			System.out.println("Player 1 is choosing a category to play:");
-			System.out.println(playCategory(p1.selectCategory(p1.getTopCard())));
+			System.out.println(playCategory(p1.selectCategory(p1.getTopCard(), timer)));
 		}
 		if(t==2)	{
 			System.out.println("Player 2 is choosing a category to play:");
-			System.out.println(playCategory(p2.selectCategory(p2.getTopCard())));
+			System.out.println(playCategory(p2.selectCategory(p2.getTopCard(), timer)));
 		}
 		if(t==3)	{
 			System.out.println("Player 3 is choosing a category to play:");
-			System.out.println(playCategory(p3.selectCategory(p3.getTopCard())));			
+			System.out.println(playCategory(p3.selectCategory(p3.getTopCard(), timer)));			
 		}
 		if(t==4)	{
 			System.out.println("Player 4 is choosing a category to play:");
-			System.out.println(playCategory(p4.selectCategory(p4.getTopCard())));
+			System.out.println(playCategory(p4.selectCategory(p4.getTopCard(), timer)));
 		}
 	}
 	
@@ -142,6 +143,7 @@ public class Game {
 			System.out.println("You are out!");
 			activeCards[0] = null;
 			hpOut=1;
+			timer = false;
 		}
 		
 		//If player one has a topcard it is placed in the activecards pile, otherwise they are set to being out
