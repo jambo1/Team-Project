@@ -23,7 +23,7 @@ public class Game {
 	private AIPlayer p4 = new AIPlayer();
 	private String winnerString;
 	private boolean gameOver = false;
-	private int hpOut=0, p1Out=0, p2Out=0, p3Out=0, p4Out=0, totalOut=0;
+	private int hpOut=0, p1Out=0, p2Out=0, p3Out=0, p4Out=0, totalOut=0, drawCount=0, drawNo=0;
 	
 	//this is the basic running order of the game - NEED TO UTILISE GAME OVER
 	public Game(Cards[] cards) {
@@ -158,7 +158,7 @@ public class Game {
 			activeCards[4] = null;
 			p4Out=1;
 		}
-		/*
+		
 		System.out.println("-----HUMAN HAND --------");
 		hp.printHand();
 		System.out.println("-----P1 HAND --------");
@@ -169,7 +169,7 @@ public class Game {
 		p3.printHand();
 		System.out.println("-----P4 HAND --------");
 		p4.printHand();
-		*/
+		
 		hp.nullTopCard();
 		p1.nullTopCard();
 		p2.nullTopCard();
@@ -296,6 +296,7 @@ public class Game {
 			System.out.println("----------Round Winning Card----------");
 			System.out.println(displayCard(activeCards[v]));
 			System.out.println("---------------------------------------");
+			drawNo=0;
 		}
 		
 		if(v==0)	{
@@ -331,19 +332,22 @@ public class Game {
 		//////////////////////////////// I don't like this, will update it //////////////////////////////////////////
 		//Process draw
 		else if(v==5) {
+			drawCount = drawNo*NUMPLAYERS;
 			int comStart = 0;
 			while(communalPile[comStart]!= null)	{comStart++;}
 	//		System.out.println("---------------Active going to Comm---------");
 			for(int i=0;i<NUMPLAYERS;i++)	{
-				communalPile[comStart] = activeCards[i];
-				if(communalPile[comStart]==null)	{
+				communalPile[drawCount] = activeCards[i];
+				if(communalPile[drawCount]==null)	{
 	//				System.out.println(comStart + "null----------pre com");
 				}
 				else {
 	//				System.out.println(communalPile[comStart].getDescription() + "----------pre com");
 					comStart++;
 				}
+				drawCount++;
 			}
+			drawNo++;
 			winnerString = "That round was a draw!";
 		}
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
