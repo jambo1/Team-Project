@@ -329,28 +329,16 @@ public class Game {
 			comClearer();
 			turn = 4;
 		}
-		//////////////////////////////// I don't like this, will update it //////////////////////////////////////////
 		//Process draw
 		else if(v==5) {
 			drawCount = drawNo*NUMPLAYERS;
-			int comStart = 0;
-			while(communalPile[comStart]!= null)	{comStart++;}
-	//		System.out.println("---------------Active going to Comm---------");
 			for(int i=0;i<NUMPLAYERS;i++)	{
 				communalPile[drawCount] = activeCards[i];
-				if(communalPile[drawCount]==null)	{
-	//				System.out.println(comStart + "null----------pre com");
-				}
-				else {
-	//				System.out.println(communalPile[comStart].getDescription() + "----------pre com");
-					comStart++;
-				}
 				drawCount++;
 			}
 			drawNo++;
 			winnerString = "That round was a draw!";
 		}
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		return winnerString;
 	}
 	

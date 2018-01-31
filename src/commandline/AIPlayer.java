@@ -73,7 +73,7 @@ import java.util.concurrent.TimeUnit;
 		 * empty card will be inserted into slot 2, but getTopCard() will automatically shunt it up to slot [0]
 		 */
 		public void givePlayerCards(Cards[] ap, Cards[] cp)	{
-			int p=0,l=0,m=0;
+/*			int p=0,l=0,m=0;
 			while(p<40) {
 				System.out.println(cp[p] + "-------com");
 				p++;
@@ -87,6 +87,7 @@ import java.util.concurrent.TimeUnit;
 				}
 				l++;
 			}
+*/
 			for(int i=0; i<hand.length; i++)	{
 				if(hand[i]==null)	{
 					for(int j=0; j<DECKSIZE; j++)	{
