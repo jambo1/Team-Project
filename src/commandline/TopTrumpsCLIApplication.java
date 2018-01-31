@@ -57,24 +57,15 @@ public class TopTrumpsCLIApplication {
 			else {
 				System.out.println("Your choice did not match any of the options");
 			}
-
-			// ----------------------------------------------------
-			// Add your game logic here based on the requirements
-			// ----------------------------------------------------
-			
-			
-			
 		}
-
-
 	}
+	
 	/**
 	 * Creates the deck from the file containing the card data
 	 */
 	public static boolean createDeck() {
 		BufferedReader reader;
     	Scanner in;
-    	Cards[] tempDeck = new Cards[40];
     	try {
     		reader = new BufferedReader(new FileReader("StarCitizenDeck.txt"));
     		in= new Scanner(reader);
@@ -137,22 +128,6 @@ public class TopTrumpsCLIApplication {
 		return choice;
 		
 	}
-	
-	/**
-	 * Method to shuffle the deck before starting a new game so the same order is not used each time
-	 * @return
-	 */
-	/*private static boolean shuffleCards() {
-		//Replace the cards in a random order back into the deck
-		for(int i = deck.length-1; i>0; i--) {
-			int rand = (int)(Math.random()*(i+1));
-			Cards temp = deck[rand];
-			deck[i] = deck[rand];
-			deck[rand]= temp;
-		}
-		return true;
-		
-	}*/
 }
 	
 

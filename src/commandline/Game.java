@@ -28,10 +28,12 @@ public class Game {
 	//this is the basic running order of the game - NEED TO UTILISE GAME OVER
 	public Game(Cards[] cards) {
 		deck = cards;
-		round=0;
+		round=1;
 		turn=0;
 		deal();
 		while(gameOver==false)	{
+			StringBuilder roundString = new StringBuilder("");
+			System.out.println(roundString.append(String.format("--------------- Round %2d ---------------", round)).toString());
 			playRound(turn);
 			round++;
 		}
@@ -70,42 +72,22 @@ public class Game {
 			System.out.println("1 = Size, 2 = Speed, 3 = Range, 4 = Firepower, 5 = Cargo");
 			System.out.println(playCategory(getUserChoice()));
 		}
-		/*else if(t==0&&hpOut==1)	{
-			t++;
-			return;
-		}*/
 		if(t==1)	{
 			System.out.println("Player 1 is choosing a category to play:");
 			System.out.println(playCategory(p1.selectCategory(p1.getTopCard())));
 		}
-		/*else if(t==1&&p1Out==1)	{
-			t++;
-			return;
-		}*/
 		if(t==2)	{
 			System.out.println("Player 2 is choosing a category to play:");
 			System.out.println(playCategory(p2.selectCategory(p2.getTopCard())));
 		}
-		/*else if(t==2&&p2Out==1)	{
-			t++;
-			return;
-		}*/
 		if(t==3)	{
 			System.out.println("Player 3 is choosing a category to play:");
 			System.out.println(playCategory(p3.selectCategory(p3.getTopCard())));			
 		}
-		/*else if(t==3&&p3Out==1)	{
-			t++;
-			return;
-		}*/
 		if(t==4)	{
 			System.out.println("Player 4 is choosing a category to play:");
 			System.out.println(playCategory(p4.selectCategory(p4.getTopCard())));
 		}
-		/*else if (t==4&&p4Out==1)	{
-			t=0;
-			return;
-		}*/
 	}
 	
 	//method to make wee card on screen, can def be polished if we have time
@@ -176,7 +158,7 @@ public class Game {
 			activeCards[4] = null;
 			p4Out=1;
 		}
-		
+		/*
 		System.out.println("-----HUMAN HAND --------");
 		hp.printHand();
 		System.out.println("-----P1 HAND --------");
@@ -187,7 +169,7 @@ public class Game {
 		p3.printHand();
 		System.out.println("-----P4 HAND --------");
 		p4.printHand();
-		
+		*/
 		hp.nullTopCard();
 		p1.nullTopCard();
 		p2.nullTopCard();
@@ -310,12 +292,12 @@ public class Game {
 	private String takePile(int v)	{		
 		//Give winner their cards
 		
-/*		if(v<5) {
+		if(v<5) {
 			System.out.println("----------Round Winning Card----------");
 			System.out.println(displayCard(activeCards[v]));
 			System.out.println("---------------------------------------");
 		}
-*/		
+		
 		if(v==0)	{
 			hp.givePlayerCards(activeCards, communalPile);
 			winnerString = "You won that round!";
@@ -345,49 +327,26 @@ public class Game {
 			winnerString = "Player 4 won that round!";
 			comClearer();
 			turn = 4;
-		}//////////////////////////////////////////////////////////////////////////////////
+		}
+		//////////////////////////////// I don't like this, will update it //////////////////////////////////////////
 		//Process draw
 		else if(v==5) {
 			int comStart = 0;
 			while(communalPile[comStart]!= null)	{comStart++;}
-			System.out.println("---------------Active going to Comm---------");
+	//		System.out.println("---------------Active going to Comm---------");
 			for(int i=0;i<NUMPLAYERS;i++)	{
 				communalPile[comStart] = activeCards[i];
 				if(communalPile[comStart]==null)	{
-					System.out.println(comStart + "null----------pre com");
+	//				System.out.println(comStart + "null----------pre com");
 				}
 				else {
-					System.out.println(communalPile[comStart].getDescription() + "----------pre com");
+	//				System.out.println(communalPile[comStart].getDescription() + "----------pre com");
 					comStart++;
 				}
 			}
 			winnerString = "That round was a draw!";
 		}
-		/*
-		if(v<5) {
-			System.out.println("----------Round Winning Card----------");
-			System.out.println(displayCard(activeCards[v]));
-			System.out.println("---------------------------------------");
-		}
-		*/
-		//Show winning card if hand is not a draw
-	/*	if(v<5) {
-			System.out.println("----------Round Winning Card----------");
-			System.out.println(displayCard(activeCards[v]));
-			System.out.println("---------------------------------------");
-			int comClearer = 0;
-			for(int i=0; i<communalPile.length; i++)	{
-		//		System.out.println("Pre-clear val");
-			//	System.out.println(communalPile[i]);
-				communalPile[i]=null;
-		//		System.out.println("Post-clear val");
-			//	if(communalPile[comClearer]==null)	{
-				//	System.out.println("null");
-			//	}
-				comClearer++;
-			}
-		}
-		*/
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		return winnerString;
 	}
 	
