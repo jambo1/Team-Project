@@ -195,24 +195,8 @@ public class Game {
 		System.out.println("-----P4 HAND --------");
 		p4.printHand();
 		
-		/*
-		 * Nulls the top cards in all of the player piles after placing them in the active pile
-		 */
-		hp.nullTopCard();
-		p1.nullTopCard();
-		p2.nullTopCard();
-		p3.nullTopCard();
-		p4.nullTopCard();
-		
-		/*
-		 * Pushes all the cards up one slot in the array so the top card is not void
-		 */
-		hp.sortCards();
-		p1.sortCards();
-		p2.sortCards();
-		p3.sortCards();
-		p4.sortCards();
-		
+		nullAndSort();
+	
 		/*
 		 * If 4 players are out someone has won
 		 */
@@ -237,7 +221,7 @@ public class Game {
 		//The value of the chosen categories for each player
 		int[] cardValArray = new int[NUMPLAYERS];
 		
-		
+		//Plays chosen category 1, size. Checks for the largest value in the category and sets that player as the victor
 		if(c==1)	{
 			for(int i=0; i<NUMPLAYERS; i++)	{
 				if(activeCards[i]!=null) {
@@ -252,6 +236,7 @@ public class Game {
 				}
 			}
 		}
+		//Plays chosen category 2, speed. Checks for the largest value in the category and sets that player as the victor
 		else if(c==2)	{
 			for(int i=0; i<NUMPLAYERS; i++)	{
 				if(activeCards[i]!=null) {
@@ -266,6 +251,7 @@ public class Game {
 				}
 			}
 		}
+		//Plays chosen category 3, range. Checks for the largest value in the category and sets that player as the victor
 		else if(c==3)	{
 			for(int i=0; i<NUMPLAYERS; i++)	{
 				if(activeCards[i]!=null) {
@@ -280,6 +266,7 @@ public class Game {
 				}
 			}
 		}
+		//Plays chosen category 4, firepower. Checks for the largest value in the category and sets that player as the victor
 		else if(c==4)	{
 			for(int i=0; i<NUMPLAYERS; i++)	{
 				if(activeCards[i]!=null) {
@@ -294,6 +281,7 @@ public class Game {
 				}
 			}
 		}
+		//Plays chosen category 5, cargo. Checks for the largest value in the category and sets that player as the victor
 		else if(c==5)	{
 			for(int i=0; i<NUMPLAYERS; i++)	{
 				if(activeCards[i]!=null) {
@@ -310,7 +298,7 @@ public class Game {
 		}
 		else {
 			System.out.println("Your choice did not match any of the options");
-			playRound(0);
+			doRoundCalc(c);
 		}
 		//tests for draw bases and passes a number above any possible player index to takePile to process a draw
 		Arrays.sort(cardValArray);
@@ -322,31 +310,35 @@ public class Game {
 	}
 	
 	
-	/*
-	 * scans for user input, error if not always scanning for some reason (ie. if it gets closed)
+	/**
+	 * Gets the user input from the command line using scanner and returns the chosen category
+	 * @return
 	 */
 	private int getUserChoice() {
 		int choice = 0;
 		Scanner sc = new Scanner(System.in);
 		choice = sc.nextInt();
-		//sc.close();
 		return choice;
 	}
 	
 	
-	/*
-	 * creates winner string and allocates communal and active cards to winner
+	/**
+	 * Gives the winner the communal and active piles.
+	 * If the round is a draw the cards go into the communal pile.
+	 * @param v
+	 * @return
 	 */
 	private String takePile(int v)	{		
-		//Give winner their cards
-		
+		//If there is not a draw then the round winning card is printed
 		if(v<5) {
 			System.out.println("----------Round Winning Card----------");
 			System.out.println(displayCard(activeCards[v]));
 			System.out.println("---------------------------------------");
 			drawNo=0;
 		}
-		
+		/*
+		 * Process each of the winners
+		 */
 		if(v==0)	{
 			hp.givePlayerCards(activeCards, communalPile);
 			winnerString = "You won that round!";
@@ -390,8 +382,8 @@ public class Game {
 		return winnerString;
 	}
 	
-	/*
-	 * Handles a player winning the game
+	/**
+	 * Process when a player wins the game
 	 */
 	private void playerWins() {
 		if(hp.getTopCard()!=null) {
@@ -412,9 +404,33 @@ public class Game {
 		gameOver = true;
 	}
 	
+	/**
+	 * Clears the communal pile
+	 */
 	private void comClearer()	{
 		for(int i=0; i<MAXCARDS; i++)	{
 			communalPile[i]=null;
 		}
+	}
+	
+	private void nullAndSort() {
+		/*
+		 * Nulls the top cards in all of the player piles after placing them in the active pile
+		 */
+		hp.nullTopCard();
+		p1.nullTopCard();
+		p2.nullTopCard();
+		p3.nullTopCard();
+		p4.nullTopCard();
+		
+		/*
+		 * Pushes all the cards up one slot in the array so the top card is not void
+		 */
+		hp.sortCards();
+		p1.sortCards();
+		p2.sortCards();
+		p3.sortCards();
+		p4.sortCards();
+		
 	}
 }
