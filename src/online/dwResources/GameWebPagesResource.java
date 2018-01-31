@@ -16,8 +16,6 @@ import online.dwViews.StatisticsView;
  * This is a Dropwizard Resource that specifies what to provide when a user
  * requests a particular URL. In this case, the URLs are associated to the
  * different HTML/Javascript Web pages for the TopTrumps Application. 
- * @author richardm
- *
  */
 public class GameWebPagesResource {
 

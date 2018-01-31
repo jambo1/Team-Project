@@ -4,9 +4,8 @@ package commandline;
  * Cards class containing the description and relevant attributes of the cards.
  * Getter methods to return each of the attributes and name. No setter methods are included as once the cards
  * are created from the file they will not be altered.
- * @author Jamie
- *
  */
+
 public class Cards {
 	/*
 	 * Instance variables for the card
@@ -20,12 +19,6 @@ public class Cards {
 
 	/**
 	 * Constructor taking each of the instance variables as input
-	 * @param Desc
-	 * @param Siz
-	 * @param Spe
-	 * @param Ran
-	 * @param Fir
-	 * @param Car
 	 */
 	public Cards(String Desc, int Siz, int Spe, int Ran, int Fir, int Car){
 		Description = Desc;
@@ -37,10 +30,7 @@ public class Cards {
 
 	}
 
-	/**
-	 * Getter methods for each of the attributes
-	 * @return
-	 */
+	 //Getter methods for each of the attributes
 	public String getDescription() {return Description;}
 	public int getSize() {return Size;}
 	public int getSpeed() {return Speed;}

@@ -22,13 +22,14 @@ import io.dropwizard.views.ViewBundle;
  * instead need to complete TopTrumpsRESTAPI and the HTML/Javascript views.
  */
 public class TopTrumpsOnlineApplication extends Application<TopTrumpsJSONConfiguration> {
-
+ 
 	/**
 	 * This is the main class for the Top Trumps Web application. It is called by TopTrumps.java
 	 * when the user specifies that they want to run in online mode. 
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		
 		try {
 			new TopTrumpsOnlineApplication().run(args); // Create a new online application and run it
 		} catch (Exception e) {e.printStackTrace();}
