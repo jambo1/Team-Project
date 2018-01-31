@@ -31,7 +31,7 @@ public class TopTrumpsCLIApplication {
 		
 		// Loop until the user wants to exit the game
 		while (!userWantsToQuit) {
-			
+			Collections.shuffle(Arrays.asList(deck));
 			//Get User input
 			 int choice = getUserChoice();
 			 

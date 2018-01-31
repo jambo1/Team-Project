@@ -386,6 +386,15 @@ public class Game {
 	 * Process when a player wins the game
 	 */
 	private void playerWins() {
+		//Print a buffer
+		System.out.println("");
+		System.out.println("");
+		for(int i =0;i<30;i++) {
+			System.out.print("-");
+		}
+		System.out.println("");
+		
+		//Print the winner
 		if(hp.getTopCard()!=null) {
 			System.out.println("Congratulations you have won!");
 		}
@@ -401,6 +410,14 @@ public class Game {
 		else if(p4.getTopCard()!=null){
 			System.out.println("Player 4 has won the game!");
 		}
+		
+		//Print another buffer
+		for(int i =0;i<30;i++) {
+			System.out.print("-");
+		}
+		System.out.println("");
+		System.out.println("");
+		
 		gameOver = true;
 	}
 	
