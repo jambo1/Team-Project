@@ -25,22 +25,27 @@ public class Game {
 	private boolean gameOver = false;
 	private int hpOut=0, p1Out=0, p2Out=0, p3Out=0, p4Out=0, totalOut=0, drawCount=0, drawNo=0;
 	
-	//this is the basic running order of the game - NEED TO UTILISE GAME OVER
+	/**
+	 * Method to run the game. Begins by assigning the deck, starting the initial round and dealing to the players.
+	 * @param cards
+	 */
 	public Game(Cards[] cards) {
 		deck = cards;
 		round=1;
 		turn=0;
 		deal();
+		//Loops through the game and continues until one player is victorious
 		while(gameOver==false)	{
 			StringBuilder roundString = new StringBuilder("");
 			System.out.println(roundString.append(String.format("--------------- Round %2d ---------------", round)).toString());
 			playRound(turn);
 			round++;
 		}
-		deal();
 	}
 	
-	//deals the cards
+	/**
+	 * Deals the cards between players until there are no cards in the deck.
+	 */
 	private void deal()	{
 		int cardCount = 0, playerCount=0;
 		while(cardCount<MAXCARDS)	{
@@ -58,20 +63,29 @@ public class Game {
 		}
 	}
 	
-	//player of round determined by turn counter t
-	//Always prints human card to screen first, then prints result of either human choice or computer choice
+	
+	/**
+	 * Uses turn counter "t" to determine which player is choosing the category. 
+	 * If the player is the human then they are asked to select a category to play. 
+	 * Non human players use the method in AIPlayer to select and play the highest card 
+	 * @param t
+	 */
 	private void playRound(int t)	{
+		//Checks if the human still has cards to play
 		try {
 			System.out.println(displayCard(hp.getTopCard()));
 		}
+		//If not prints a message to say they have no card
 		catch(NullPointerException n)	{
 			System.out.println("No card :(");
 		}
+		//Human user's turn
 		if(t==0)	{
 			System.out.println("Please select a category to play:");
 			System.out.println("1 = Size, 2 = Speed, 3 = Range, 4 = Firepower, 5 = Cargo");
 			System.out.println(playCategory(getUserChoice()));
 		}
+		//AIPlayers' turns
 		if(t==1)	{
 			System.out.println("Player 1 is choosing a category to play:");
 			System.out.println(playCategory(p1.selectCategory(p1.getTopCard())));
@@ -90,7 +104,12 @@ public class Game {
 		}
 	}
 	
-	//method to make wee card on screen, can def be polished if we have time
+	
+	/**
+	 * Method to display a visual card on the commandline
+	 * @param c
+	 * @return
+	 */
 	private String displayCard(Cards c)	{
 		
 		StringBuilder dSBuild = new StringBuilder("");
@@ -105,15 +124,17 @@ public class Game {
 		return dSBuild.toString();
 	}
 	
-	/*
-	 * creates active card array, then zeroes top card in each hand so in following round the remaining cards are pushed up
-	 * (using method in AIPlayer) categories are enumerated in same order as on card (desc=0,size=1 etc.)
+	/**
+	 * Creates an active card array of the current cards being played.
+	 * The top card in each players hand, which is being used in the active pile, is set to null  and the sort cards method form AIPlayer
+	 * is used to push the cards into their new order so the card in the first position is not empty.
+	 * When a player is put they're out variable is set to 1 to keep track of the number of players in the game.
+	 * Categories are enumerated in same order as on card (desc=0,size=1 etc.)
 	 */
 	
 	private String playCategory(int c)	{
-		int victor=0, bestValue=0;
-		int[] cardValArray = new int[NUMPLAYERS];
 		
+		//If human player has a topcard it is placed in the activecards pile, otherwise they are set to being out
 		if(hp.getTopCard()!=null&&hpOut<1) {
 			activeCards[0] = hp.getTopCard();
 		}
@@ -123,6 +144,7 @@ public class Game {
 			hpOut=1;
 		}
 		
+		//If player one has a topcard it is placed in the activecards pile, otherwise they are set to being out
 		if(p1.getTopCard()!=null&&p1Out<1) {
 			activeCards[1] = p1.getTopCard();
 		}
@@ -131,7 +153,8 @@ public class Game {
 			activeCards[1] = null;
 			p1Out=1;
 		}
-		
+
+		//If player two has a topcard it is placed in the activecards pile, otherwise they are set to being out
 		if(p2.getTopCard()!=null&&p2Out<1) {
 			activeCards[2] = p2.getTopCard();
 		}
@@ -140,7 +163,8 @@ public class Game {
 			activeCards[2] = null;
 			p2Out=1;
 		}
-		
+
+		//If player three has a topcard it is placed in the activecards pile, otherwise they are set to being out
 		if(p3.getTopCard()!=null&&p3Out<1) {
 			activeCards[3] = p3.getTopCard();
 		}
@@ -149,7 +173,8 @@ public class Game {
 			activeCards[3] = null;
 			p3Out=1;
 		}
-		
+
+		//If player four has a topcard it is placed in the activecards pile, otherwise they are set to being out
 		if(p4.getTopCard()!=null&&p4Out<1) {
 			activeCards[4] = p4.getTopCard();
 		}
@@ -170,12 +195,18 @@ public class Game {
 		System.out.println("-----P4 HAND --------");
 		p4.printHand();
 		
+		/*
+		 * Nulls the top cards in all of the player piles after placing them in the active pile
+		 */
 		hp.nullTopCard();
 		p1.nullTopCard();
 		p2.nullTopCard();
 		p3.nullTopCard();
 		p4.nullTopCard();
 		
+		/*
+		 * Pushes all the cards up one slot in the array so the top card is not void
+		 */
 		hp.sortCards();
 		p1.sortCards();
 		p2.sortCards();
@@ -189,6 +220,23 @@ public class Game {
 		if(totalOut == 4) {
 			playerWins();
 		}
+		
+		// Determines which card wins the round depending on which category was chosen by the current active player
+		 
+		return doRoundCalc(c);
+	}
+	
+	/**
+	 * Calculates which player has won the round or if it was a draw
+	 * @param c
+	 * @return
+	 */
+	public String doRoundCalc(int c) {
+		//Values of the victor of the round, representing each player or a draw and the best value in the cards
+		int victor=0, bestValue=0;
+		//The value of the chosen categories for each player
+		int[] cardValArray = new int[NUMPLAYERS];
+		
 		
 		if(c==1)	{
 			for(int i=0; i<NUMPLAYERS; i++)	{
