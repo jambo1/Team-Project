@@ -62,8 +62,8 @@ public class TopTrumpsRESTAPI {
 	public String helloJSONList() throws IOException {
 		
 		List<String> listOfWords = new ArrayList<String>();
-		listOfWords.add("Hello");
-		listOfWords.add("World!");
+		listOfWords.add("Let's");
+		listOfWords.add("Play!");
 		
 		// We can turn arbatory Java objects directly into JSON strings using
 		// Jackson seralization, assuming that the Java objects are not too complex.
