@@ -25,6 +25,34 @@
     	<div class="container">
 
 			<!-- Add your HTML Here -->
+			<header class="main-header">
+    <div class="container" style="background-color: black;">
+        <div class="row">
+            <div class="col-sm-3 col-xs-3 header-left">
+            </div>
+            <div class="col-sm6 xs-hidden header-center">
+                <h1 class = "start">
+                    <br>
+                    <span class="start-highlight"> Top Trumps: Let's Play </span>
+                </h1>
+            </div>
+            <div class="col-sm-3 col-xs-9 header-top">
+                 <div class="row">
+                    <div class="col-md-5"></div>
+                    <div class="col-md-2">
+                        <select class="player-select" style="color: white;">
+                            <option value="/"
+                                    selected="selected">4</option>
+                            <option value="/three">3</option>
+                            <option value="/two">2</option>
+                        </select>
+                </div>
+            <div class="col-md-5"></div>
+        </div>
+            </div>
+        </div>
+    </div>
+</header>
 		
 		</div>
 		
@@ -42,7 +70,7 @@
 				
 				// For example, lets call our sample methods
 				helloJSONList();
-				helloWord("Student");
+				helloWord("Top Trumps Online");
 				
 				
 			}
