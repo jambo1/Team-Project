@@ -22,10 +22,26 @@
 
     <body onload="initalize()"> <!-- Call the initalize method when the page loads -->
     	
-    	<div class="container">
-
+    	<div class="container" Id = "pickPlayers">
+			<p Id = "numberOfPlayers">
+			<b>Please choose number of players</b>
 			
+			<button onclick="setPlayers(2)">2 Players</button>
+			<button onclick="setPlayers(3)">3 Players</button>
+			<button onclick="setPlayers(4)">4 Players</button>
+			<button onclick="setPlayers(5)">5 Players</button>
+			</p>
+			<br/>
 		
+		</div>
+		<div class "container">
+		<h5>This is the message board</h5>
+		<br/>
+			<p Id = "messageBoard">
+			</p>
+			<br/>
+			<p Id = "startButton">
+			</p>
 		</div>
 		
 		<script type="text/javascript">
@@ -40,17 +56,48 @@
 				// You can call other methods you want to run when the page first loads here
 				// --------------------------------------------------------------------------
 				
-				pickPlayers();
-				
-				
+			
+								
 			}
 			
 			// -----------------------------------------
 			// Add your other Javascript methods Here
 			// -----------------------------------------
 		
+	
 				
-			function pickPlayers();	
+			function setPlayers(numberOfPlayers)
+			 {
+			
+			 	
+			 	var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/numberOfPlayers?numberOfPlayers="+numberOfPlayers); // Request type and URL+parameters
+				
+						if (!xhr) {
+		  					alert("CORS not supported");
+						}
+				xhr.onload = function(e) {
+ 					var responseText = xhr.response; // the text of the response
+ 					
+ 					document.getElementById("messageBoard").innerHTML = responseText; 
+ 					
+ 					// document.getElementById("category").innerHTML = responseText;
+				}
+
+				xhr.send();	
+				
+				var button = document.createElement("button");
+				button.innerHTML = "Start Game!";
+				var body = document.getElementById("startButton");
+				body.appendChild(button);
+				button.addEventListener ("click", function() { 
+				startGame(); 
+				alert("Game started"); 
+				});
+				
+			//var parent = document.getElementById("pickPlayers");
+			//var child = document.getElementById("numberOfPlayers");
+			//parent.removeChild(child);
+			 };
 			
 		
 			// This is a reusable method for creating a CORS request. Do not edit this.

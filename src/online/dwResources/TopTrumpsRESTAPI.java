@@ -16,6 +16,7 @@ import online.configuration.TopTrumpsJSONConfiguration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
+import commandline.Cards;
 import commandline.Game;
 import commandline.TopTrumpsCLIApplication;
 
@@ -37,6 +38,7 @@ public class TopTrumpsRESTAPI {
 	/** A Jackson Object writer. It allows us to turn Java objects
 	 * into JSON strings easily. */
 	ObjectWriter oWriter = new ObjectMapper().writerWithDefaultPrettyPrinter();
+	private Cards[] deck;
 	
 	/**
 	 * Contructor method for the REST API. This is called first. It provides
@@ -45,6 +47,9 @@ public class TopTrumpsRESTAPI {
 	 * @param conf
 	 */
 	public TopTrumpsRESTAPI(TopTrumpsJSONConfiguration conf) {
+		final int MAXCARDS = 40;
+		final Cards[] deck = new Cards[MAXCARDS];
+		int NUMPLAYERS;
 		// ----------------------------------------------------
 		// Add relevant initalization here
 		// ----------------------------------------------------
@@ -64,9 +69,24 @@ public class TopTrumpsRESTAPI {
 	@GET
 	@Path("/selection")
 	public String getSelection(@QueryParam("Selection") int selection) throws IOException {
-		System.out.println(selection);
+		// selection  = 1 indicates play game was pressed. 
+		if (selection == 1) {
+			getDeck();
+			Game aGame = new Game(deck);
+		} else if (selection == 2) {
+			// something with statistics?
+		}
 		return "" + selection + "was chosen";
 	}
+	
+	@GET
+	@Path("/numberOfPlayers")
+	public String setNumberOfPlayers(@QueryParam("numberOfPlayers") int numberOfPlayers) throws IOException {
+		// Game.setNUMPLAYERS = numberOfPlayers;
+		System.out.println("You choose " + numberOfPlayers + " players. Good luck!");
+		return "You choose " + numberOfPlayers + " players. Good luck!";
+	}
+	
 	
 	@GET
 	@Path("/helloJSONList")
@@ -89,6 +109,9 @@ public class TopTrumpsRESTAPI {
 		return listAsJSONString;
 	}
 	
+	
+	
+	
 	@GET
 	@Path("/helloWord")
 	/**
@@ -99,6 +122,14 @@ public class TopTrumpsRESTAPI {
 	 */
 	public String helloWord(@QueryParam("Word") String word) throws IOException {
 		return "Hello "+ word;
+	}
+	
+	
+	public boolean getDeck() {
+		TopTrumpsCLIApplication CL = new TopTrumpsCLIApplication();
+		CL.createDeck();
+		this.deck = CL.getDeck();
+		return true;
 	}
 	
 	

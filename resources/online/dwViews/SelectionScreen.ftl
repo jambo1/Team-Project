@@ -33,24 +33,20 @@
 		
 		<script type="text/javascript">
 		
+		
+		
 			// Method that is called on page load
 			function initalize() {
 			
-				// --------------------------------------------------------------------------
-				// You can call other methods you want to run when the page first loads here
-				// --------------------------------------------------------------------------
-				
-				// For example, lets call our sample methods
-			
-				
 			}
 			
 			// -----------------------------------------
 			// Add your other Javascript methods Here
 			// -----------------------------------------
+			
 			function setSelection(selection) {
 				
-				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/selection?Selection"+selection); // Request type and URL+parameters
+				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/selection?Selection="+selection); // Request type and URL+parameters
 				
 						if (!xhr) {
 		  					alert("CORS not supported");
@@ -58,17 +54,19 @@
 				xhr.onload = function(e) {
  					var responseText = xhr.response; // the text of the response
  					alert(responseText); 
-				};
+ 					
+ 					// document.getElementById("category").innerHTML = responseText;
+				}
 
 				xhr.send();		
-				if (selection == 1) {
+				if (selection === 1) {
     				location.href = 'http://localhost:7777/toptrumps/game';
 				} else {
 					location.href = 'http://localhost:7777/toptrumps/stats';
 				}
 					
 				
-			}
+			};
 			
 			
 			
