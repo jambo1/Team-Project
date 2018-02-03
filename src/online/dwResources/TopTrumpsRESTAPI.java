@@ -16,6 +16,9 @@ import online.configuration.TopTrumpsJSONConfiguration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
+import commandline.Game;
+import commandline.TopTrumpsCLIApplication;
+
 @Path("/toptrumps") // Resources specified here should be hosted at http://localhost:7777/toptrumps
 @Produces(MediaType.APPLICATION_JSON) // This resource returns JSON content
 @Consumes(MediaType.APPLICATION_JSON) // This resource can take JSON content as input
@@ -45,11 +48,25 @@ public class TopTrumpsRESTAPI {
 		// ----------------------------------------------------
 		// Add relevant initalization here
 		// ----------------------------------------------------
+		/*
+		 * Deck
+		 * Players
+		 * 
+		 */
+		//
+		
 	}
 	
 	// ----------------------------------------------------
 	// Add relevant API methods here
 	// ----------------------------------------------------
+	
+	@GET
+	@Path("/selection")
+	public String getSelection(@QueryParam("Selection") int selection) throws IOException {
+		System.out.println(selection);
+		return "" + selection + "was chosen";
+	}
 	
 	@GET
 	@Path("/helloJSONList")
@@ -80,8 +97,10 @@ public class TopTrumpsRESTAPI {
 	 * @return - A String
 	 * @throws IOException
 	 */
-	public String helloWord(@QueryParam("Word") String Word) throws IOException {
-		return "Hello "+Word;
+	public String helloWord(@QueryParam("Word") String word) throws IOException {
+		return "Hello "+ word;
 	}
+	
+	
 	
 }

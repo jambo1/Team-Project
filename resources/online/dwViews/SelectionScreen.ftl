@@ -24,8 +24,11 @@
     	
     	<div class="container">
 
+			
 			<!-- Add your HTML Here -->
-		
+			<button onclick="setSelection(1)">Play game</button>					
+			<button onclick="setSelection(2)">View game statistics</button>
+			
 		</div>
 		
 		<script type="text/javascript">
@@ -38,14 +41,38 @@
 				// --------------------------------------------------------------------------
 				
 				// For example, lets call our sample methods
-				helloJSONList();
-				helloWord("Student");
+			
 				
 			}
 			
 			// -----------------------------------------
 			// Add your other Javascript methods Here
 			// -----------------------------------------
+			function setSelection(selection) {
+				
+				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/selection?Selection"+selection); // Request type and URL+parameters
+				
+						if (!xhr) {
+		  					alert("CORS not supported");
+						}
+				xhr.onload = function(e) {
+ 					var responseText = xhr.response; // the text of the response
+ 					alert(responseText); 
+				};
+
+				xhr.send();		
+				if (selection == 1) {
+    				location.href = 'http://localhost:7777/toptrumps/game';
+				} else {
+					location.href = 'http://localhost:7777/toptrumps/stats';
+				}
+					
+				
+			}
+			
+			
+			
+			
 		
 			// This is a reusable method for creating a CORS request. Do not edit this.
 			function createCORSRequest(method, url) {
@@ -77,49 +104,7 @@
 		<!-- Here are examples of how to call REST API Methods -->
 		<script type="text/javascript">
 		
-			// This calls the helloJSONList REST method from TopTrumpsRESTAPI
-			function helloJSONList() {
-			
-				// First create a CORS request, this is the message we are going to send (a get request in this case)
-				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/helloJSONList"); // Request type and URL
-				
-				// Message is not sent yet, but we can check that the browser supports CORS
-				if (!xhr) {
-  					alert("CORS not supported");
-				}
-
-				// CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-				// to do when the response arrives 
-				xhr.onload = function(e) {
- 					var responseText = xhr.response; // the text of the response
-					alert(responseText); // lets produce an alert
-				};
-				
-				// We have done everything we need to prepare the CORS request, so send it
-				xhr.send();		
-			}
-			
-			// This calls the helloJSONList REST method from TopTrumpsRESTAPI
-			function helloWord(word) {
-			
-				// First create a CORS request, this is the message we are going to send (a get request in this case)
-				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/helloWord?Word="+word); // Request type and URL+parameters
-				
-				// Message is not sent yet, but we can check that the browser supports CORS
-				if (!xhr) {
-  					alert("CORS not supported");
-				}
-
-				// CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-				// to do when the response arrives 
-				xhr.onload = function(e) {
- 					var responseText = xhr.response; // the text of the response
-					alert(responseText); // lets produce an alert
-				};
-				
-				// We have done everything we need to prepare the CORS request, so send it
-				xhr.send();		
-			}
+	
 
 		</script>
 		
