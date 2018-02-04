@@ -66,16 +66,34 @@ public class TopTrumpsRESTAPI {
 	// Add relevant API methods here
 	// ----------------------------------------------------
 	
+//	@GET
+//	@Path("/startGame")
+//	public String startGame() throws IOException {
+//		getDeck();
+//		Game aGame = new Game(deck);
+//		
+//		List<String> deckList = new ArrayList<String>();
+//		for (int i = 0; i < deck.length; i++)
+//			deckList.add(deck[i].getDescription());
+//		
+//		// We can turn arbatory Java objects directly into JSON strings using
+//		// Jackson seralization, assuming that the Java objects are not too complex.
+//		String deckListAsString = oWriter.writeValueAsString(deckList);
+//		
+//		return deckListAsString;
+//	}
+	
+	
 	@GET
 	@Path("/selection")
 	public String getSelection(@QueryParam("Selection") int selection) throws IOException {
 		// selection  = 1 indicates play game was pressed. 
-		if (selection == 1) {
-			getDeck();
-			Game aGame = new Game(deck);
-		} else if (selection == 2) {
-			// something with statistics?
-		}
+//		if (selection == 1) {
+//			getDeck();
+//			Game aGame = new Game(deck);
+//		} else if (selection == 2) {
+//			// something with statistics?
+//		}
 		return "" + selection + "was chosen";
 	}
 	

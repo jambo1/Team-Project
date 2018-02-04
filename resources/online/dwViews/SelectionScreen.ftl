@@ -43,7 +43,8 @@
 			// -----------------------------------------
 			// Add your other Javascript methods Here
 			// -----------------------------------------
-			
+		
+	// --------------------------------------------------------------------------		
 			function setSelection(selection) {
 				
 				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/selection?Selection="+selection); // Request type and URL+parameters
@@ -67,11 +68,13 @@
 					
 				
 			};
+	// --------------------------------------------------------------------------		
 			
 			
 			
-			
-		
+	// --------------------------------------------------------------------------
+	// ----------------------------Written by Richard----------------------------
+	// --------------------------------------------------------------------------	
 			// This is a reusable method for creating a CORS request. Do not edit this.
 			function createCORSRequest(method, url) {
   				var xhr = new XMLHttpRequest();
@@ -96,7 +99,7 @@
   				 }
   				 return xhr;
 			}
-		
+	// --------------------------------------------------------------------------	
 		</script>
 		
 		<!-- Here are examples of how to call REST API Methods -->

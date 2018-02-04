@@ -64,42 +64,51 @@
 			// Add your other Javascript methods Here
 			// -----------------------------------------
 		
-	
-				
+
+	// --------------------------------------------------------------------------	
 			function setPlayers(numberOfPlayers)
 			 {
-			
-			 	
 			 	var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/numberOfPlayers?numberOfPlayers="+numberOfPlayers); // Request type and URL+parameters
-				
-						if (!xhr) {
-		  					alert("CORS not supported");
-						}
+				if (!xhr) {
+		  			alert("CORS not supported");
+				}
 				xhr.onload = function(e) {
  					var responseText = xhr.response; // the text of the response
  					
- 					document.getElementById("messageBoard").innerHTML = responseText; 
+ 					document.getElementById("messageBoard").innerHTML = responseText;
+ 					document.getElementById("startButton").innerHTML = "";
+					var btn = document.createElement("button");
+					btn.innerHTML = "Start Game!";
+					var body = document.getElementById("startButton");
+					body.appendChild(btn);
+				//	btn.addEventListener("click", startGame());
  					
- 					// document.getElementById("category").innerHTML = responseText;
-				}
-
-				xhr.send();	
-				
-				var button = document.createElement("button");
-				button.innerHTML = "Start Game!";
-				var body = document.getElementById("startButton");
-				body.appendChild(button);
-				button.addEventListener ("click", function() { 
-				startGame(); 
-				alert("Game started"); 
-				});
-				
-			//var parent = document.getElementById("pickPlayers");
-			//var child = document.getElementById("numberOfPlayers");
-			//parent.removeChild(child);
+ 				}
+ 				xhr.send();	
 			 };
-			
-		
+	// --------------------------------------------------------------------------
+			function startGame()
+			 {
+				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/startGame");
+				if (!xhr) {
+					alert("CORS not supported");
+				}
+				xhr.onload = function(e) {
+ 					var responseText = xhr.response; // the text of the response
+ 					
+					alert(responseText);
+					document.getElementById("startButton").innerHTML = "";
+					document.getElementById("messageBoard").innerHTML = "";
+					document.getElementById("numberOfPlayers").innerHTML = "";
+					document.getElementById("numberOfPlayers").innerHTML = "GAME ON";
+					document.getElementById("messageBoard").innerHTML = responseText;
+ 				}
+ 				xhr.send();	
+			 }
+
+	// --------------------------------------------------------------------------
+	// ----------------------------Written by Richard----------------------------
+	// --------------------------------------------------------------------------
 			// This is a reusable method for creating a CORS request. Do not edit this.
 			function createCORSRequest(method, url) {
   				var xhr = new XMLHttpRequest();
@@ -124,9 +133,11 @@
   				 }
   				 return xhr;
 			}
+	// --------------------------------------------------------------------------
 		
 		</script>
 		
+		<script type="text/javascript">
 		<!-- Here are examples of how to call REST API Methods -->
 
 		
