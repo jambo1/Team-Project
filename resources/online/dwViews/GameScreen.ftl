@@ -25,8 +25,9 @@
     	<div class="container">
 
 			<!-- Add your HTML Here -->
+			
 			<header class="main-header">
-    <div class="container" style="background-color: black;">
+    <div class="container" style="background-color: #cce6ff;">
         <div class="row">
             <div class="col-sm-3 col-xs-3 header-left">
             </div>
@@ -40,12 +41,6 @@
                  <div class="row">
                     <div class="col-md-5"></div>
                     <div class="col-md-2">
-                        <select class="player-select" style="color: white;">
-                            <option value="/"
-                                    selected="selected">4</option>
-                            <option value="/three">3</option>
-                            <option value="/two">2</option>
-                        </select>
                 </div>
             <div class="col-md-5"></div>
         </div>
