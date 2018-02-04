@@ -15,8 +15,8 @@ public class Game {
 	private int round, turn;
 	private Cards[] deck = new Cards[MAXCARDS];
 	private Cards[] communalPile = new Cards[MAXCARDS];
-	private Cards[]  activeCards = new Cards[NUMPLAYERS];
-	private AIPlayer hp = new AIPlayer();
+	public Cards[]  activeCards = new Cards[NUMPLAYERS];
+	public AIPlayer hp = new AIPlayer();
 	private AIPlayer p1 = new AIPlayer();
 	private AIPlayer p2 = new AIPlayer();
 	private AIPlayer p3 = new AIPlayer();
@@ -111,7 +111,7 @@ public class Game {
 	 * @param c
 	 * @return
 	 */
-	private String displayCard(Cards c)	{
+	public String displayCard(Cards c)	{
 		
 		StringBuilder dSBuild = new StringBuilder("");
 		dSBuild.append("______________________________\r\n"); //30
@@ -452,4 +452,23 @@ public class Game {
 		p4.sortCards();
 		
 	}
+	public String getString() {
+		return "Yes";
+	}
+//	public AIPlayer getPlayer(int p) {
+//		if (p>=0 && p<=4) {
+//			if (p==0)
+//				return this.hp;
+//			else if (p==1)
+//				return this.p1;
+//			else if (p==2)
+//				return this.p2;
+//			else if (p==3)
+//				return this.p3;
+//			else // must be player 4
+//				return this.p4;
+//		}
+//		else
+//			return null;
+//	}
 }

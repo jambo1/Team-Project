@@ -141,4 +141,8 @@ import java.util.concurrent.TimeUnit;
 				i++;
 			}
 		}  
+		
+		public Cards[] getHand() {
+			return this.hand;
+		}
 	}

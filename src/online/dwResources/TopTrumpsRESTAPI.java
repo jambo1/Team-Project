@@ -2,6 +2,8 @@ package online.dwResources;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -16,9 +18,7 @@ import online.configuration.TopTrumpsJSONConfiguration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
-import commandline.Cards;
-import commandline.Game;
-import commandline.TopTrumpsCLIApplication;
+import commandline.*;
 
 @Path("/toptrumps") // Resources specified here should be hosted at http://localhost:7777/toptrumps
 @Produces(MediaType.APPLICATION_JSON) // This resource returns JSON content
@@ -39,6 +39,8 @@ public class TopTrumpsRESTAPI {
 	 * into JSON strings easily. */
 	ObjectWriter oWriter = new ObjectMapper().writerWithDefaultPrettyPrinter();
 	private Cards[] deck;
+	private Game aGame;
+	
 	
 	/**
 	 * Contructor method for the REST API. This is called first. It provides
@@ -50,6 +52,7 @@ public class TopTrumpsRESTAPI {
 		final int MAXCARDS = 40;
 		final Cards[] deck = new Cards[MAXCARDS];
 		int NUMPLAYERS;
+		
 		// ----------------------------------------------------
 		// Add relevant initalization here
 		// ----------------------------------------------------
@@ -66,43 +69,34 @@ public class TopTrumpsRESTAPI {
 	// Add relevant API methods here
 	// ----------------------------------------------------
 	
-//	@GET
-//	@Path("/startGame")
-//	public String startGame() throws IOException {
-//		getDeck();
-//		Game aGame = new Game(deck);
-//		
-//		List<String> deckList = new ArrayList<String>();
-//		for (int i = 0; i < deck.length; i++)
-//			deckList.add(deck[i].getDescription());
-//		
-//		// We can turn arbatory Java objects directly into JSON strings using
-//		// Jackson seralization, assuming that the Java objects are not too complex.
-//		String deckListAsString = oWriter.writeValueAsString(deckList);
-//		
-//		return deckListAsString;
-//	}
+	@GET
+	@Path("/startGame")
+	public String startGame() throws IOException {
+		
+		return "game started se command line";
+	}
 	
 	
 	@GET
 	@Path("/selection")
 	public String getSelection(@QueryParam("Selection") int selection) throws IOException {
-		// selection  = 1 indicates play game was pressed. 
-//		if (selection == 1) {
-//			getDeck();
-//			Game aGame = new Game(deck);
-//		} else if (selection == 2) {
-//			// something with statistics?
-//		}
-		return "" + selection + "was chosen";
+		return "" + selection + " was chosen";
 	}
 	
 	@GET
 	@Path("/numberOfPlayers")
 	public String setNumberOfPlayers(@QueryParam("numberOfPlayers") int numberOfPlayers) throws IOException {
 		// Game.setNUMPLAYERS = numberOfPlayers;
-		System.out.println("You choose " + numberOfPlayers + " players. Good luck!");
+		//System.out.println("You choose " + numberOfPlayers + " players. Good luck!");
 		return "You choose " + numberOfPlayers + " players. Good luck!";
+	}
+	
+	@GET
+	@Path("/displayCard")
+	public String displayCard() throws IOException {
+		String cardThings = this.getCard();
+		return cardThings; 
+		
 	}
 	
 	
@@ -147,9 +141,37 @@ public class TopTrumpsRESTAPI {
 		TopTrumpsCLIApplication CL = new TopTrumpsCLIApplication();
 		CL.createDeck();
 		this.deck = CL.getDeck();
+		Collections.shuffle(Arrays.asList(this.deck));
 		return true;
 	}
 	
+	public String getCard() {
+		getDeck();
+		Game aNewGame = new Game(deck);
+		this.aGame = aNewGame;
+		return aGame.getString();
+//		
+		
+		
+		
+		//StringBuilder dSBuild = new StringBuilder("");
+//		try {
+////			dSBuild.append(String.format("%26s\r\n", aGame.hp.getTopCard().getDescription()));
+////			dSBuild.append(String.format("Size: %20d\r\n", aGame.hp.getTopCard().getSize()));
+////			dSBuild.append(String.format("Speed: %19d\r\n", aGame.hp.getTopCard().getSpeed()));
+////			dSBuild.append(String.format("Range: %19d\r\n", aGame.hp.getTopCard().getRange()));
+////			dSBuild.append(String.format("Firepower: %15d\r\n", aGame.hp.getTopCard().getFirepower()));
+////			dSBuild.append(String.format("Cargo: %19d\r\n", aGame.hp.getTopCard().getCargo()));
+//			
+//			
+//			aGame.displayCard(aGame.hp.getTopCard());
+//			
+//			}
+//			catch(NullPointerException n) { System.out.println("you fucked up ");}
+//		//return aGame.displayCard(aGame.hp.getTopCard());
+	
+		
+	}
 	
 	
 }

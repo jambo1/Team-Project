@@ -3,7 +3,7 @@
 	<head>
 		<!-- Web page title -->
     	<title>Top Trumps</title>
-    	
+
     	<!-- Import JQuery, as it provides functions you will probably find useful (see https://jquery.com/) -->
     	<script src="https://code.jquery.com/jquery-2.1.1.js"></script>
     	<script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
@@ -21,18 +21,20 @@
 	</head>
 
     <body onload="initalize()"> <!-- Call the initalize method when the page loads -->
-    	
+
     	<div class="container" Id = "pickPlayers">
 			<p Id = "numberOfPlayers">
 			<b>Please choose number of players</b>
-			
-			<button onclick="setPlayers(2)">2 Players</button>
-			<button onclick="setPlayers(3)">3 Players</button>
-			<button onclick="setPlayers(4)">4 Players</button>
-			<button onclick="setPlayers(5)">5 Players</button>
+			<select id="nop">
+ 				<option value="2">2</option>
+  				<option value="3">3</option>
+  				<option value="4">4</option>
+  				<option value="5">5</option>
+			</select>
+				<button onclick="gameOn()">start game</button>
 			</p>
 			<br/>
-		
+
 		</div>
 		<div class "container">
 		<h5>This is the message board</h5>
@@ -40,51 +42,64 @@
 			<p Id = "messageBoard">
 			</p>
 			<br/>
-			<p Id = "startButton">
+			<p Id = "board">
+			</p>
+			<p Id="card">
 			</p>
 		</div>
-		
+
+		<div>
+
+		</div>
+
+
 		<script type="text/javascript">
-		
+
 			// Method that is called on page load
 			function initalize() {
-			
+
 				// --------------------------------------------------------------------------
-				//pick players 
-				//start game 
-				//choose category 
+				//pick players
+				//start game
+				//choose category
 				// You can call other methods you want to run when the page first loads here
 				// --------------------------------------------------------------------------
-				
-			
-								
+
+
+
 			}
-			
+
 			// -----------------------------------------
 			// Add your other Javascript methods Here
 			// -----------------------------------------
-		
 
-	// --------------------------------------------------------------------------	
-			function setPlayers(numberOfPlayers)
+
+	// --------------------------------------------------------------------------
+			function gameOn() {
+				setPlayers();
+				document.getElementById("numberOfPlayers").innerHTML = "";
+				startGame();
+				displayCard();
+			}
+			
+	// --------------------------------------------------------------------------
+			function setPlayers()
 			 {
-			 	var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/numberOfPlayers?numberOfPlayers="+numberOfPlayers); // Request type and URL+parameters
+			 	var p = document.getElementById("nop");
+			 	var num = p.options[p.selectedIndex].value;
+
+			 	var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/numberOfPlayers?numberOfPlayers="+num); // Request type and URL+parameters
 				if (!xhr) {
 		  			alert("CORS not supported");
 				}
 				xhr.onload = function(e) {
  					var responseText = xhr.response; // the text of the response
- 					
+
  					document.getElementById("messageBoard").innerHTML = responseText;
- 					document.getElementById("startButton").innerHTML = "";
-					var btn = document.createElement("button");
-					btn.innerHTML = "Start Game!";
-					var body = document.getElementById("startButton");
-					body.appendChild(btn);
-				//	btn.addEventListener("click", startGame());
  					
+
  				}
- 				xhr.send();	
+ 				xhr.send();
 			 };
 	// --------------------------------------------------------------------------
 			function startGame()
@@ -95,17 +110,34 @@
 				}
 				xhr.onload = function(e) {
  					var responseText = xhr.response; // the text of the response
- 					
-					alert(responseText);
-					document.getElementById("startButton").innerHTML = "";
-					document.getElementById("messageBoard").innerHTML = "";
-					document.getElementById("numberOfPlayers").innerHTML = "";
-					document.getElementById("numberOfPlayers").innerHTML = "GAME ON";
-					document.getElementById("messageBoard").innerHTML = responseText;
- 				}
- 				xhr.send();	
-			 }
 
+					//alert(responseText);
+					
+ 					
+ 				}
+ 				
+ 				
+ 				xhr.send();
+ 				
+			 };
+	// --------------------------------------------------------------------------
+			function displayCard() {
+
+			 	var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/displayCard"); // Request type and URL+parameters
+				if (!xhr) {
+		  			alert("CORS not supported");
+				}
+				xhr.onload = function(e) {
+ 					var responseText = xhr.response; // the text of the response
+
+ 					document.getElementById("board").innerHTML = "Your card:";
+
+ 					document.getElementById("card").innerHTML = responseText;
+ 				}
+ 				xhr.send();
+			};
+
+	// --------------------------------------------------------------------------
 	// --------------------------------------------------------------------------
 	// ----------------------------Written by Richard----------------------------
 	// --------------------------------------------------------------------------
@@ -134,17 +166,17 @@
   				 return xhr;
 			}
 	// --------------------------------------------------------------------------
-		
+
 		</script>
-		
+
 		<script type="text/javascript">
 		<!-- Here are examples of how to call REST API Methods -->
 
-		
-		
-											
+
+
+
 
 		</script>
-		
+
 		</body>
 </html>

@@ -125,6 +125,10 @@ public class TopTrumpsCLIApplication {
 		
 	}
 	
+	public int setUserChoice(int onlineChoice) {
+		return onlineChoice;
+	}
+	
 	public Cards[] getDeck() {
 		return this.deck;
 	}
