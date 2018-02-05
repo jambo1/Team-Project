@@ -57,9 +57,7 @@ public class TopTrumpsRESTAPI {
 		// Add relevant initalization here
 		// ----------------------------------------------------
 		/*
-		 * Deck
-		 * Players
-		 * 
+		
 		 */
 		//
 		
@@ -72,7 +70,7 @@ public class TopTrumpsRESTAPI {
 	@GET
 	@Path("/startGame")
 	public String startGame() throws IOException {
-		
+		createGame();
 		return "game started se command line";
 	}
 	
@@ -94,7 +92,7 @@ public class TopTrumpsRESTAPI {
 	@GET
 	@Path("/displayCard")
 	public String displayCard() throws IOException {
-		String cardThings = this.getCard();
+		String cardThings = "i dont know yet";
 		return cardThings; 
 		
 	}
@@ -137,41 +135,22 @@ public class TopTrumpsRESTAPI {
 	}
 	
 	
-	public boolean getDeck() {
-		TopTrumpsCLIApplication CL = new TopTrumpsCLIApplication();
-		CL.createDeck();
-		this.deck = CL.getDeck();
-		Collections.shuffle(Arrays.asList(this.deck));
+	public boolean createGame() {
+		try {
+		TopTrumpsCLIApplication.createDeck();
+		TopTrumpsCLIApplication.shuffle();
+		deck = TopTrumpsCLIApplication.getDeck();
+		System.out.println(deck[0].getDescription());
+		aGame = new Game(deck);
+		System.out.println(aGame.getString());
+		}
+		catch(NullPointerException e) { 
+			System.out.println("NullP"); 
+		}
 		return true;
 	}
 	
-	public String getCard() {
-		getDeck();
-		Game aNewGame = new Game(deck);
-		this.aGame = aNewGame;
-		return aGame.getString();
-//		
-		
-		
-		
-		//StringBuilder dSBuild = new StringBuilder("");
-//		try {
-////			dSBuild.append(String.format("%26s\r\n", aGame.hp.getTopCard().getDescription()));
-////			dSBuild.append(String.format("Size: %20d\r\n", aGame.hp.getTopCard().getSize()));
-////			dSBuild.append(String.format("Speed: %19d\r\n", aGame.hp.getTopCard().getSpeed()));
-////			dSBuild.append(String.format("Range: %19d\r\n", aGame.hp.getTopCard().getRange()));
-////			dSBuild.append(String.format("Firepower: %15d\r\n", aGame.hp.getTopCard().getFirepower()));
-////			dSBuild.append(String.format("Cargo: %19d\r\n", aGame.hp.getTopCard().getCargo()));
-//			
-//			
-//			aGame.displayCard(aGame.hp.getTopCard());
-//			
-//			}
-//			catch(NullPointerException n) { System.out.println("you fucked up ");}
-//		//return aGame.displayCard(aGame.hp.getTopCard());
 	
-		
-	}
 	
 	
 }

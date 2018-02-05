@@ -36,12 +36,22 @@ public class Game {
 		turn=0;
 		deal();
 		//Loops through the game and continues until one player is victorious
-		while(gameOver==false)	{
-			StringBuilder roundString = new StringBuilder("");
-			System.out.println(roundString.append(String.format("--------------- Round %2d ---------------", round)).toString());
-			playRound(turn);
-			round++;
-		}
+		
+		
+		
+		/**
+		 * EUREKA
+		 * NEEDS TO BE MOVED TO CLI... then use aGame.playRound(turn); from there.
+		 * 
+		 *  otherwise aGame can never be initialized. it will be stuck in the constructor
+		 *  until the game is finished, hence - we cant play the game from Online.
+		 */
+//		while(gameOver==false)	{
+//			StringBuilder roundString = new StringBuilder("");
+//			System.out.println(roundString.append(String.format("--------------- Round %2d ---------------", round)).toString());
+//			playRound(turn);
+//			round++;
+//		}
 	}
 	
 	/**

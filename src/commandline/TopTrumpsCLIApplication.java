@@ -11,6 +11,7 @@ import java.util.Scanner;
 public class TopTrumpsCLIApplication {
 	private static final int MAXCARDS = 40;
 	private static Cards[] deck = new Cards[MAXCARDS];
+	public static Game aGame;
 
 	/**
 	 * This main method is called by TopTrumps.java when the user specifies that they want to run in
@@ -38,7 +39,7 @@ public class TopTrumpsCLIApplication {
 			//Play game
 			if (choice ==1) {
 				System.out.println("User choice was 1");
-				Game aGame = new Game(deck);
+				createGame(); 
 			}
 			//Show statistics
 			if(choice ==2) {
@@ -56,6 +57,17 @@ public class TopTrumpsCLIApplication {
 		}
 	}
 	
+	public static void shuffle() {
+		Collections.shuffle(Arrays.asList(deck));
+	}
+	
+	public static void createGame() {
+		aGame = new Game(deck);
+	}
+	
+	public static Game getGame() {
+		return aGame;
+	}
 	/**
 	 * Creates the deck from the file containing the card data
 	 */
@@ -129,8 +141,8 @@ public class TopTrumpsCLIApplication {
 		return onlineChoice;
 	}
 	
-	public Cards[] getDeck() {
-		return this.deck;
+	public static Cards[] getDeck() {
+		return deck;
 	}
 }
 	
