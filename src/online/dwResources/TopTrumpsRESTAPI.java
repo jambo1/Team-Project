@@ -92,7 +92,7 @@ public class TopTrumpsRESTAPI {
 	@GET
 	@Path("/displayCard")
 	public String displayCard() throws IOException {
-		String cardThings = "i dont know yet";
+		String cardThings = aGame.getString();
 		return cardThings; 
 		
 	}
@@ -142,7 +142,7 @@ public class TopTrumpsRESTAPI {
 		deck = TopTrumpsCLIApplication.getDeck();
 		System.out.println(deck[0].getDescription());
 		aGame = new Game(deck);
-		System.out.println(aGame.getString());
+		//aGame.playGame();
 		}
 		catch(NullPointerException e) { 
 			System.out.println("NullP"); 

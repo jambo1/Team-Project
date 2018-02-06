@@ -85,21 +85,21 @@ import java.util.concurrent.TimeUnit;
 		 * @param cp
 		 */
 		public void givePlayerCards(Cards[] ap, Cards[] cp)	{
-/*			int p=0,l=0,m=0;
-			while(p<40) {
-				System.out.println(cp[p] + "-------com");
-				p++;
-			}
-			while(l<5) {
-				if(ap[l]==null)	{
-					//System.out.println(l + "null--------act");
-				}
-				else {
-					//System.out.println(ap[l].getDescription() + "--------act");
-				}
-				l++;
-			}
-*/
+//			int p=0,l=0,m=0;
+//			while(p<40) {
+//				System.out.println(cp[p] + "-------com");
+//				p++;
+//			}
+//			while(l<5) {
+//				if(ap[l]==null)	{
+//					//System.out.println(l + "null--------act");
+//				}
+//				else {
+//					//System.out.println(ap[l].getDescription() + "--------act");
+//				}
+//				l++;
+//			}
+
 			//Gives the player the communal cards in available slots
 			for(int i=0; i<hand.length; i++)	{
 				if(hand[i]==null)	{

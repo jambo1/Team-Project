@@ -12,7 +12,9 @@ public class TopTrumpsCLIApplication {
 	private static final int MAXCARDS = 40;
 	private static Cards[] deck = new Cards[MAXCARDS];
 	public static Game aGame;
-
+	private static boolean gameOver = false;
+	private static int round = 1, turn = 0;
+	private static boolean timer = true;
 	/**
 	 * This main method is called by TopTrumps.java when the user specifies that they want to run in
 	 * command line mode. The contents of args[0] is whether we should write game logs to a file.
@@ -40,7 +42,53 @@ public class TopTrumpsCLIApplication {
 			if (choice ==1) {
 				System.out.println("User choice was 1");
 				createGame(); 
-				aGame.playGame();
+				
+				while(gameOver==false)	{
+					StringBuilder roundString = new StringBuilder("");
+					System.out.println(roundString.append(String.format("--------------- Round %2d ---------------", round)).toString());
+					aGame.clearActiveCards();
+					System.out.println( aGame.playRound(turn) );
+					int catChoice = 0;
+					if(turn == 0) {
+						catChoice = aGame.getPlayerChoice();	
+					} else {
+						catChoice = aGame.getPlayer(turn).selectCategory(aGame.getPlayer(turn).getTopCard(), timer);
+					}
+					
+					gameOver = aGame.playCategory(catChoice);
+					aGame.nullAndSort();
+					
+					if (gameOver) {
+						aGame.playerWins();
+					}
+					else {
+						int victor = aGame.doRoundCalc(catChoice);
+						aGame.takePile(victor);
+						String winnerString = "";
+						
+	
+						for (int i = 0; i < aGame.getNumPlayers(); i++) {
+							if (victor == 0) {
+								turn = victor;
+								winnerString = "You won that round!";
+								aGame.comClearer();
+							} else if (i == victor) {
+								turn = victor;
+								winnerString = String.format("Player %s won that round!", victor);
+								aGame.comClearer();
+						}
+						if (victor == aGame.getNumPlayers()) {
+								aGame.draw();
+								
+								winnerString = "That round was a draw!";
+							}
+						}
+						aGame.clearActiveCards();
+						System.out.println(winnerString);
+					}
+					round++;
+					}
+				
 			}
 			//Show statistics
 			if(choice ==2) {
@@ -67,9 +115,6 @@ public class TopTrumpsCLIApplication {
 		aGame = new Game(deck);
 	}
 	
-	public static Game getGame() {
-		return aGame;
-	}
 	/**
 	 * Creates the deck from the file containing the card data
 	 */
