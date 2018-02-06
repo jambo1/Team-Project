@@ -147,6 +147,7 @@ public class TopTrumpsRESTAPI {
 		catch(NullPointerException e) { 
 			System.out.println("NullP"); 
 		}
+		
 		return true;
 	}
 	

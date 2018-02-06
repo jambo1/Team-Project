@@ -40,6 +40,7 @@ public class TopTrumpsCLIApplication {
 			if (choice ==1) {
 				System.out.println("User choice was 1");
 				createGame(); 
+				playGame();
 			}
 			//Show statistics
 			if(choice ==2) {
@@ -61,6 +62,7 @@ public class TopTrumpsCLIApplication {
 		Collections.shuffle(Arrays.asList(deck));
 	}
 	
+
 	public static void createGame() {
 		aGame = new Game(deck);
 	}
