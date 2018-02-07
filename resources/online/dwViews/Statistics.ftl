@@ -24,7 +24,14 @@
     	
     	<div class="container">
 
-			<!-- Add your HTML Here -->
+			<h5>Game Statistics</h5>
+		<br/>
+			<p Id = "gameStats">
+			</p>
+			<br/>
+			<p Id = "Stats">
+			</p>
+		</div>
 		
 		</div>
 		

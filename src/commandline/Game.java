@@ -33,10 +33,6 @@ public class Game {
 
 		deal();
 	}
-	
-	/**
-	 * Loops through the game and continues until one player is victorious
-	 */
 
 	/**
 	 * Deals the cards between players until there are no cards in the deck.
@@ -264,13 +260,51 @@ public class Game {
 	}
 	
 	
+<<<<<<< HEAD
 
 
+=======
+	/**
+	 * Gives the winner the communal and active piles.
+	 * If the round is a draw the cards go into the communal pile.
+	 * @param v
+	 * @return
+	 */
+	public void takePile(int v)	{		
+		//If there is not a draw then the round winning card is printed
+		if(v<5) {
+			System.out.println("----------Round Winning Card----------");
+			System.out.println(displayCard(activeCards[v]));
+			System.out.println("---------------------------------------");
+			drawNo=0;
+		}
+
+		//Process each of the winners 
+		if(v==0)	{
+			players[0].givePlayerCards(activeCards, communalPile);	
+		}
+		else if(v==1)	{
+			players[1].givePlayerCards(activeCards, communalPile);
+		}
+		else if(v==2)	{
+			players[2].givePlayerCards(activeCards, communalPile);	
+		}
+		else if(v==3)	{
+			players[3].givePlayerCards(activeCards, communalPile);	
+		}
+		else if(v==4)	{
+			players[4].givePlayerCards(activeCards, communalPile);
+		}
+		
+	}
+	//clears active cards after the round 
+>>>>>>> cbd1e5d9744a067ba04a88eed6e27302172e8450
 	public void clearActiveCards() {
 		for (int i = 0; i < activeCards.length; i++) {
 			activeCards[i] = null;
 		}
 	}
+	//places cards in communal pile if draw, continues to add to communal until there is a round winner 
 	public void draw() {
 		drawCount = drawNo*NUMPLAYERS;
 		for(int i = 0; i < NUMPLAYERS; i++) {
@@ -324,6 +358,10 @@ public class Game {
 		drawNo = no;
 	}
 	
+<<<<<<< HEAD
+=======
+	
+>>>>>>> cbd1e5d9744a067ba04a88eed6e27302172e8450
 	public String getString() {
 		return "Yes";
 	}

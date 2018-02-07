@@ -17,12 +17,54 @@
     	<link rel="stylesheet" href="http://dcs.gla.ac.uk/~richardm/assets/stylesheets/vex-theme-os.css"/>
     	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<head>
+		<style>
+			div.container {
+    			width: 100%;
+   			border: 1px solid gray;
+		}
 
+			header, footer {
+   				padding: 1em;
+   				color: white;
+   			 	background-color: black;
+   			 	clear: left;
+    				text-align: center;
+			}
+
+			gameStats {
+    				float: left;
+    				max-width: 160px;
+    				margin: 0;
+   			 	padding: 1em;
+			}
+
+			gameStats {
+   			 	list-style-type: none;
+    				padding: 0;
+			}
+   
+			gameStats a {
+    				text-decoration: none;
+			}
+
+			cardBody {
+   				margin-left: 170px;
+    				border-left: 1px solid gray;
+    				padding: 1em;
+    				overflow: hidden;
+			}
+		</style>
+	</head>
+<body>
 	</head>
 
     <body onload="initalize()"> <!-- Call the initalize method when the page loads -->
 
     	<div class="container" Id = "pickPlayers">
+    		<header>
+   			<h1>Top Trumps</h1>
+		</header>
 			<p Id = "numberOfPlayers">
 			<b>Please choose number of players</b>
 			<select id="nop">
@@ -34,24 +76,37 @@
 				<button onclick="gameOn()">start game</button>
 			</p>
 			<br/>
-
-		</div>
-		<div class "container">
-		<h5>This is the message board</h5>
-		<br/>
-			<p Id = "messageBoard">
+			<b>Game Statistics</b>
+			<!-- need a method to make this button work -->
+				<button onclick="gameStats()">Game Statistics</button>
 			</p>
 			<br/>
-			<p Id = "board">
-			</p>
-			<p Id="card">
-			</p>
-		</div>
+		<gameStats>
+		   		<p>Round Winner</p>
+		    		<p>Draws</p>
+   			 	<p>Turn</p>
+		</gameStats>
 
-		<div>
-
-		</div>
-
+	</div>
+		<div class "container">
+			<cardBody>
+  				<h2>Your Card</h2>
+ 					<p>Need method to print top card here</p>
+ 						<!--METHOD here should only allow to pick when its the humans turn-->
+					<p Id = "categoryChoice">
+				<b>Select Category</b>
+					<select id="no3">
+ 						<option value="Size">1</option>
+  						<option value="Speed">2</option>
+  						<option value="Range">3</option>
+  						<option value="Firepower">4</option>
+  						<option value="Cargo">5</option>
+					</select>
+				</p>
+			<br/>
+  					
+		</cardBody>
+	</div>
 
 		<script type="text/javascript">
 
