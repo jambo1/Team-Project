@@ -12,9 +12,9 @@ public class TopTrumpsCLIApplication {
 	private static final int MAXCARDS = 40;
 	private static Cards[] deck = new Cards[MAXCARDS];
 	public static Game aGame;
-	private static boolean gameOver = false;
-	private static int round = 1, turn = 0;
-	private static boolean timer = true;
+	private static boolean gameOver;
+	private static int round, turn;
+	private static boolean timer = false;
 	/**
 	 * This main method is called by TopTrumps.java when the user specifies that they want to run in
 	 * command line mode. The contents of args[0] is whether we should write game logs to a file.
@@ -42,28 +42,119 @@ public class TopTrumpsCLIApplication {
 			if (choice ==1) {
 				System.out.println("User choice was 1");
 				createGame(); 
-				
+				gameOver = false;
+				turn = 0;
+				round = 0;
 				while(gameOver==false)	{
+					round++;
 					StringBuilder roundString = new StringBuilder("");
 					System.out.println(roundString.append(String.format("--------------- Round %2d ---------------", round)).toString());
 					aGame.clearActiveCards();
-					System.out.println( aGame.playRound(turn) );
+					
+					
+					/**
+					 * Uses turn counter "t" to determine which player is choosing the category. 
+					 * If the player is the human then they are asked to select a category to play. 
+					 * Non human players use the method in AIPlayer to select and play the highest card 
+					 * @param t
+					 */
+					//Checks if the human still has cards to play
+					try {
+						System.out.println(aGame.displayCard(aGame.getPlayer(0).getTopCard()) );
+					} 
+					//If not prints a message to say they have no card
+					catch(NullPointerException n) {
+						System.out.println("No card :(");
+					}
+//					/**
+//					 * Uses turn counter to determine which player is choosing the category. 
+//					 * If the player is the human then they are asked to select a category to play. 
+//					 * Non human players use the method in AIPlayer to select and play the highest card 
+//					 */
+
+					for(int i = 0; i < aGame.getNumPlayers(); i++) {
+						if (i == turn && turn == 0) {
+							System.out.println("Please select a category to play:"
+												+ "\n1 = Size, 2 = Speed, 3 = Range,"
+												+ " 4 = Firepower, 5 = Cargo");
+						} else if (i == turn ){
+							System.out.println(String.format("Player %d is choosing a"
+												+ "category to play:", i));
+						}
+					}
+					
+					
+					
+					
 					int catChoice = 0;
+					// human
 					if(turn == 0) {
 						catChoice = aGame.getPlayerChoice();	
-					} else {
+					} 
+					// AI
+					else 
+					{
 						catChoice = aGame.getPlayer(turn).selectCategory(aGame.getPlayer(turn).getTopCard(), timer);
 					}
 					
 					gameOver = aGame.playCategory(catChoice);
+					for (int i = 0; i < aGame.getNumPlayers(); i++) {
+						if (i==0) {
+							System.out.println("-----HUMAN HAND --------");
+							aGame.getPlayer(i).printHand();
+						}
+						else {
+							aGame.getPlayer(i).printHand();
+							System.out.println(String.format("-----P%d1 HAND --------", i));
+						}
+					}
 					aGame.nullAndSort();
 					
+					// Process win
 					if (gameOver) {
-						aGame.playerWins();
+					
+						//Print a buffer
+						System.out.println("");
+						System.out.println("");
+						for(int i =0;i<30;i++) {
+							System.out.print("-");
+						}
+						System.out.println("");
+						
+						// print the winner
+						
+						if(aGame.getPlayer(0).getTopCard()!=null) {
+							System.out.println("Congratulations you have won!");
+						}
+						for (int i = 1; i < aGame.getNumPlayers(); i++) {
+							if (aGame.getPlayer(i).getTopCard() != null ) {
+								System.out.println(String.format("Player %d has won the game!", i));
+							}
+						}
+
+						//Print another buffer
+						for(int i =0;i<30;i++) {
+							System.out.print("-");
+						}
+						System.out.println("");
+						System.out.println("");
+						// gameover
 					}
+					// 
 					else {
 						int victor = aGame.doRoundCalc(catChoice);
-						aGame.takePile(victor);
+						// if not a draw
+						if (victor != aGame.getNumPlayers()) {
+						
+						
+							aGame.setDrawNo(0);
+						
+							System.out.println("----------Round Winning Card----------");
+							System.out.println(aGame.displayCard(aGame.getActiveCard(victor)));
+							System.out.println("---------------------------------------");
+							aGame.getPlayer(victor).givePlayerCards(aGame.getActiveCards(), aGame.getCommunalPile());
+						}
+						
 						String winnerString = "";
 						
 	
@@ -78,15 +169,19 @@ public class TopTrumpsCLIApplication {
 								aGame.comClearer();
 						}
 						if (victor == aGame.getNumPlayers()) {
-								aGame.draw();
+								
 								
 								winnerString = "That round was a draw!";
 							}
 						}
+						
+						if (victor == aGame.getNumPlayers()) {
+							aGame.draw();
+						}
 						aGame.clearActiveCards();
 						System.out.println(winnerString);
 					}
-					round++;
+					
 					}
 				
 			}

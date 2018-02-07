@@ -18,7 +18,7 @@ public class Game {
 
 	private AIPlayer[] players = new AIPlayer[NUMPLAYERS];
 
-	private boolean timer = true;
+	private boolean timer = false;
 	private int hpOut=0, p1Out=0, p2Out=0, p3Out=0, p4Out=0, totalOut=0, drawCount=0, drawNo=0;
 	
 	/**
@@ -30,8 +30,7 @@ public class Game {
 		for(int i = 0; i < NUMPLAYERS; i++) {
 			players[i] = new AIPlayer();
 		}
-	//	round=1;
-	//	turn=0;
+
 		deal();
 	}
 	
@@ -54,42 +53,7 @@ public class Game {
 	}
 	
 	
-	/**
-	 * Uses turn counter "t" to determine which player is choosing the category. 
-	 * If the player is the human then they are asked to select a category to play. 
-	 * Non human players use the method in AIPlayer to select and play the highest card 
-	 * @param t
-	 */
-	public String playRound(int t)	{
-		//Checks if the human still has cards to play
-		try {
-			System.out.println(displayCard(players[0].getTopCard()));
-		}
-		//If not prints a message to say they have no card
-		catch(NullPointerException n)	{
-			System.out.println("No card :(");
-		}
-		//Human user's turn
-		if(t==0)	{
-			return "Please select a category to play:\n1 = Size, 2 = Speed, 3 = Range, 4 = Firepower, 5 = Cargo";
-		}
-		//AIPlayers' turns
-		if(t==1)	{
-			return "Player 1 is choosing a category to play:";
-		}
-		if(t==2)	{
-			return "Player 2 is choosing a category to play:";
-		}
-		if(t==3)	{
-			return "Player 3 is choosing a category to play:";	
-		}
-		if(t==4)	{
-		return "Player 4 is choosing a category to play:";
-		}
-		else 
-			return "turn error";
-	}
-	
+
 	
 	/**
 	 * Method to display a visual card on the commandline
@@ -171,19 +135,7 @@ public class Game {
 			p4Out=1;
 		}
 		
-		System.out.println("-----HUMAN HAND --------");
-		players[0].printHand();
-		System.out.println("-----P1 HAND --------");
-		players[1].printHand();
-		System.out.println("-----P2 HAND --------");
-		players[2].printHand();
-		System.out.println("-----P3 HAND --------");
-		players[3].printHand();
-		System.out.println("-----P4 HAND --------");
-		players[4].printHand();
-		
-		
-	
+
 		/*
 		 * If 4 players are out someone has won
 		 */
@@ -312,101 +264,38 @@ public class Game {
 	}
 	
 	
-	/**
-	 * Gives the winner the communal and active piles.
-	 * If the round is a draw the cards go into the communal pile.
-	 * @param v
-	 * @return
-	 */
-	public void takePile(int v)	{		
-		//If there is not a draw then the round winning card is printed
-		if(v<5) {
-			System.out.println("----------Round Winning Card----------");
-			System.out.println(displayCard(activeCards[v]));
-			System.out.println("---------------------------------------");
-			drawNo=0;
-		}
-		/*
-		 * Process each of the winners
-		 */
-		if(v==0)	{
-			players[0].givePlayerCards(activeCards, communalPile);
-			
-		}
-		else if(v==1)	{
-			players[1].givePlayerCards(activeCards, communalPile);
-			
-		}
-		else if(v==2)	{
-			players[2].givePlayerCards(activeCards, communalPile);	
-		}
-		else if(v==3)	{
-			players[3].givePlayerCards(activeCards, communalPile);	
-		}
-		else if(v==4)	{
-			players[4].givePlayerCards(activeCards, communalPile);
-		}
-		
-	}
+
+
 	public void clearActiveCards() {
 		for (int i = 0; i < activeCards.length; i++) {
 			activeCards[i] = null;
 		}
 	}
 	public void draw() {
-		int active =0;
-		for(int i=0; i<MAXCARDS;i++) {
-			if(communalPile[i]==null) {
-				if(active<NUMPLAYERS) {
-					communalPile[i]=activeCards[active];
-				active++;
-				}
-				else {
-					break;
-				}
-			}
+		drawCount = drawNo*NUMPLAYERS;
+		for(int i = 0; i < NUMPLAYERS; i++) {
+			communalPile[drawCount] = activeCards[i];
+			drawCount++;
 		}
 		
 		drawNo++;
 		
-	}
-	/**
-	 * Process when a player wins the game
-	 */
-	public boolean playerWins() {
-		//Print a buffer
-		System.out.println("");
-		System.out.println("");
-		for(int i =0;i<30;i++) {
-			System.out.print("-");
-		}
-		System.out.println("");
 		
-		//Print the winner
-		if(players[0].getTopCard()!=null) {
-			System.out.println("Congratulations you have won!");
-		}
-		else if(players[1].getTopCard()!=null){
-			System.out.println("Player 1 has won the game!");
-		}
-		else if(players[2].getTopCard()!=null){
-			System.out.println("Player 2 has won the game!");
-		}
-		else if(players[3].getTopCard()!=null){
-			System.out.println("Player 3 has won the game!");
-		}
-		else if(players[4].getTopCard()!=null){
-			System.out.println("Player 4 has won the game!");
-		}
 		
-		//Print another buffer
-		for(int i =0;i<30;i++) {
-			System.out.print("-");
-		}
-		System.out.println("");
-		System.out.println("");
-		// gameover
-		return true;
+		
+//		int active =0;
+//		for(int i=0; i<MAXCARDS;i++) {
+//			if(communalPile[i]==null) {
+//				if(active<NUMPLAYERS) {
+//					communalPile[i]=activeCards[active];
+//				active++;
+//				}
+//				else {
+//					break;
+//				}
+//			}
+//		}
+	
 	}
 	
 	/**
@@ -422,25 +311,30 @@ public class Game {
 	public void nullAndSort() {
 		/*
 		 * Nulls the top cards in all of the player piles after placing them in the active pile
-		 */
-		players[0].nullTopCard();
-		players[1].nullTopCard();
-		players[2].nullTopCard();
-		players[3].nullTopCard();
-		players[4].nullTopCard();
-		
-		/*
 		 * Pushes all the cards up one slot in the array so the top card is not void
 		 */
-		players[0].sortCards();
-		players[1].sortCards();
-		players[2].sortCards();
-		players[3].sortCards();
-		players[4].sortCards();
 		
+		for (int i = 0; i < NUMPLAYERS; i++) {
+			players[i].nullTopCard();
+			players[i].sortCards();
+		}		
 	}
+	
+	public void setDrawNo(int no) {
+		drawNo = no;
+	}
+	
 	public String getString() {
 		return "Yes";
+	}
+	public Cards[] getActiveCards() {
+		return activeCards;
+	}
+	public Cards[] getCommunalPile() {
+		return communalPile;
+	}
+	public Cards getActiveCard(int c) {
+		return activeCards[c];
 	}
 	
 	public AIPlayer getPlayer(int p) {

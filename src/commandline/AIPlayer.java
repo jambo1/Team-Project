@@ -85,11 +85,11 @@ import java.util.concurrent.TimeUnit;
 		 * @param cp
 		 */
 		public void givePlayerCards(Cards[] ap, Cards[] cp)	{
-//			int p=0,l=0,m=0;
-//			while(p<40) {
-//				System.out.println(cp[p] + "-------com");
-//				p++;
-//			}
+			int p=0,l=0,m=0;
+			while(p<40) {
+				System.out.println(cp[p] + "-------com");
+				p++;
+			}
 //			while(l<5) {
 //				if(ap[l]==null)	{
 //					//System.out.println(l + "null--------act");

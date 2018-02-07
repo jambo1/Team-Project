@@ -92,7 +92,7 @@ public class TopTrumpsRESTAPI {
 	@GET
 	@Path("/displayCard")
 	public String displayCard() throws IOException {
-		String cardThings = aGame.getString();
+		String cardThings = aGame.getPlayer(0).getTopCard().getDescription();
 		return cardThings; 
 		
 	}
