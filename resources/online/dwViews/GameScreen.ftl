@@ -96,11 +96,11 @@
 					<p Id = "categoryChoice">
 				<b>Select Category</b>
 					<select id="no3">
- 						<option value="Size">1</option>
-  						<option value="Speed">2</option>
-  						<option value="Range">3</option>
-  						<option value="Firepower">4</option>
-  						<option value="Cargo">5</option>
+ 						<option value="Size">Size</option>
+  						<option value="Speed">Speed</option>
+  						<option value="Range">Range</option>
+  						<option value="Firepower">Firepower</option>
+  						<option value="Cargo">Cargo</option>
 					</select>
 				</p>
 			<br/>
