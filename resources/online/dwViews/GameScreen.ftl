@@ -105,7 +105,7 @@
 			}
 		</style>
 	</head>
-<body>
+</body>
 	</head>
 
     <body onload="initalize()"> <!-- Call the initalize method when the page loads -->
@@ -123,11 +123,11 @@
   				<option value="4">4</option>
   				<option value="5">5</option>
 			</select>
-				<button onclick="gameOn()" id="button1">Start Game</button>
+				<button id="button1">Start Game</button>
 			<!-- need a method to make this button work -->
 				<button onclick="gameStats()" id="button2">Game Stats</button>
 				<button onclick="existGame()" id="button3">Exit</button>
-			</p>
+		</p>
 			<br/>
 		<aside>
 			<ul.b>
@@ -147,11 +147,10 @@
   								<img src="https://vignette.wikia.nocookie.net/starwars/images/2/21/MF_over_Takodana_SWCT.png/revision/latest?cb=20170605041002" alt="Avatar" style="width:100%">
  				 			<div class="container">
  				 			</br>
- 				 			</br>
+ 				 		</br>
     							<!--h4><b></b></h4-->
   							</div>
 						</div>
- 						</p>
 					<p Id = "categoryChoice">
 				<b>Select Category</b>
 					<select id="no3">
@@ -172,6 +171,7 @@
 
 			// Method that is called on page load
 			function initalize() {
+				document.getElementById("button1").addEventListener("click", gameOn);  
 
 				// --------------------------------------------------------------------------
 				//pick players
@@ -180,8 +180,6 @@
 				// You can call other methods you want to run when the page first loads here
 				// --------------------------------------------------------------------------
 
-
- /// can courtnee l?
 			}
 
 			// -----------------------------------------
@@ -192,8 +190,8 @@
 	// --------------------------------------------------------------------------
 			function gameOn() {
 				setPlayers();
-				document.getElementById("numberOfPlayers").innerHTML = "";
-				startGame();
+				 	this.button1.style.visibility = "hidden";
+					startGame();
 				displayCard();
 			}
 			
