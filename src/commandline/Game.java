@@ -348,11 +348,13 @@ public class Game {
 		}
 		
 	}
+	//clears active cards after the round 
 	public void clearActiveCards() {
 		for (int i = 0; i < activeCards.length; i++) {
 			activeCards[i] = null;
 		}
 	}
+	//places cards in communal pile if draw, continues to add to communal until there is a round winner 
 	public void draw() {
 		int active =0;
 		for(int i=0; i<MAXCARDS;i++) {
