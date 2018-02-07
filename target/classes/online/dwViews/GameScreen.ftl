@@ -18,22 +18,21 @@
     	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<head>
-		meta name="viewport" content="width=device-width, initial-scale=1">
 		<style>
 			div.container {
-			color: white; 
-			background-color: #2E4053; 
-    			width: 100%;
-   			border: 1px solid gray;
-		}
-
-			header, footer {
-   				padding: 1em;
-   				color: white;
-   			 	background-color: #85929E;
-   			 	clear: left;
-    				text-align: center;
-			}
+				color: white; 
+					background-color: #2E4053; 
+    					width: 100%;
+   				border: 1px solid gray;
+				}
+	
+				header, footer {
+   					padding: 1em;
+   						color: white;
+   			 			background-color: #85929E;
+   			 			clear: left;
+    					text-align: center;
+				}
 
 			aside {
     				float: left;
@@ -106,7 +105,48 @@
 		</style>
 	</head>
 </body>
-	</head>
+<script>
+		function initalize() {
+				document.getElementById("button1").onclick = gameOn;  
+				document.getElementById("yourCard").display = none; 
+				// --------------------------------------------------------------------------
+				//pick players
+				//start game
+				//choose category
+				// You can call other methods you want to run when the page first loads here
+				// --------------------------------------------------------------------------
+
+			}
+
+	function gameOn() {
+				//setPlayers();
+				alert("Bitches get stitches"); 
+				 	this.button1.style.visibility = "hidden";
+				 	document.getElementById("numberOfPlayers").display; 
+				 	startGame();
+				//displayCard();
+			}
+		// --------------------------------------------------------------------------
+			function startGame()
+			 {
+			 	document.getElementById("yourCard").innerHTML; 
+				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/startGame");
+				if (!xhr) {
+					alert("CORS not supported");
+				}
+				xhr.onload = function(e) {
+ 					var responseText = xhr.response; // the text of the response
+
+					//alert(responseText);
+					
+ 					
+ 				}
+ 				
+ 				xhr.send();
+ 				
+			 };	
+			 
+		</script>
 
     <body onload="initalize()"> <!-- Call the initalize method when the page loads -->
 
@@ -123,7 +163,9 @@
   				<option value="4">4</option>
   				<option value="5">5</option>
 			</select>
-				<button id="button1">Start Game</button>
+			</p>
+			<p>
+				<button id="button1" onclick ="gameOn();">Start Game</button>
 			<!-- need a method to make this button work -->
 				<button onclick="gameStats()" id="button2">Game Stats</button>
 				<button onclick="existGame()" id="button3">Exit</button>
@@ -138,7 +180,7 @@
    			 <ul.b>
 		</aside>
 	</div>
-		<div class "container">
+		<div class = "container" id = "yourCard">
 			<article>
   				<h2>Your Card</h2>
  					<p>Need method to print top card here</p>
@@ -171,8 +213,8 @@
 
 			// Method that is called on page load
 			function initalize() {
-				document.getElementById("button1").addEventListener("click", gameOn);  
-
+				document.getElementById("button1").onclick = gameOn;  
+				document.getElementById("yourCard").innerHTML = " "; 
 				// --------------------------------------------------------------------------
 				//pick players
 				//start game
@@ -188,12 +230,6 @@
 
 
 	// --------------------------------------------------------------------------
-			function gameOn() {
-				setPlayers();
-				 	this.button1.style.visibility = "hidden";
-					startGame();
-				displayCard();
-			}
 			
 	// --------------------------------------------------------------------------
 			function setPlayers()
@@ -214,25 +250,7 @@
  				}
  				xhr.send();
 			 };
-	// --------------------------------------------------------------------------
-			function startGame()
-			 {
-				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/startGame");
-				if (!xhr) {
-					alert("CORS not supported");
-				}
-				xhr.onload = function(e) {
- 					var responseText = xhr.response; // the text of the response
-
-					//alert(responseText);
-					
- 					
- 				}
- 				
- 				
- 				xhr.send();
- 				
-			 };
+	
 	// --------------------------------------------------------------------------
 			function displayCard() {
 
