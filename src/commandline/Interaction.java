@@ -1,3 +1,5 @@
+
+
 package commandline;
 
 import java.sql.*;
@@ -8,7 +10,12 @@ public class Interaction {
 
 	private Connection connection =null;
 	private int newGame;
-	private int newGame1;
+	//Variables to store the round winds for each player
+	private int hrw, p2rw, p3rw, p4rw , p5rw; 
+	//Total draws and total rounds
+	private int td , tr;
+	//updates the wins for either ai player or human
+	private int aiwins, humanwins;
 	
 
 	public Interaction() {
@@ -174,7 +181,7 @@ public class Interaction {
 	
 	
 
-	public void updateStats ()
+	public void updateSQL ()
 	{ 
 		Statement stmt = null;
 		String query = "select max (gamenumber) as gamenumber from toptrumps.gamestats";
@@ -185,15 +192,14 @@ public class Interaction {
 			while (rsid.next()) {
 
 				newGame = rsid.getInt("gamenumber") + 1;
-				newGame1 = rsid.getInt("totalgames") + 1;
 
 			}
 
-			String query1 = "Insert into toptrumps.gamestats Values ("+ newGame +", " + hrw +", " + p1rw + ", " + p2rw + ", " + p3rw + ", " + p4rw +", " + td + ", " + tr + " )";
+			String query1 = "Insert into toptrumps.gamestats Values ("+ newGame +", " + hrw +", " + p2rw + ", " + p3rw + ", " + p4rw + ", " + p5rw +", " + td + ", " + tr + " )";
 			PreparedStatement insert = connection.prepareStatement(query1);
 			insert.executeUpdate();	
 
-			String query2 = "Insert into toptrumps.overallstats Values (" + newGame1 +", " + aiwins + ", " + humanwins + ")";
+			String query2 = "Insert into toptrumps.overallstats Values (" + newGame +", " + aiwins + ", " + humanwins + ")";
 			PreparedStatement insert1 = connection.prepareStatement(query2);
 			insert.executeUpdate();	
 		}
@@ -214,8 +220,32 @@ public class Interaction {
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Connection could not be closed – SQL exception");
+			System.out.println("Connection could not be closed â€“ SQL exception");
 		}
+	}
+	/**
+	 * Updates all of the required stats at points of the game
+	 * @param human
+	 * @param p1
+	 * @param p2
+	 * @param p3
+	 * @param p4
+	 * @param totalDraws
+	 * @param totalRounds
+	 * @param humanWinner
+	 * @param AIWinner
+	 */
+	public void statisticsUpdate(int human, int p1, int p2, int p3, int p4, int totalDraws, int totalRounds, int humanWinner, int AIWinner) {
+		hrw += human;
+		p2rw += p1;
+		p3rw += p2;
+		p4rw += p3;
+		p5rw += p4;
+		td += totalDraws;
+		tr += totalRounds;
+		humanwins += humanWinner;
+		aiwins += AIWinner;
 	}
 
 }
+>>>>>>> 67ffc0a080d2ad820de72c057e8ed51007076b09
