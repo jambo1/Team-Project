@@ -1,289 +1,249 @@
 
 package commandline;
 
-import java.io.*;
-import java.util.Scanner;
+import java.sql.*;
 
-/**
- * Class to print the logs for commandline version of the game
- * @author Jamie
- *
- */
-public class logWriter {
-	 private String outputFileName = "toptrumps.log";
-	 private BufferedWriter writer; 
-	 private final int NUMCARDS = 40;
-	 private final String SEPARATOR = String.format("%n------------------%n");
-	 private final String TAB = "    ";
+import commandline.Interaction;
+
+public class Interaction {
+
+	private Connection connection =null;
+	private int newGame;
+	//Variables to store the round winds for each player
+	private int hrw, p2rw, p3rw, p4rw , p5rw; 
+	//Total draws and total rounds
+	private int td , tr;
+	//updates the wins for either ai player or human
+	private int aiwins, humanwins;
 	
 
-	/**
-	 * Constructor
-	 */
-	public logWriter() {
+	public Interaction() {
+	}
+
+	public void connection () {
+
+		String dbname = "m_17_2356209m";
+		String username = "m_17_2356209m";
+		String password = "2356209m";
+
+
 		try {
-			writer = new BufferedWriter(new FileWriter(outputFileName));
-			writer.close();
+			connection =
+					DriverManager.getConnection("jdbc:postgresql://yacata.dcs.gla.ac.uk:5432/" +
+							dbname,username, password);
 		}
-		catch(IOException ioe){
-			
+		catch (SQLException e) {
+			System.err.println("Connection Failed!");
+			e.printStackTrace();
+			return;
 		}
+		if (connection != null) {
+//			System.out.println("Connection successful");
+		}
+		else {
+			System.err.println("Failed to make connection!");
+		}
+
 	}
-	
-	/**
-	 * Print the contents of the complete deck when read from file and constructed
-	 * @param deck
-	 */
-	public void logFreshDeck(Cards[] deck) {
-		try{
-			try{
-				//Create a fresh file with filewriter with false signifying overwrite current file
-				FileWriter fw = new FileWriter(outputFileName, false);
-				writer = new BufferedWriter(fw);
-				
-				//Use a StringBuilder to build the contents of the cards into a printable format
-				StringBuilder sb = new StringBuilder();
-				//Loop through the deck and get the description of each card, separated by a tab
-				for(int i=0;i<NUMCARDS;i++) {
-					sb.append(String.format(deck[i].getDescription() + TAB));
-				}
-				//Write the card information and print the separator
-				writer.write(sb.toString());
-				writer.write(SEPARATOR);
-			}
-			//Close writer
-			finally {
-			writer.close();
-			}
-		}
-		//If IOException do nothing
-		catch(IOException ioe) {
-		}
-				
-		
-		
-	}
-	
-	/**
-	 * Print the contents of the complete deck when it has been shuffled
-	 * @param deck
-	 */
-	public void logShuffledDeck(Cards[] deck) {
-		try{
-			try {
-				/*
-				 * Create a FileWriter using true to signify that the file should be 
-				 * appended to and BufferedWriter to actually write to the file
-				 */
-				FileWriter fw = new FileWriter(outputFileName, true);
-				writer = new BufferedWriter(fw);
-				//Stringbuilder to store the card information
-				StringBuilder sb = new StringBuilder();
-				//Loop through the deck and store each cards description in the stringbuilder, separated by a tab
-				for(int i=0;i<NUMCARDS;i++) {
-					sb.append(String.format(deck[i].getDescription() + TAB));
-				}
-				//Write the stringbuilder to file
-				writer.write(sb.toString());
-			}
-		
-			finally {
-				//Print the separator and close the writer
-				writer.write(SEPARATOR);
-				writer.close();
-			}
-		}
-		//If IOE do nothing
-		catch(IOException ioe) {}
-	}
-	
-	/**
-	 * Prints the user and computer's hands. User hand is always in hands[0]
-	 */
-	public void logHands(Cards[][] hands) {
-		//Stringbuilder to store the information
-		StringBuilder sb = new StringBuilder();
+
+	public int TotalGames () 
+	{
+		Statement stmt = null;
+		String query = "SELECT max(totalgames) AS totalgames\r\n" +
+				"FROM toptrumps.overallstats;";
+
+
+		int TotalGames = 0;
+	 
 		try {
-			try {
-				//FileWriter, true to signify append to file and bufferedwriter for efficiency
-				FileWriter fw = new FileWriter(outputFileName, true);
-				writer = new BufferedWriter(fw);
-				
-				//Loop through and print the user hand
-				sb.append(String.format("%nUser's hand%n"));
-				//Print each card separated by a TAB
-				for(int i=0;i<hands[0].length;i++) {
-					sb.append(String.format(hands[0][i].getDescription()+TAB));
-				}
-				
-				//Print each of the computer hands
-				for(int i=1;i<hands.length;i++) {
-					//Append the current player
-					sb.append(String.format("%nPlayer "+ i+"'s hand%n"));
-					//Add each card separated by a TAB
-					for(int j=0;j<hands[i].length;j++) {
-						sb.append(String.format(hands[i][j].getDescription()+TAB));
-					}
-				}
-				
-			}
-			finally {
-				//Print the separator and close the writer
-				writer.write(SEPARATOR);
-				writer.close();
+			stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+
+				TotalGames = rs.getInt("totalgames");
+
 			}
 		}
-		catch(IOException ioe) {}
+		catch (SQLException e ) {
+			e.printStackTrace();
+			System.err.println("error executing query " + query);
+		}
+
+		return TotalGames;
+
+	}
+
+	public int AIwins ()
+	{
+		Statement stmt = null;
+		String query = "SELECT max(aiwins) AS aiwins\r\n" +
+				"FROM toptrumps.overallstats;";
+
+		int AIwins = 0;
+
+		try {
+			stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+
+				AIwins = rs.getInt("aiwins");
+
+			}
+		}
+		catch (SQLException e ) {
+			e.printStackTrace();
+			System.err.println("error executing query " + query);
+		}
+
+		return AIwins;
+
+	}
+
+	public int HumanWins ()
+	{
+		Statement stmt = null;
+		String query = "SELECT max(humanwins) AS humanwins\r\n" +
+				"FROM toptrumps.overallstats;";
+
+		int HumanWins = 0;
+
+		try {
+			stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+
+				HumanWins = rs.getInt("humanwins");
+
+			}
+		}
+		catch (SQLException e ) {
+			e.printStackTrace();
+			System.err.println("error executing query " + query);
+		}
+
+		return HumanWins;
+
+	}
+
+	public int AverageDraws ()
+	{
+		Statement stmt = null;
+		String query = "SELECT ROUND (AVG(totaldraws)) AS averagedraws\r\n" +
+				"FROM toptrumps.gamestats;";
+
+		int AverageDraws = 0;
+
+		try {
+			stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+
+				AverageDraws = rs.getInt("averagedraws");
+
+			}
+		}
+		catch (SQLException e ) {
+			e.printStackTrace();
+			System.err.println("error executing query " + query);
+		}
+
+		return AverageDraws;
+		
+
 	}
 	
-	/**
-	 * Prints the communal pile
-	 * @param communists
-	 */
-	public void logCommunalPile(Cards[] communists) {
-		try{
-			try {
-				//FileWriter with true to signify append and bufferedwriter for efficiency
-				FileWriter fw = new FileWriter(outputFileName, true);
-				writer = new BufferedWriter(fw);
-				
-				//Stringbuilder to handle the information
-				StringBuilder sb = new StringBuilder();
-				//Print header stating communal pile
-				sb.append(String.format("%nCommunal pile%n"));
-				
-				//Loop through the communal pile and print the card description separated by a tab
-				for(int i=0;i<communists.length;i++) {
-					sb.append(String.format(communists[i].getDescription() + TAB));
-				}
-				//Write to file
-				writer.write(sb.toString());
-			}
-			finally {
-				//Print the separator and close the writer
-				writer.write(SEPARATOR);
-				writer.close();
+	public int HighestRounds ()
+	{
+		Statement stmt = null;
+		String query = "Select max(totalrounds) as highestrounds\r\n" +
+				"FROM toptrumps.gamestats;";
+
+		int HighestRounds = 0;
+
+		try {
+			stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+
+				HighestRounds = rs.getInt("highestrounds");
+
 			}
 		}
-		//Catch IOE do nothing
-		catch(IOException ioe) {}
+		catch (SQLException e ) {
+			e.printStackTrace();
+			System.err.println("error executing query " + query);
+		}
+
+		return HighestRounds;
+
 	}
 	
-	/**
-	 * Prints the active cards
-	 * @param active
-	 */
-	public void logActivePile(Cards[] active) {
-		try{
-			try {
-				//FileWriter with true to signify append and bufferedwriter for efficiency
-				FileWriter fw = new FileWriter(outputFileName, true);
-				writer = new BufferedWriter(fw);
-				
-				//SB to hold the information
-				StringBuilder sb = new StringBuilder();
-				//Print header
-				sb.append(String.format("%nCurrent Cards in Play%n"));
-				
-				//Loop through the active cards and print their descriptions
-				for(int i=0;i<active.length;i++) {
-					sb.append(String.format(active[i].getDescription() + TAB));
-				}
-				//Write to file
-				writer.write(sb.toString());
+	
+
+	public void updateSQL ()
+	{ 
+		Statement stmt = null;
+		String query = "select max (gamenumber) as gamenumber from toptrumps.gamestats";
+
+		try {
+			stmt = connection.createStatement();
+			ResultSet rsid = stmt.executeQuery(query);
+			while (rsid.next()) {
+
+				newGame = rsid.getInt("gamenumber") + 1;
+
 			}
-			finally {
-				//Print the separator and close the writer
-				writer.write(SEPARATOR);
-				writer.close();
-			}
+
+			String query1 = "Insert into toptrumps.gamestats Values ("+ newGame +", " + hrw +", " + p2rw + ", " + p3rw + ", " + p4rw + ", " + p5rw +", " + td + ", " + tr + " )";
+			PreparedStatement insert = connection.prepareStatement(query1);
+			insert.executeUpdate();	
+
+			String query2 = "Insert into toptrumps.overallstats Values (" + newGame +", " + aiwins + ", " + humanwins + ")";
+			PreparedStatement insert1 = connection.prepareStatement(query2);
+			insert.executeUpdate();	
 		}
-		//Catch IOE do nothing
-		catch(IOException ioe) {}
+		catch (SQLException e) {
+			e.printStackTrace();
+			System.err.println("error executing query ");
+
+		}
+
 	}
 	
-	/**
-	 * Prints the chosen category in a round and the values each of the cards has for that category
-	 * @param cardValArray
-	 * @param c
-	 */
-	public void logCategoryValues(int[] cardValArray, int c) {
-		try{
-			try {
-				//FileWriter with true to signify append and bufferedwriter for efficiency
-				FileWriter fw = new FileWriter(outputFileName, true);
-				writer = new BufferedWriter(fw);
-				
-				//Stringbuilder to hold information
-				StringBuilder sb = new StringBuilder();
-				sb.append(String.format("%nChosen Category and Values%n"));
-				
-				//Switch to determine what the chosen category was and to append it to sb
-				switch (c){
-					case 1 : sb.append("Chosen category was Size" );
-							break;
-					case 2 : sb.append("Chosen category was Speed" );
-							break;
-					case 3 : sb.append("Chosen category was Rango" );
-							break;
-					case 4 : sb.append("Chosen category was Firepower" );
-							break;
-					case 5 : sb.append("Chosen category was Cargo" );
-							break;
-				}
-				
-				//Append the values for the category
-				for(int i=0;i<cardValArray.length;i++) {
-					sb.append(String.format(""+cardValArray[i] + TAB));
-				}
-				//Write to file
-				writer.write(sb.toString());
-			}
-			finally {
-				//Print the separator and close the writer
-				writer.write(SEPARATOR);
-				writer.close();
-			}
+	public void disconnect()
+	{
+
+		try {
+			connection.close();
+//			System.out.println("Connection closed");
 		}
-		//Catch IOE do nothing
-		catch (IOException ioe) {}
-	}
-	
-	/**
-	 * Stores the winner of the game to the log file
-	 * @param player
-	 */
-	public void logWinner(int player) {
-		//Stringbuilder to hold data to be writen
-		StringBuilder sb = new StringBuilder();
-		try{
-			try {
-				//FileWriter with true to signify append and bufferedwriter for efficiency
-				FileWriter fw = new FileWriter(outputFileName, true);
-				writer = new BufferedWriter(fw);
-				
-				//Switch to handle which player has won
-				switch (player) {
-					case 0 : sb.append("The human user won the game");
-							break;
-					case 1 : sb.append("Computer player 1 won the game");
-							break;
-					case 2 : sb.append("Computer player 2 won the game");
-							break;
-					case 3 : sb.append("Computer player 3 won the game");
-							break;
-					case 4 : sb.append("Computer player 4 won the game");
-							break;
-				}
-			}
-			//Write to file close writer
-			finally {
-					writer.write(sb.toString());
-					writer.close();
-				}
+		catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Connection could not be closed – SQL exception");
 		}
-		//Catch IOE do nothing
-		catch(IOException ioe) {}
 	}
+	/**
+	 * Updates all of the required stats at points of the game
+	 * @param human
+	 * @param p1
+	 * @param p2
+	 * @param p3
+	 * @param p4
+	 * @param totalDraws
+	 * @param totalRounds
+	 * @param humanWinner
+	 * @param AIWinner
+	 */
+	public void statisticsUpdate(int human, int p1, int p2, int p3, int p4, int totalDraws, int totalRounds, int humanWinner, int AIWinner) {
+		hrw += human;
+		p2rw += p1;
+		p3rw += p2;
+		p4rw += p3;
+		p5rw += p4;
+		td += totalDraws;
+		tr += totalRounds;
+		humanwins += humanWinner;
+		aiwins += AIWinner;
+	}
+
 }
-	
