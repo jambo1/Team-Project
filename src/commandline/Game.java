@@ -34,9 +34,6 @@ public class Game {
 		deal();
 	}
 	
-	/**
-	 * Loops through the game and continues until one player is victorious
-	 */
 
 	/**
 	 * Deals the cards between players until there are no cards in the deck.

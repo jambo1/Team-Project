@@ -1,5 +1,5 @@
 <html>
-
+	<body background= "https://i.ytimg.com/vi/fOl6TUPTcO8/maxresdefault.jpg">
 	<head>
 		<!-- Web page title -->
     	<title>Top Trumps</title>
@@ -18,8 +18,11 @@
     	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<head>
+		meta name="viewport" content="width=device-width, initial-scale=1">
 		<style>
 			div.container {
+			color: white; 
+			background-color: #2E4053; 
     			width: 100%;
    			border: 1px solid gray;
 		}
@@ -27,32 +30,78 @@
 			header, footer {
    				padding: 1em;
    				color: white;
-   			 	background-color: black;
+   			 	background-color: #85929E;
    			 	clear: left;
     				text-align: center;
 			}
 
-			gameStats {
+			aside {
     				float: left;
     				max-width: 160px;
     				margin: 0;
    			 	padding: 1em;
+   			 	<!--background-color: #2E4053;--> 
 			}
 
-			gameStats {
+			aside {
    			 	list-style-type: none;
     				padding: 0;
 			}
    
-			gameStats a {
+			aside ul b{
     				text-decoration: none;
 			}
 
-			cardBody {
+			article {
+				color: white; 
    				margin-left: 170px;
     				border-left: 1px solid gray;
     				padding: 1em;
     				overflow: hidden;
+			}
+			h1{
+				font-family: 'Allerta Stencil', monospace;
+				font-size: 36px;
+				font-style: italic; 
+				font-variant: normal;
+				font-weight: 900;
+				line-height: 26.4px;
+				}
+			h2{
+				font-family: 'Allerta Stencil', monospace;
+				font-size: 17px;
+				font-style: italic; 
+				font-variant: normal;
+				font-weight: 900;
+				line-height: 26.4px;
+				}
+			#button1, #button2, #button3{
+				display:inline-block;
+				font-family: 'Allerta Stencil', monospace;
+				font-size: 12px; 
+				width: 90px;
+				height: 30px;
+				}
+			#button4{
+				display:inline-block;
+				font-family: 'Allerta Stencil', monospace;
+				font-size: 12px; 
+				width: 90px;
+				height: 30px;
+				}
+				
+		.card {
+    			box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+   		 	transition: 0.3s;
+    			width: 40%;
+			}
+
+		.card:hover {
+    			box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+			}
+
+		.container {
+   			 padding: 2px 16px;
 			}
 		</style>
 	</head>
@@ -66,33 +115,43 @@
    			<h1>Top Trumps</h1>
 		</header>
 			<p Id = "numberOfPlayers">
-			<b>Please choose number of players</b>
+			</br>
+			<b>Choose number of players</b>
 			<select id="nop">
  				<option value="2">2</option>
   				<option value="3">3</option>
   				<option value="4">4</option>
   				<option value="5">5</option>
 			</select>
-				<button onclick="gameOn()">start game</button>
-			</p>
-			<br/>
-			<b>Game Statistics</b>
+				<button onclick="gameOn()" id="button1">Start Game</button>
 			<!-- need a method to make this button work -->
-				<button onclick="gameStats()">Game Statistics</button>
+				<button onclick="gameStats()" id="button2">Game Stats</button>
+				<button onclick="existGame()" id="button3">Exit</button>
 			</p>
 			<br/>
-		<gameStats>
-		   		<p>Round Winner</p>
-		    		<p>Draws</p>
-   			 	<p>Turn</p>
-		</gameStats>
-
+		<aside>
+			<ul.b>
+			</br>
+		   		<li><a><h2>Round Winner</h2></a></li>
+		    		<li><a><h2>Draws</h2></a></li>
+   			 	<li><a><h2>Turn</h2></a></li>
+   			 <ul.b>
+		</aside>
 	</div>
 		<div class "container">
-			<cardBody>
+			<article>
   				<h2>Your Card</h2>
  					<p>Need method to print top card here</p>
  						<!--METHOD here should only allow to pick when its the humans turn-->
+							<div class="card">
+  								<img src="https://vignette.wikia.nocookie.net/starwars/images/2/21/MF_over_Takodana_SWCT.png/revision/latest?cb=20170605041002" alt="Avatar" style="width:100%">
+ 				 			<div class="container">
+ 				 			</br>
+ 				 			</br>
+    							<!--h4><b></b></h4-->
+  							</div>
+						</div>
+ 						</p>
 					<p Id = "categoryChoice">
 				<b>Select Category</b>
 					<select id="no3">
@@ -102,10 +161,11 @@
   						<option value="Firepower">Firepower</option>
   						<option value="Cargo">Cargo</option>
 					</select>
+					<button onclick="playRound()" id="button4">Play Round</button>
 				</p>
 			<br/>
   					
-		</cardBody>
+		</article>
 	</div>
 
 		<script type="text/javascript">
@@ -191,6 +251,36 @@
  				}
  				xhr.send();
 			};
+	// --------------------------------------------------------------------------		
+			function getCardDescription(player) {
+			 	var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/getCardDescription?player="player); // Request type and URL+parameters
+				if (!xhr) {
+		  			alert("CORS not supported");
+				}
+				xhr.onload = function(e) {
+ 					var responseText = xhr.response; // the text of the response
+
+ 				
+
+ 					document.getElementById("card").innerHTML = responseText;
+ 				}
+ 				xhr.send();
+			}
+	// --------------------------------------------------------------------------
+			function getCardValues(player) {
+					var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/getCardValues?player="player); // Request type and URL+parameters
+				if (!xhr) {
+		  			alert("CORS not supported");
+				}
+				xhr.onload = function(e) {
+ 					var responseText = xhr.response; // the text of the response
+
+ 					document.getElementById("board").innerHTML = "Your card:";
+
+ 					document.getElementById("card").innerHTML = responseText;
+ 				}
+ 				xhr.send();
+			}
 	// --------------------------------------------------------------------------
 			function displayActiveCards() {
 			

@@ -112,13 +112,13 @@ public class TopTrumpsRESTAPI {
 	
 	@GET
 	@Path("/gameIsOver")
-	public int gameIsOver() {
+	public int gameIsOver()  throws IOException {
 		return finalVictor;
 	}
 	
 	@GET
 	@Path("/isGameOver")
-	public boolean isGameOver() {
+	public boolean isGameOver() throws IOException {
 		return gameOver;
 	}
 	
@@ -152,9 +152,28 @@ public class TopTrumpsRESTAPI {
 	public String displayCard() throws IOException {
 		String cardThings = aGame.getPlayer(0).getTopCard().getDescription();
 		return cardThings; 
-		
 	}
 	
+	@GET
+	@Path("/getCardDescription")
+	public String getCardDescription(@QueryParam("player") int player) throws IOException {
+		return aGame.getPlayer(player).getTopCard().getDescription();
+	}
+	
+	@GET
+	@Path("/getCardValues")
+	public String getCardValues(@QueryParam("player") int player)  throws IOException {
+		
+		StringBuilder sb = new StringBuilder("");
+		sb.append(String.format("| %26s |\r\n", aGame.getPlayer(player).getTopCard().getDescription()));
+		sb.append(String.format("| Size: %20d |\r\n", aGame.getPlayer(player).getTopCard().getSize()));
+		sb.append(String.format("| Speed: %19d |\r\n", aGame.getPlayer(player).getTopCard().getSpeed()));
+		sb.append(String.format("| Range: %19d |\r\n",aGame.getPlayer(player).getTopCard().getRange()));
+		sb.append(String.format("| Firepower: %15d |\r\n",aGame.getPlayer(player).getTopCard().getFirepower()));
+		sb.append(String.format("| Cargo: %19d |\r\n",aGame.getPlayer(player).getTopCard().getCargo()));
+		
+		return sb.toString();
+	}
 	
 	@GET
 	@Path("/helloJSONList")
