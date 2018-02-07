@@ -82,10 +82,6 @@ public class TopTrumpsCLIApplication {
 												+ "category to play:", i));
 						}
 					}
-					
-					
-					
-					
 					int catChoice = 0;
 					// human
 					if(turn == 0) {

@@ -191,8 +191,77 @@
  				}
  				xhr.send();
 			};
-
 	// --------------------------------------------------------------------------
+			function displayActiveCards() {
+			
+			}
+	// --------------------------------------------------------------------------
+			function playCategory() {
+				// 
+			 	var p = document.getElementById("no3");
+			 	var num = p.options[p.selectedIndex].value;
+
+			 	var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/playCategory?Category="+num); // Request type and URL+parameters
+				if (!xhr) {
+		  			alert("CORS not supported");
+				}
+				xhr.onload = function(e) {
+					// Returns which category was chosen ie "speed" or "Firepower"
+ 					var responseText = xhr.response; // the text of the response
+
+ 					// document.getElementById("").innerHTML = responseText;
+ 					
+
+ 				}
+ 				xhr.send();
+ 				
+			 };
+		
+	// --------------------------------------------------------------------------
+			function isGameOver() {
+			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/isGameOver"); // Request type and URL+parameters
+				if (!xhr) {
+		  			alert("CORS not supported");
+				}
+				xhr.onload = function(e) {
+					// Returns boolean, true = game is over.
+ 					var responseBoolean = xhr.response; // the text of the response
+
+ 					// call function gameIsOver if responseBoolean is true 
+ 					// gameIsOver();
+
+ 				}
+ 				xhr.send();
+ 				
+			 };
+	
+	
+	// --------------------------------------------------------------------------
+			function gameIsOver() {
+			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/gameIsOver"); // Request type and URL+parameters
+				if (!xhr) {
+		  			alert("CORS not supported");
+				}
+				xhr.onload = function(e) {
+					// Returns the winner, 
+ 					var responseWinner = xhr.response; // the text of the response
+
+ 					//  do what needs to be done with ze winner
+ 					// 
+
+ 				}
+ 				xhr.send();
+ 				
+			}
+	// --------------------------------------------------------------------------
+			function 
+	
+	
+	
+	
+	
+	
+	
 	// --------------------------------------------------------------------------
 	// ----------------------------Written by Richard----------------------------
 	// --------------------------------------------------------------------------

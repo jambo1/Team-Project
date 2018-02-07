@@ -40,7 +40,9 @@ public class TopTrumpsRESTAPI {
 	ObjectWriter oWriter = new ObjectMapper().writerWithDefaultPrettyPrinter();
 	private Cards[] deck;
 	private Game aGame;
-	
+	private boolean gameOver;
+	private int round, turn;
+	private int finalVictor;
 	
 	/**
 	 * Contructor method for the REST API. This is called first. It provides
@@ -66,11 +68,67 @@ public class TopTrumpsRESTAPI {
 	// ----------------------------------------------------
 	// Add relevant API methods here
 	// ----------------------------------------------------
+	@GET
+	@Path("/playCategory")
+	public int playCategory(@QueryParam("Category") int category) throws IOException {
+		int victor = 10;
+		if (turn == 0) {
+			// do nothing, use QueryParam since it's the users choice
+		} else {
+			category = aGame.getPlayer(turn).selectCategory(aGame.getPlayer(turn).getTopCard(), false);
+		}
+		gameOver = aGame.playCategory(category);
+		aGame.nullAndSort();
+		if (gameOver) {
+			for (int i = 0; i < aGame.getNumPlayers(); i++) {
+				if (aGame.getPlayer(i).getTopCard() != null ) {
+					finalVictor = i;
+				}
+			}
+			
+		}
+		else {
+			victor = aGame.doRoundCalc(category);
+			if (victor != aGame.getNumPlayers()) {
+				aGame.setDrawNo(0);
+				aGame.getPlayer(victor).givePlayerCards(aGame.getActiveCards(), aGame.getCommunalPile());
+				
+				turn = victor;
+				aGame.comClearer();
+				
+			}
+			else {
+				aGame.draw();
+			}
+			aGame.clearActiveCards();
+			
+		}
+		
+		
+		return victor;
+	}
+	
+	
+	
+	@GET
+	@Path("/gameIsOver")
+	public int gameIsOver() {
+		return finalVictor;
+	}
+	
+	@GET
+	@Path("/isGameOver")
+	public boolean isGameOver() {
+		return gameOver;
+	}
 	
 	@GET
 	@Path("/startGame")
 	public String startGame() throws IOException {
 		createGame();
+		gameOver = false;
+		turn = 0;
+		round = 0;
 		return "game started se command line";
 	}
 	
@@ -142,7 +200,7 @@ public class TopTrumpsRESTAPI {
 		deck = TopTrumpsCLIApplication.getDeck();
 		System.out.println(deck[0].getDescription());
 		aGame = new Game(deck);
-		//aGame.playGame();
+		
 		}
 		catch(NullPointerException e) { 
 			System.out.println("NullP"); 
