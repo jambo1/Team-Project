@@ -1,5 +1,4 @@
 
-
 package commandline;
 
 import java.io.*;
@@ -287,5 +286,3 @@ public class logWriter {
 		catch(IOException ioe) {}
 	}
 }
-	
->>>>>>> 67ffc0a080d2ad820de72c057e8ed51007076b09

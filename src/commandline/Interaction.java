@@ -1,5 +1,4 @@
 
-
 package commandline;
 
 import java.sql.*;
@@ -10,12 +9,14 @@ public class Interaction {
 
 	private Connection connection =null;
 	private int newGame;
+
 	//Variables to store the round winds for each player
 	private int hrw, p2rw, p3rw, p4rw , p5rw; 
 	//Total draws and total rounds
 	private int td , tr;
 	//updates the wins for either ai player or human
 	private int aiwins, humanwins;
+
 	
 
 	public Interaction() {
@@ -181,7 +182,11 @@ public class Interaction {
 	
 	
 
+
 	public void updateSQL ()
+
+	public void updateStats ()
+
 	{ 
 		Statement stmt = null;
 		String query = "select max (gamenumber) as gamenumber from toptrumps.gamestats";
@@ -220,6 +225,7 @@ public class Interaction {
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
+
 			System.out.println("Connection could not be closed â€“ SQL exception");
 		}
 	}
@@ -248,4 +254,10 @@ public class Interaction {
 	}
 
 }
->>>>>>> 67ffc0a080d2ad820de72c057e8ed51007076b09
+
+			System.out.println("Connection could not be closed – SQL exception");
+		}
+	}
+
+}
+

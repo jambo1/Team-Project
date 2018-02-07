@@ -110,6 +110,7 @@
 
     <body onload="initalize()"> <!-- Call the initalize method when the page loads -->
 
+<<<<<<< HEAD
     	<div class="container" Id = "pickPlayers">
     		<header>
    			<h1>Top Trumps</h1>
@@ -168,6 +169,35 @@
 		</article>
 	</div>
 
+=======
+			<!-- Add your HTML Here -->
+			
+			<header class="main-header">
+    <div class="container" style="background-color: #cce6ff;">
+        <div class="row">
+            <div class="col-sm-3 col-xs-3 header-left">
+            </div>
+            <div class="col-sm6 xs-hidden header-center">
+                <h1 class = "start">
+                    <br>
+                    <span class="start-highlight"> Top Trumps: Let's Play </span>
+                </h1>
+            </div>
+            <div class="col-sm-3 col-xs-9 header-top">
+                 <div class="row">
+                    <div class="col-md-5"></div>
+                    <div class="col-md-2">
+                </div>
+            <div class="col-md-5"></div>
+        </div>
+            </div>
+        </div>
+    </div>
+</header>
+		
+		</div>
+		
+>>>>>>> d5731b1e0de3842d3652513fc9dc9d57a418771e
 		<script type="text/javascript">
 
 			// Method that is called on page load
@@ -179,9 +209,18 @@
 				//choose category
 				// You can call other methods you want to run when the page first loads here
 				// --------------------------------------------------------------------------
+<<<<<<< HEAD
 
 
  /// can courtnee l?
+=======
+				
+				// For example, lets call our sample methods
+				helloJSONList();
+				helloWord("Top Trumps Online");
+				
+				
+>>>>>>> d5731b1e0de3842d3652513fc9dc9d57a418771e
 			}
 
 			// -----------------------------------------

@@ -1,3 +1,4 @@
+import commandline.Interaction;
 import commandline.TopTrumpsCLIApplication;
 
 import online.TopTrumpsOnlineApplication;
