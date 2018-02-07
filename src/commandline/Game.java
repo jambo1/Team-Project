@@ -34,10 +34,6 @@ public class Game {
 	//	turn=0;
 		deal();
 	}
-	
-	/**
-	 * Loops through the game and continues until one player is victorious
-	 */
 
 	/**
 	 * Deals the cards between players until there are no cards in the deck.
@@ -326,16 +322,13 @@ public class Game {
 			System.out.println("---------------------------------------");
 			drawNo=0;
 		}
-		/*
-		 * Process each of the winners
-		 */
+
+		//Process each of the winners 
 		if(v==0)	{
-			players[0].givePlayerCards(activeCards, communalPile);
-			
+			players[0].givePlayerCards(activeCards, communalPile);	
 		}
 		else if(v==1)	{
 			players[1].givePlayerCards(activeCards, communalPile);
-			
 		}
 		else if(v==2)	{
 			players[2].givePlayerCards(activeCards, communalPile);	
@@ -441,6 +434,8 @@ public class Game {
 		players[4].sortCards();
 		
 	}
+	
+	
 	public String getString() {
 		return "Yes";
 	}
