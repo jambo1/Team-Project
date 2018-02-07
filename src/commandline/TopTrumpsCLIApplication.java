@@ -11,6 +11,7 @@ import java.util.Scanner;
 public class TopTrumpsCLIApplication {
 	private static final int MAXCARDS = 40;
 	private static Cards[] deck = new Cards[MAXCARDS];
+	
 
 	/**
 	 * This main method is called by TopTrumps.java when the user specifies that they want to run in
@@ -18,6 +19,8 @@ public class TopTrumpsCLIApplication {
  	 * @param args
 	 */
 	public static void main(String[] args) {
+	
+		
 		
 		//Read file and create the deck, then shuffle it
 		createDeck();
@@ -40,9 +43,22 @@ public class TopTrumpsCLIApplication {
 				System.out.println("User choice was 1");
 				Game aGame = new Game(deck);
 			}
-			//Show statistics
+			//Connect to database and show statistics
 			if(choice ==2) {
-				System.out.println("User choice was 2");
+				System.out.println("User choice was 2");  
+				
+				Interaction in = new Interaction();
+				in.connection();
+				System.out.println("The total number of games played is " + in.TotalGames());			
+				System.out.println("The total number of human wins is " + in.HumanWins());
+				System.out.println("The total number of AI wins is " + in.AIwins());
+			    System.out.println("The average number of draws is " + in.AverageDraws());
+				System.out.println("The highest number of rounds played in a single game is " + in.HighestRounds());
+				in.disconnect();
+				
+				
+			
+		
 			}
 			//User wants to exit the game
 			if(choice ==3) {
