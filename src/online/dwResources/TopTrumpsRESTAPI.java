@@ -68,6 +68,15 @@ public class TopTrumpsRESTAPI {
 	// ----------------------------------------------------
 	// Add relevant API methods here
 	// ----------------------------------------------------
+	
+	/**
+	 * This method is called whenever user presses 'Play Round'. Pretty much reasembles the 
+	 * command line game logic but without any system.out. This funciton @returns who won
+	 * the round. 
+	 * @param category
+	 * @return
+	 * @throws IOException
+	 */
 	@GET
 	@Path("/playCategory")
 	public int playCategory(@QueryParam("Category") int category) throws IOException {
@@ -109,19 +118,33 @@ public class TopTrumpsRESTAPI {
 	}
 	
 	
-	
+	/**
+	 * Method called when isGameOver has returned true. This method @returns who won the game
+	 * @return
+	 * @throws IOException
+	 */
 	@GET
 	@Path("/gameIsOver")
 	public int gameIsOver()  throws IOException {
 		return finalVictor;
 	}
 	
+	/**
+	 * This method is called to check wether or not the game is over.
+	 * @return
+	 * @throws IOException
+	 */
 	@GET
 	@Path("/isGameOver")
 	public boolean isGameOver() throws IOException {
 		return gameOver;
 	}
-	
+	/**
+	 * This method is called when user press 'Start Game'. it creates a new game and 
+	 * set all necessary parameters to their default values. Doesn't need to return anything.
+	 * @return
+	 * @throws IOException
+	 */
 	@GET
 	@Path("/startGame")
 	public String startGame() throws IOException {
@@ -132,13 +155,26 @@ public class TopTrumpsRESTAPI {
 		return "game started";
 	}
 	
-	
+	/**
+	 * This funciton is called whenever a user presses a button on the home screen.
+	 * This function can be deleted i think -----------------------------------
+	 * @param selection
+	 * @return
+	 * @throws IOException
+	 */
 	@GET
 	@Path("/selection")
 	public String getSelection(@QueryParam("Selection") int selection) throws IOException {
 		return "" + selection + " was chosen";
 	}
 	
+	/**
+	 * This function is meant to be called when the user starts the game. A way to set the 
+	 * amount of players for the game. Does not need to return anything.
+	 * @param numberOfPlayers
+	 * @return
+	 * @throws IOException
+	 */
 	@GET
 	@Path("/numberOfPlayers")
 	public String setNumberOfPlayers(@QueryParam("numberOfPlayers") int numberOfPlayers) throws IOException {
@@ -147,6 +183,11 @@ public class TopTrumpsRESTAPI {
 		return "You choose " + numberOfPlayers + " players. Good luck!";
 	}
 	
+	/**
+	 * This method has been replaced by getCardDescription and getCardValues
+	 * @return
+	 * @throws IOException
+	 */
 	@GET
 	@Path("/displayCard")
 	public String displayCard() throws IOException {
@@ -154,12 +195,24 @@ public class TopTrumpsRESTAPI {
 		return cardThings; 
 	}
 	
+	/**
+	 * This method returns the Description of a certain players current top card. 
+	 * @param player
+	 * @return
+	 * @throws IOException
+	 */
 	@GET
 	@Path("/getCardDescription")
 	public String getCardDescription(@QueryParam("player") int player) throws IOException {
 		return aGame.getPlayer(player).getTopCard().getDescription();
 	}
 	
+	/**
+	 * This method returns a string with all values of a certain players current top card.
+	 * @param player
+	 * @return
+	 * @throws IOException
+	 */
 	@GET
 	@Path("/getCardValues")
 	public String getCardValues(@QueryParam("player") int player)  throws IOException {
@@ -211,13 +264,16 @@ public class TopTrumpsRESTAPI {
 		return "Hello "+ word;
 	}
 	
-	
+	/**
+	 * This method creates a deck, shuffles the deck and initialises a new game with said deck.
+	 * 
+	 * @return
+	 */
 	public boolean createGame() {
 		try {
 		TopTrumpsCLIApplication.createDeck();
 		TopTrumpsCLIApplication.shuffle();
 		deck = TopTrumpsCLIApplication.getDeck();
-		System.out.println(deck[0].getDescription());
 		aGame = new Game(deck);
 		
 		}
