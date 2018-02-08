@@ -16,6 +16,8 @@ public class TopTrumpsCLIApplication {
 	private static boolean gameOver;
 	private static int round, turn;
 	private static boolean timer = false;
+	private static logWriter log = new logWriter();
+	private static boolean writeGameLogsToFile = true;
 
 	/**
 	 * This main method is called by TopTrumps.java when the user specifies that they want to run in
@@ -26,12 +28,13 @@ public class TopTrumpsCLIApplication {
 	
 		
 		
-		//Read file and create the deck, then shuffle it
+		//Read file and create the deck
 		createDeck();
-		Collections.shuffle(Arrays.asList(deck));
 		
-		boolean writeGameLogsToFile = false; // Should we write game logs to file?
-		//if (args[0].equalsIgnoreCase("true")) writeGameLogsToFile=true; // Command line selection
+/*		/*
+//		 * uncomment before submission
+//		 */
+//		//if (args[0].equalsIgnoreCase("true")) writeGameLogsToFile=true; // Command line selection
 		
 		// State
 		boolean userWantsToQuit = false; // flag to check whether the user wants to quit the application
@@ -39,13 +42,24 @@ public class TopTrumpsCLIApplication {
 		// Loop until the user wants to exit the game
 		while (!userWantsToQuit) {
 			Collections.shuffle(Arrays.asList(deck));
+			//Log the shuffled deck
+			if(writeGameLogsToFile = true) {log.logShuffledDeck(deck);}
+			
+			
 			//Get User input
 			 int choice = getUserChoice();
 			 
 			//Play game
 			if (choice ==1) {
 				System.out.println("User choice was 1");
-				createGame(); 
+				
+				//Create the game and deal the cards
+				createGame();
+				aGame.deal();
+				
+				//Log the hands dealt
+				if(writeGameLogsToFile = true) {log.logHands(aGame.getAllPlayers());}
+				
 				gameOver = false;
 				turn = 0;
 				round = 0;
@@ -98,14 +112,19 @@ public class TopTrumpsCLIApplication {
 					}
 					
 					gameOver = aGame.playCategory(catChoice);
+					
+					//Log the active cards chosen category and values
+					log.logActivePile(aGame.getActiveCards());
+					log.logCategoryValues(aGame.getActiveCards(), catChoice);
+					
 					for (int i = 0; i < aGame.getNumPlayers(); i++) {
 						if (i==0) {
 							System.out.println("-----HUMAN HAND --------");
 							aGame.getPlayer(i).printHand();
 						}
 						else {
+							System.out.println(String.format("-----P%d HAND --------", i));
 							aGame.getPlayer(i).printHand();
-							System.out.println(String.format("-----P%d1 HAND --------", i));
 						}
 					}
 					aGame.nullAndSort();
@@ -125,9 +144,12 @@ public class TopTrumpsCLIApplication {
 						
 						if(aGame.getPlayer(0).getTopCard()!=null) {
 							System.out.println("Congratulations you have won!");
+							if(writeGameLogsToFile = true) {log.logWinner(0);}
 						}
 						for (int i = 1; i < aGame.getNumPlayers(); i++) {
 							if (aGame.getPlayer(i).getTopCard() != null ) {
+								//Log winner
+								if(writeGameLogsToFile = true) {log.logWinner(i);}
 								System.out.println(String.format("Player %d has won the game!", i));
 							}
 						}
@@ -167,17 +189,18 @@ public class TopTrumpsCLIApplication {
 								turn = victor;
 								winnerString = String.format("Player %s won that round!", victor);
 								aGame.comClearer();
-						}
-						if (victor == aGame.getNumPlayers()) {
-								
-								
-								winnerString = "That round was a draw!";
 							}
 						}
-						
 						if (victor == aGame.getNumPlayers()) {
-							aGame.draw();
+								//process draw
+								aGame.draw();
+								//Log the communal pile
+								if(writeGameLogsToFile = true) {log.logCommunalPile(aGame.getCommunalPile());}
+								
+								winnerString = "That round was a draw!";
 						}
+						
+						
 						aGame.clearActiveCards();
 						System.out.println(winnerString);
 					}
@@ -214,13 +237,11 @@ public class TopTrumpsCLIApplication {
 		}
 	}
 	
-	public static void shuffle() {
-		Collections.shuffle(Arrays.asList(deck));
-	}
 	
 
 	public static void createGame() {
 		aGame = new Game(deck);
+		aGame.deal();
 	}
 	
 	/**
@@ -234,7 +255,7 @@ public class TopTrumpsCLIApplication {
     		in= new Scanner(reader);
     		//Line counter
     		int count =0;
-    		try {
+    		try{
 				while (in.hasNext()){
 					//Reads id from file, if this corresponds to a valid class then the class is stored as activity
 					String line = in.nextLine();
@@ -259,20 +280,28 @@ public class TopTrumpsCLIApplication {
 						
 					}
 				}
-    		}
+	    	}
     		//Close reader and scanner and return the deck
     		finally {
+    			if(writeGameLogsToFile = true) {log.logFreshDeck(deck);}
 				reader.close();
 				in.close();
 				return true;
-			}
+    		}
     	}
-    	//Catch input/output errors
+		//Catch input/output errors
 		catch(IOException ioe) {
     		System.out.println("IOException error");
     		return false;
-    	}	
+    	}
+    			
+    		
     }
+    	
+	
+    	
+    		
+    
 	
 	/**
 	 * Prints a menu of options to the user,
