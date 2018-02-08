@@ -105,54 +105,64 @@
 			}
 		</style>
 	</head>
-<body>
+</body>
 	</head>
 
+<script>
+	function gameOn() {
+			alert("ALERT");
+			//	setPlayers();
+			//	document.getElementById("numberOfPlayers").innerHTML = "";
+			//	//startGame();
+			//	displayCard();
+			}
+			</script>
     <body onload="initalize()"> <!-- Call the initalize method when the page loads -->
 
-<<<<<<< HEAD
+
     	<div class="container" Id = "pickPlayers">
     		<header>
    			<h1>Top Trumps</h1>
 		</header>
 			<p Id = "numberOfPlayers">
-			</br>
-			<b>Choose number of players</b>
-			<select id="nop">
- 				<option value="2">2</option>
-  				<option value="3">3</option>
-  				<option value="4">4</option>
-  				<option value="5">5</option>
-			</select>
-				<button onclick="gameOn()" id="button1">Start Game</button>
-			<!-- need a method to make this button work -->
-				<button onclick="gameStats()" id="button2">Game Stats</button>
-				<button onclick="existGame()" id="button3">Exit</button>
+				<br/>
+				<b>Choose number of players</b>
+				<select id="nop">
+	 				<option value="2">2</option>
+	  				<option value="3">3</option>
+	  				<option value="4">4</option>
+	  				<option value="5">5</option>
+				</select>
+					<button onclick="gameOn()" id="button1">Start Game</button>
+				<!-- need a method to make this button work -->
 			</p>
+					<button onclick="gameStats()" id="button2">Game Stats</button>
+					<button onclick="existGame()" id="button3">Exit</button>
+			
 			<br/>
 		<aside>
 			<ul.b>
-			</br>
+			<br/>
 		   		<li><a><h2>Round Winner</h2></a></li>
 		    		<li><a><h2>Draws</h2></a></li>
    			 	<li><a><h2>Turn</h2></a></li>
    			 <ul.b>
 		</aside>
 	</div>
-		<div class "container">
+		<div class = "container">
 			<article>
   				<h2>Your Card</h2>
- 					<p>Need method to print top card here</p>
+ 					<p Id = "test">Need method to print top card here</p>
  						<!--METHOD here should only allow to pick when its the humans turn-->
 							<div class="card">
   								<img src="https://vignette.wikia.nocookie.net/starwars/images/2/21/MF_over_Takodana_SWCT.png/revision/latest?cb=20170605041002" alt="Avatar" style="width:100%">
  				 			<div class="container">
- 				 			</br>
- 				 			</br>
+ 				 			<br/>
+ 				 			<br/>
     							<!--h4><b></b></h4-->
   							</div>
 						</div>
- 						</p>
+ 					
 					<p Id = "categoryChoice">
 				<b>Select Category</b>
 					<select id="no3">
@@ -169,7 +179,7 @@
 		</article>
 	</div>
 
-=======
+
 			<!-- Add your HTML Here -->
 			
 			<header class="main-header">
@@ -197,7 +207,7 @@
 		
 		</div>
 		
->>>>>>> d5731b1e0de3842d3652513fc9dc9d57a418771e
+
 		<script type="text/javascript">
 
 			// Method that is called on page load
@@ -209,18 +219,18 @@
 				//choose category
 				// You can call other methods you want to run when the page first loads here
 				// --------------------------------------------------------------------------
-<<<<<<< HEAD
+
 
 
  /// can courtnee l?
-=======
+
 				
 				// For example, lets call our sample methods
 				helloJSONList();
 				helloWord("Top Trumps Online");
 				
 				
->>>>>>> d5731b1e0de3842d3652513fc9dc9d57a418771e
+
 			}
 
 			// -----------------------------------------
@@ -229,12 +239,7 @@
 
 
 	// --------------------------------------------------------------------------
-			function gameOn() {
-				setPlayers();
-				document.getElementById("numberOfPlayers").innerHTML = "";
-				startGame();
-				displayCard();
-			}
+		
 			
 	// --------------------------------------------------------------------------
 			function setPlayers()
@@ -249,7 +254,7 @@
 				xhr.onload = function(e) {
  					var responseText = xhr.response; // the text of the response
 
- 					document.getElementById("messageBoard").innerHTML = responseText;
+ 					document.getElementById("test").innerHTML = responseText;
  					
 
  				}
