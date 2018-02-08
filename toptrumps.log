@@ -2,5 +2,222 @@ Deck has been generated
 350r    Avenger    Carrack    Constellation    Hawk    Hornet    Hurricane    Idris    m50    Merchantman    Orion    Sabre    Vanguard    350r    Avenger    Carrack    Constellation    Hawk    Hornet    Hurricane    Idris    m50    Merchantman    Orion    Sabre    Vanguard    350r    Avenger    Carrack    Constellation    Hawk    Hornet    Hurricane    Idris    m50    Merchantman    Orion    Sabre    Vanguard    Avenger    
 ------------------
 Deck has been shuffled
-m50    Sabre    m50    Orion    Hawk    350r    Merchantman    Hawk    Vanguard    Merchantman    Idris    Hornet    Constellation    Avenger    Hurricane    Vanguard    Carrack    Hurricane    Avenger    Carrack    Sabre    Avenger    Hornet    Constellation    Hurricane    Idris    Idris    m50    Avenger    Orion    Constellation    Orion    Carrack    350r    Merchantman    Vanguard    Hawk    Sabre    350r    Hornet    
+Vanguard    Constellation    Idris    Carrack    Orion    350r    Sabre    Carrack    350r    Vanguard    Avenger    Hurricane    Avenger    Constellation    Avenger    Sabre    m50    Hawk    Sabre    Hawk    Idris    Merchantman    Avenger    m50    Hornet    Orion    Constellation    Hornet    Carrack    Vanguard    Hurricane    Hornet    Merchantman    350r    Merchantman    Idris    Orion    Hurricane    Hawk    m50    
+------------------
+Hands dealt to players
+User's hand
+Vanguard    350r    Avenger    Sabre    Idris    Orion    Hurricane    Idris    
+Player 1's hand
+Constellation    Sabre    Hurricane    m50    Merchantman    Constellation    Hornet    Orion    
+Player 2's hand
+Idris    Carrack    Avenger    Hawk    Avenger    Hornet    Merchantman    Hurricane    
+Player 3's hand
+Carrack    350r    Constellation    Sabre    m50    Carrack    350r    Hawk    
+Player 4's hand
+Orion    Vanguard    Avenger    Hawk    Hornet    Vanguard    Merchantman    m50    
+------------------
+
+Current Cards in Play
+Vanguard    Constellation    Idris    Carrack    Orion    
+------------------
+Chosen category was Size
+Values were: 3    4    8    6    10    
+------------------
+
+Current Cards in Play
+350r    Sabre    Carrack    350r    Vanguard    
+------------------
+Chosen category was Range
+Values were: 2    2    10    2    5    
+------------------
+
+Current Cards in Play
+Avenger    Hurricane    Avenger    Constellation    Avenger    
+------------------
+Chosen category was Speed
+Values were: 5    5    5    5    5    
+------------------
+
+Communal pile
+Avenger    Hurricane    Avenger    Constellation    Avenger    
+------------------
+
+Current Cards in Play
+Sabre    m50    Hawk    Sabre    Hawk    
+------------------
+Chosen category was Firepower
+Values were: 5    2    4    5    4    
+------------------
+
+Communal pile
+Avenger    Hurricane    Avenger    Constellation    Avenger    Sabre    m50    Hawk    Sabre    Hawk    
+------------------
+
+Current Cards in Play
+Idris    Merchantman    Avenger    m50    Hornet    
+------------------
+Chosen category was Speed
+Values were: 2    3    5    10    5    
+------------------
+
+Current Cards in Play
+Orion    Constellation    Hornet    Carrack    Vanguard    
+------------------
+Chosen category was Range
+Values were: 6    7    3    10    5    
+------------------
+
+Current Cards in Play
+Hurricane    Hornet    Merchantman    350r    Merchantman    
+------------------
+Chosen category was Speed
+Values were: 5    5    3    9    3    
+------------------
+
+Current Cards in Play
+Idris    Orion    Hurricane    Hawk    m50    
+------------------
+Chosen category was Firepower
+Values were: 10    2    5    4    2    
+------------------
+
+Current Cards in Play
+Idris    null    350r    Avenger    Vanguard    
+------------------
+Chosen category was Size
+Values were: 8    0    1    2    3    
+------------------
+
+Current Cards in Play
+Orion    null    Sabre    Hurricane    Constellation    
+------------------
+Chosen category was Size
+Values were: 10    0    2    2    4    
+------------------
+
+Current Cards in Play
+Hurricane    null    Carrack    Avenger    Idris    
+------------------
+Chosen category was Size
+Values were: 2    0    6    2    8    
+------------------
+
+Current Cards in Play
+Hawk    null    350r    Constellation    Carrack    
+------------------
+Chosen category was Range
+Values were: 2    0    2    7    10    
+------------------
+
+Current Cards in Play
+m50    null    Vanguard    Avenger    Orion    
+------------------
+Chosen category was Size
+Values were: 1    0    3    2    10    
+------------------
+
+Current Cards in Play
+Idris    null    null    Sabre    Hurricane    
+------------------
+Chosen category was Speed
+Values were: 2    0    0    7    5    
+------------------
+
+Current Cards in Play
+350r    null    null    m50    Carrack    
+------------------
+Chosen category was Speed
+Values were: 9    0    0    10    2    
+------------------
+
+Current Cards in Play
+Avenger    null    null    Hawk    Avenger    
+------------------
+Chosen category was Firepower
+Values were: 3    0    0    4    3    
+------------------
+
+Current Cards in Play
+Vanguard    null    null    Sabre    Idris    
+------------------
+Chosen category was Speed
+Values were: 4    0    0    7    2    
+------------------
+
+Current Cards in Play
+Orion    null    null    Hawk    Hawk    
+------------------
+Chosen category was Firepower
+Values were: 2    0    0    4    4    
+------------------
+
+Communal pile
+Orion    Hawk    Hawk    
+------------------
+
+Current Cards in Play
+Sabre    null    null    Idris    350r    
+------------------
+Chosen category was Firepower
+Values were: 5    0    0    10    3    
+------------------
+
+Current Cards in Play
+Hurricane    null    null    Merchantman    Constellation    
+------------------
+Chosen category was Cargo
+Values were: 0    0    0    8    4    
+------------------
+
+Current Cards in Play
+Constellation    null    null    Avenger    Carrack    
+------------------
+Chosen category was Speed
+Values were: 5    0    0    5    2    
+------------------
+
+Communal pile
+Constellation    Avenger    Carrack    
+------------------
+
+Current Cards in Play
+null    null    null    m50    m50    
+------------------
+Chosen category was Speed
+Values were: 0    0    0    10    10    
+------------------
+
+Communal pile
+Constellation    Avenger    Carrack    m50    m50    
+------------------
+
+Current Cards in Play
+null    null    null    Hornet    Vanguard    
+------------------
+Chosen category was Speed
+Values were: 0    0    0    5    4    
+------------------
+
+Current Cards in Play
+null    null    null    Orion    Avenger    
+------------------
+Chosen category was Size
+Values were: 0    0    0    10    2    
+------------------
+
+Current Cards in Play
+null    null    null    Constellation    Orion    
+------------------
+Chosen category was Range
+Values were: 0    0    0    7    6    
+------------------
+
+Current Cards in Play
+null    null    null    Hornet    null    
+------------------
+Chosen category was Speed
+Values were: 0    0    0    5    0    
+------------------
+Computer player 3 won the gameDeck has been shuffled
+Merchantman    Orion    Hawk    Avenger    Sabre    Hawk    Avenger    Sabre    Hurricane    Constellation    Vanguard    Avenger    350r    Hurricane    Constellation    Carrack    Idris    Vanguard    Hawk    Hornet    Hornet    m50    Orion    Hornet    Constellation    Sabre    m50    m50    Orion    350r    Hurricane    Idris    Vanguard    Merchantman    Avenger    350r    Merchantman    Carrack    Idris    Carrack    
 ------------------

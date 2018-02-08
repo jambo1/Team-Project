@@ -269,29 +269,31 @@ public class Game {
 		}
 	}
 	public void draw() {
-		drawCount = drawNo*NUMPLAYERS;
-		for(int i = 0; i < NUMPLAYERS; i++) {
-			communalPile[drawCount] = activeCards[i];
-			drawCount++;
-		}
-		
-		drawNo++;
-		
-		
-		
-		
-//		int active =0;
-//		for(int i=0; i<MAXCARDS;i++) {
-//			if(communalPile[i]==null) {
-//				if(active<NUMPLAYERS) {
-//					communalPile[i]=activeCards[active];
-//				active++;
-//				}
-//				else {
-//					break;
-//				}
-//			}
+//		drawCount = drawNo*NUMPLAYERS;
+//		for(int i = 0; i < NUMPLAYERS; i++) {
+//			communalPile[drawCount] = activeCards[i];
+//			drawCount++;
 //		}
+//		
+//		drawNo++;
+		
+		
+		
+		
+		int active =0;
+		for(int i=0; i<MAXCARDS;i++) {
+			if(communalPile[i]==null) {
+				if(active<NUMPLAYERS) {
+					if(activeCards[active]!=null) {
+						communalPile[i]=activeCards[active];
+					}
+					active++;
+				}
+				else {
+					break;
+				}
+			}
+		}
 	
 	}
 	
@@ -338,6 +340,10 @@ public class Game {
 	
 	public AIPlayer getPlayer(int p) {
 		return players[p];
+	}
+	
+	public AIPlayer[] getAllPlayers() {
+		return players;
 	}
 	
 	public int getNumPlayers() {
