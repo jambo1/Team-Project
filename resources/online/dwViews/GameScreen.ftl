@@ -179,6 +179,7 @@
 				document.getElementById("player2").style.visibility = "hidden";
 				document.getElementById("player3").style.visibility = "hidden";
 				document.getElementById("player4").style.visibility = "hidden";
+				document.getElementById("button5").style.visibility = "hidden";
 			}
 	
 	function endCurrentGame() {
@@ -198,9 +199,18 @@
 		}
 	}
 	function gameOn() {
-				//setPlayers();
-				//alert("Bitches get stitches"); 
+				setPlayers(document.getElementById("nop").options[document.getElementById("nop").selectedIndex].value);
+				
 				startGame(); 
+				document.getElementById("cardValues1").innerHTML = getCardDescription(1) + "<br />" +getCardSize(1) + "<br />" +
+																	getCardSpeed(1) + "<br />" +getCardRange(1) + "<br />" +getCardFirepower(1) + "<br />" +getCardCargo(1);
+				document.getElementById("cardValues2").innerHTML = getCardDescription(2) + "<br />" +getCardSize(2) + "<br />" +
+																	getCardSpeed(2) + "<br />" +getCardRange(2) + "<br />" +getCardFirepower(2) + "<br />" +getCardCargo(2);
+				document.getElementById("cardValues3").innerHTML = getCardDescription(3) + "<br />" +getCardSize(3) + "<br />" +
+																	getCardSpeed(3) + "<br />" +getCardRange(3) + "<br />" +getCardFirepower(3) + "<br />" +getCardCargo(3);
+				document.getElementById("cardValues4").innerHTML = getCardDescription(4) + "<br />" +getCardSize(4) + "<br />" +
+																	getCardSpeed(4) + "<br />" +getCardRange(4) + "<br />" +getCardFirepower(4) + "<br />" +getCardCargo(4);
+				
 				document.getElementById("button1").style.visibility = "hidden";
 				document.getElementById("numberOfPlayers").style.visibility = "hidden"; 
 				
@@ -266,6 +276,13 @@
 		    		<p Id="DrawCount"></p>
    			 	<li><a><h2>Turn</h2></a></li>
    			 	<p Id="Turn">It's your turn to start!</p>
+   			 	<br />
+   			 	<li><a><h2>Players</h2></a></li>
+		   		<p Id="UserPlayer"></p>
+		   		<p Id="AIPlayer1"></p>
+		   		<p Id="AIPlayer2"></p>
+		   		<p Id="AIPlayer3"></p>
+		   		<p Id="AIPlayer4"></p>
    			 <ul.b>
 		</aside>
 	</div>
@@ -303,6 +320,7 @@
 					</p>
 					<p>
 					<button onclick="playCategory()" id="button4">Play Round</button>
+					<button onclick="nextRound()" id="button5">OK, Let's Go!</button>
 				</p>
 			<br/>
   					
@@ -421,11 +439,30 @@
 
 	// --------------------------------------------------------------------------
 	 // --------------------------------------------------------------------------
-			function setPlayers()
+			function setPlayers(num)
 			 {
-			 	var p = document.getElementById("nop");
-			 	var num = p.options[p.selectedIndex].value;
-
+			 	
+				if (num == 2) {
+					document.getElementById("UserPlayer").innerHTML = "You";
+					document.getElementById("AIPlayer1").innerHTML = "Player 1";
+				} else if (num == 3) {
+					document.getElementById("UserPlayer").innerHTML = "You";
+					document.getElementById("AIPlayer1").innerHTML = "Player 1";
+					document.getElementById("AIPlayer2").innerHTML = "Player 2";
+				} else if (num == 4) {
+					document.getElementById("UserPlayer").innerHTML = "You";
+					document.getElementById("AIPlayer1").innerHTML = "Player 1";
+					document.getElementById("AIPlayer2").innerHTML = "Player 2";
+					document.getElementById("AIPlayer3").innerHTML = "Player 3";
+				} else if (num == 5) {
+					document.getElementById("UserPlayer").innerHTML = "You";
+					document.getElementById("AIPlayer1").innerHTML = "Player 1";
+					document.getElementById("AIPlayer2").innerHTML = "Player 2";
+					document.getElementById("AIPlayer3").innerHTML = "Player 3";
+					document.getElementById("AIPlayer3").innerHTML = "Player 4";
+				}
+				
+				
 			 	var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/numberOfPlayers?numberOfPlayers="+num); // Request type and URL+parameters
 				if (!xhr) {
 		  			alert("CORS not supported");
@@ -434,7 +471,7 @@
  					var responseText = xhr.response; // the text of the response
 
 
- 					alert(responseText);
+ 					//alert(responseText);
 
  					
 
@@ -616,6 +653,7 @@
 	var rounds = 0; 
 	var drawCount = 0;
 	var turn = 0;
+	draw = false;
 			function playCategory() {
 				// 
 				rounds++; 
@@ -637,58 +675,97 @@
 		  			alert("CORS not supported");
 				}
 				xhr.onload = function(e) {
-					// Returns which category was chosen ie "speed" or "Firepower"
+					// Returns the winner of the round
  					var responseText = xhr.response; // the text of the response
-					
-						document.getElementById("player1").style.visibility = "visible";
-				document.getElementById("player2").style.visibility = "visible";
-				document.getElementById("player3").style.visibility = "visible";
-				document.getElementById("player4").style.visibility = "visible";
-				
 					
 					if (responseText == "0") {
 						turn = responseText;
 						document.getElementById("RoundWinner").innerHTML = "You won the round!";
-						document.getElementById("Turn").innerHTML = "It's your turn, choose category and play!"; 
-						document.getElementById("categoryChoice").style.visibility = "visible";
+						draw = false;
 					} else if (responseText == "5") {
+						draw = true;
 						document.getElementById("RoundWinner").innerHTML = "That round was a draw!";
 						drawCount++;
 						document.getElementById("DrawCount").innerHTML = drawCount;
-						if (turn == 0 ) {
-							document.getElementById("Turn").innerHTML = "It's your turn, choose category and play!"; 
-							
-						} else {
-							document.getElementById("Turn").innerHTML = "It's player "+turn+ "'s turn. Press 'Play Round'!"; 
-							document.getElementById("categoryChoice").style.visibility = "hidden";
-							
-						}
 					} else {
 						turn = responseText;
 						document.getElementById("RoundWinner").innerHTML = "Player " + responseText + " won that round!";
-						document.getElementById("Turn").innerHTML = "It's player "+turn+ "'s turn. Press 'Play Round'!";
-						document.getElementById("categoryChoice").style.visibility = "hidden";
+						draw =false;
 					}
-					
-					document.getElementById("cardValues").innerHTML = getCardDescription(0) + "<br />" +getCardSize(0) + "<br />" +
-																	getCardSpeed(0) + "<br />" +getCardRange(0) + "<br />" +getCardFirepower(0) + "<br />" +getCardCargo(0);
-					document.getElementById("cardValues1").innerHTML = getCardDescription(1) + "<br />" +getCardSize(1) + "<br />" +
-																	getCardSpeed(1) + "<br />" +getCardRange(1) + "<br />" +getCardFirepower(1) + "<br />" +getCardCargo(1);
-					document.getElementById("cardValues2").innerHTML = getCardDescription(2) + "<br />" +getCardSize(2) + "<br />" +
-																	getCardSpeed(2) + "<br />" +getCardRange(2) + "<br />" +getCardFirepower(2) + "<br />" +getCardCargo(2);
-					document.getElementById("cardValues3").innerHTML = getCardDescription(3) + "<br />" +getCardSize(3) + "<br />" +
-																	getCardSpeed(3) + "<br />" +getCardRange(3) + "<br />" +getCardFirepower(3) + "<br />" +getCardCargo(3);
-					document.getElementById("cardValues4").innerHTML = getCardDescription(4) + "<br />" +getCardSize(4) + "<br />" +
-																	getCardSpeed(4) + "<br />" +getCardRange(4) + "<br />" +getCardFirepower(4) + "<br />" +getCardCargo(4);
-				
-					
  					document.getElementById("RoundNumber").innerHTML = rounds;
  					
+ 					roundResults();
 
  				}
  				xhr.send();
  				
 			 };
+			 
+			 function roundResults() {
+			 	document.getElementById("button4").style.visibility = "hidden";
+			 	document.getElementById("categoryChoice").style.visibility = "hidden";
+			 	document.getElementById("button5").style.visibility = "visible";
+			 			document.getElementById("player1").style.visibility = "visible";
+						document.getElementById("player2").style.visibility = "visible";
+						document.getElementById("player3").style.visibility = "visible";
+						document.getElementById("player4").style.visibility = "visible";
+		
+			 }
+			 // thinking that we need to determine which cards to print etc. keep track
+			 // of what users that are still in the game. for now every1 will show.
+			 // if someone knows a neat way of doing this that would be gr8!
+			 var ActiveUser = true;
+			 var ActiveAI1 = true;
+			 var ActiveAI2 = true;
+			 var ActiveAI3 = true;
+			 var ActiveAI4 = true;
+			 var gameOver; 
+			 
+			 
+			 function nextRound() {
+			 			isGameOver();
+						if (gameOver==true) {
+							gameIsOver();
+						}
+				 		document.getElementById("cardValues").innerHTML = getCardDescription(0) + "<br />" +getCardSize(0) + "<br />" +
+																		getCardSpeed(0) + "<br />" +getCardRange(0) + "<br />" +getCardFirepower(0) + "<br />" +getCardCargo(0);
+						document.getElementById("cardValues1").innerHTML = getCardDescription(1) + "<br />" +getCardSize(1) + "<br />" +
+																		getCardSpeed(1) + "<br />" +getCardRange(1) + "<br />" +getCardFirepower(1) + "<br />" +getCardCargo(1);
+						document.getElementById("cardValues2").innerHTML = getCardDescription(2) + "<br />" +getCardSize(2) + "<br />" +
+																		getCardSpeed(2) + "<br />" +getCardRange(2) + "<br />" +getCardFirepower(2) + "<br />" +getCardCargo(2);
+						document.getElementById("cardValues3").innerHTML = getCardDescription(3) + "<br />" +getCardSize(3) + "<br />" +
+																		getCardSpeed(3) + "<br />" +getCardRange(3) + "<br />" +getCardFirepower(3) + "<br />" +getCardCargo(3);
+						document.getElementById("cardValues4").innerHTML = getCardDescription(4) + "<br />" +getCardSize(4) + "<br />" +
+																		getCardSpeed(4) + "<br />" +getCardRange(4) + "<br />" +getCardFirepower(4) + "<br />" +getCardCargo(4);
+				 		
+				 		document.getElementById("player1").style.visibility = "hidden";
+						document.getElementById("player2").style.visibility = "hidden";
+						document.getElementById("player3").style.visibility = "hidden";
+						document.getElementById("player4").style.visibility = "hidden";
+						document.getElementById("button5").style.visibility = "hidden";
+							if (turn == "0") {
+								document.getElementById("Turn").innerHTML = "It's your turn, choose category and play!";
+								document.getElementById("categoryChoice").style.visibility = "visible"; 
+								document.getElementById("button4").style.visibility = "visible"; 
+							} else if (draw) {
+								if (turn == 0 ) {
+									document.getElementById("Turn").innerHTML = "It's your turn, choose category and play!"; 
+									document.getElementById("categoryChoice").style.visibility = "visible"; 
+									document.getElementById("button4").style.visibility = "visible";
+								} else {
+									document.getElementById("Turn").innerHTML = "It's player "+turn+ "'s turn. Press 'Play Round'!"; 
+									document.getElementById("categoryChoice").style.visibility = "hidden";
+									document.getElementById("button4").style.visibility = "visible";
+								}
+							} else {
+								document.getElementById("Turn").innerHTML = "It's player "+turn+ "'s turn. Press 'Play Round'!";
+								document.getElementById("categoryChoice").style.visibility = "hidden";
+								document.getElementById("button4").style.visibility = "visible";
+							}
+					
+			 }
+			 
+			 
 			function getNumberOfPlayers() {
 				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/getNumberOfPlayers"); // Request type and URL+parameters
 					if (!xhr) {
@@ -713,11 +790,10 @@
 		  			alert("CORS not supported");
 				}
 				xhr.onload = function(e) {
-					// Returns boolean, true = game is over.
- 					var responseBoolean = xhr.response; // the text of the response
-
- 					// call function gameIsOver if responseBoolean is true 
- 					// gameIsOver();
+					// Returns int , 1 = game is over.
+ 					var responseText = xhr.response; // the text of the response
+					gameOver = responseText;
+ 					
 
  				}
  				xhr.send();
@@ -737,7 +813,7 @@
 
  					//  do what needs to be done with ze winner
  					// 
-
+					alert("GAME IS OVER");
  				}
  				xhr.send();
  				

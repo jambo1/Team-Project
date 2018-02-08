@@ -136,8 +136,13 @@ public class TopTrumpsRESTAPI {
 	 */
 	@GET
 	@Path("/isGameOver")
-	public boolean isGameOver() throws IOException {
-		return gameOver;
+	public int isGameOver() throws IOException {
+		
+		if (gameOver) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 	/**
 	 * This method is called when user press 'Start Game'. it creates a new game and 
@@ -215,7 +220,7 @@ public class TopTrumpsRESTAPI {
 	@GET
 	@Path("/getCardDescription")
 	public String getCardDescription(@QueryParam("player") int player) throws IOException {
-	
+		System.out.println(aGame.getPlayer(player).getTopCard().getDescription());
 		return aGame.getPlayer(player).getTopCard().getDescription();
 	}
 	
@@ -294,21 +299,7 @@ public class TopTrumpsRESTAPI {
 		return listAsJSONString;
 	}
 	
-	
-	
-	
-	@GET
-	@Path("/helloWord")
-	/**
-	 * Here is an example of how to read parameters provided in an HTML Get request.
-	 * @param Word - A word
-	 * @return - A String
-	 * @throws IOException
-	 */
-	public String helloWord(@QueryParam("Word") String word) throws IOException {
-		return "Hello "+ word;
-	}
-	
+
 	/**
 	 * This method creates a deck, shuffles the deck and initialises a new game with said deck.
 	 * 
@@ -317,9 +308,11 @@ public class TopTrumpsRESTAPI {
 	public boolean createGame() {
 		try {
 		TopTrumpsCLIApplication.createDeck();
-		TopTrumpsCLIApplication.shuffle();
+		
 		deck = TopTrumpsCLIApplication.getDeck();
+		Collections.shuffle(Arrays.asList(deck));
 		aGame = new Game(deck);
+		aGame.deal();
 		
 		
 		}
