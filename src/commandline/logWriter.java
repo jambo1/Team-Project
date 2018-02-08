@@ -13,6 +13,7 @@ public class logWriter {
 	 private String outputFileName = "toptrumps.log";
 	 private BufferedWriter writer; 
 	 private final int NUMCARDS = 40;
+	 private final int NUMPLAYERS =5;
 	 private final String SEPARATOR = String.format("%n------------------%n");
 	 private final String TAB = "    ";
 	
@@ -43,6 +44,8 @@ public class logWriter {
 				
 				//Use a StringBuilder to build the contents of the cards into a printable format
 				StringBuilder sb = new StringBuilder();
+				//Print that the deck has just been generated
+				sb.append(String.format("Deck has been generated%n"));
 				//Loop through the deck and get the description of each card, separated by a tab
 				for(int i=0;i<NUMCARDS;i++) {
 					sb.append(String.format(deck[i].getDescription() + TAB));
@@ -79,6 +82,7 @@ public class logWriter {
 				writer = new BufferedWriter(fw);
 				//Stringbuilder to store the card information
 				StringBuilder sb = new StringBuilder();
+				sb.append(String.format("Deck has been shuffled%n"));
 				//Loop through the deck and store each cards description in the stringbuilder, separated by a tab
 				for(int i=0;i<NUMCARDS;i++) {
 					sb.append(String.format(deck[i].getDescription() + TAB));
@@ -100,9 +104,16 @@ public class logWriter {
 	/**
 	 * Prints the user and computer's hands. User hand is always in hands[0]
 	 */
-	public void logHands(Cards[][] hands) {
+	public void logHands(AIPlayer[] players) {
+		//Store the player hands
+		Cards[][] hands = new Cards[NUMPLAYERS][];
+		for(int i=0;i<NUMPLAYERS;i++) {
+			hands[i]= players[i].getPlayerHand();
+			
+		}
 		//Stringbuilder to store the information
 		StringBuilder sb = new StringBuilder();
+		sb.append("Hands dealt to players");
 		try {
 			try {
 				//FileWriter, true to signify append to file and bufferedwriter for efficiency
@@ -113,7 +124,9 @@ public class logWriter {
 				sb.append(String.format("%nUser's hand%n"));
 				//Print each card separated by a TAB
 				for(int i=0;i<hands[0].length;i++) {
-					sb.append(String.format(hands[0][i].getDescription()+TAB));
+					if(hands[0][i]!=null) {
+						sb.append(hands[0][i].getDescription()+TAB);
+					}
 				}
 				
 				//Print each of the computer hands
@@ -122,13 +135,17 @@ public class logWriter {
 					sb.append(String.format("%nPlayer "+ i+"'s hand%n"));
 					//Add each card separated by a TAB
 					for(int j=0;j<hands[i].length;j++) {
-						sb.append(String.format(hands[i][j].getDescription()+TAB));
+						if(hands[i][j]!=null) {
+							sb.append(hands[i][j].getDescription()+TAB);
+						}
+						
 					}
 				}
 				
 			}
 			finally {
 				//Print the separator and close the writer
+				writer.write(sb.toString());
 				writer.write(SEPARATOR);
 				writer.close();
 			}
@@ -154,7 +171,9 @@ public class logWriter {
 				
 				//Loop through the communal pile and print the card description separated by a tab
 				for(int i=0;i<communists.length;i++) {
-					sb.append(String.format(communists[i].getDescription() + TAB));
+					if(communists[i]!=null) {
+						sb.append(communists[i].getDescription() + TAB);
+					}
 				}
 				//Write to file
 				writer.write(sb.toString());
@@ -187,7 +206,12 @@ public class logWriter {
 				
 				//Loop through the active cards and print their descriptions
 				for(int i=0;i<active.length;i++) {
-					sb.append(String.format(active[i].getDescription() + TAB));
+					if(active[i]!=null) {
+						sb.append(active[i].getDescription() + TAB);
+					}
+					else {
+						sb.append("null"+TAB);
+					}
 				}
 				//Write to file
 				writer.write(sb.toString());
@@ -207,31 +231,56 @@ public class logWriter {
 	 * @param cardValArray
 	 * @param c
 	 */
-	public void logCategoryValues(int[] cardValArray, int c) {
+	public void logCategoryValues(Cards[] cardArray, int c) {
 		try{
 			try {
+				int[] cardValArray =new int[NUMPLAYERS];
 				//FileWriter with true to signify append and bufferedwriter for efficiency
 				FileWriter fw = new FileWriter(outputFileName, true);
 				writer = new BufferedWriter(fw);
 				
 				//Stringbuilder to hold information
 				StringBuilder sb = new StringBuilder();
-				sb.append(String.format("%nChosen Category and Values%n"));
 				
 				//Switch to determine what the chosen category was and to append it to sb
 				switch (c){
 					case 1 : sb.append("Chosen category was Size" );
+							for(int i=0;i<NUMPLAYERS;i++) {
+								if(cardArray[i]!=null) {
+									cardValArray[i] = cardArray[i].getSize();
+								}
+							}
 							break;
 					case 2 : sb.append("Chosen category was Speed" );
+							for(int i=0;i<NUMPLAYERS;i++) {
+								if(cardArray[i]!=null) {
+									cardValArray[i] = cardArray[i].getSpeed();
+								}
+							}
 							break;
-					case 3 : sb.append("Chosen category was Rango" );
+					case 3 : sb.append("Chosen category was Range" );
+							for(int i=0;i<NUMPLAYERS;i++) {
+								if(cardArray[i]!=null) {
+									cardValArray[i] = cardArray[i].getRange();
+								}
+							}
 							break;
 					case 4 : sb.append("Chosen category was Firepower" );
+							for(int i=0;i<NUMPLAYERS;i++) {
+								if(cardArray[i]!=null) {
+									cardValArray[i] = cardArray[i].getFirepower();
+								}
+							}
 							break;
 					case 5 : sb.append("Chosen category was Cargo" );
+							for(int i=0;i<NUMPLAYERS;i++) {
+								if(cardArray[i]!=null) {
+									cardValArray[i] = cardArray[i].getCargo();
+								}
+							}									
 							break;
 				}
-				
+				sb.append(String.format("%nValues were: "));
 				//Append the values for the category
 				for(int i=0;i<cardValArray.length;i++) {
 					sb.append(String.format(""+cardValArray[i] + TAB));
