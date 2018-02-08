@@ -104,6 +104,64 @@
 		.container {
    			 padding: 2px 16px;
 			}
+		.card1 {
+    			box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+   		 	transition: 0.3s;
+    			width: 40%;
+    			
+			}
+
+		.card1:hover {
+    			box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+			}
+
+		.container1 {
+   			 padding: 2px 16px;
+			}
+		.card2 {
+    			box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+   		 	transition: 0.3s;
+    			width: 40%;
+    			
+			}
+
+		.card2:hover {
+    			box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+			}
+
+		.container2 {
+   			 padding: 2px 16px;
+			}
+			
+		.card3 {
+    			box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+   		 	transition: 0.3s;
+    			width: 40%;
+    			
+			}
+
+		.card3:hover {
+    			box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+			}
+
+		.container3 {
+   			 padding: 2px 16px;
+			}
+		
+		.card4 {
+    			box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+   		 	transition: 0.3s;
+    			width: 40%;
+    			
+			}
+
+		.card4:hover {
+    			box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+			}
+
+		.container4 {
+   			 padding: 2px 16px;
+			}	
 		</style>
 	</head>
 </body>
@@ -229,7 +287,7 @@
   							</div>
 						</div>
  					
-
+						</br>
 					<p Id = "categoryChoice">
 				<b>Select Category</b>
 					<select id="no3">
@@ -246,6 +304,78 @@
 			<br/>
   					
 		</article>
+		<article Id="player1">
+  				<h2>Player 1</h2>
+ 					<p Id = "cardplayer1"></p>
+ 						
+							<div class="card1">
+  								<img src="https://lumiere-a.akamaihd.net/v1/images/Death-Star-II_b5760154.jpeg?region=0%2C68%2C2160%2C1080" alt="Avatar" style="width:100%">
+ 				 			<div class="container">
+							<br/>
+ 				 			
+    							<p Id="cardValues1"></p>
+    							<p Id="Size1"></p>
+    							<p Id="Speed1"></p>
+    							<p Id="Range1"></p>
+    							<p Id="Firepower1"></p>
+    							<p Id="Cargo1"></p>
+  							</div>
+						</div>
+					</article>
+		<article Id="player2">
+  				<h2>Player 2</h2>
+ 					<p Id = "cardplayer2"></p>
+ 						
+							<div class="card2">
+  								<img src="https://lumiere-a.akamaihd.net/v1/images/vaders-tie-fighter_8bcb92e1.jpeg?region=0%2C147%2C1560%2C878&width=768" alt="Avatar" style="width:100%">
+ 				 			<div class="container">
+							<br/>
+ 				 			
+    							<p Id="cardValues2"></p>
+    							<p Id="Size2"></p>
+    							<p Id="Speed2"></p>
+    							<p Id="Range2"></p>
+    							<p Id="Firepower2"></p>
+    							<p Id="Cargo2"></p>
+  							</div>
+						</div>
+					</article>	
+		<article Id="player3">
+  				<h2>Player 3</h2>
+ 					<p Id = "cardplayer3"></p>
+ 						
+							<div class="card3">
+  								<img src="https://nerdist.com/wp-content/uploads/2015/04/StarDestroyer04222015-970x545.jpg" alt="Avatar" style="width:100%">
+ 				 			<div class="container">
+							<br/>
+ 				 			
+    							<p Id="cardValues3"></p>
+    							<p Id="Size3"></p>
+    							<p Id="Speed3"></p>
+    							<p Id="Range3"></p>
+    							<p Id="Firepower3"></p>
+    							<p Id="Cargo3"></p>
+  							</div>
+						</div>
+					</article>	
+		<article Id="player4">
+  				<h2>Player 4</h2>
+ 					<p Id = "cardplayer4"></p>
+ 						
+							<div class="card4">
+  								<img src="http://cdn2us.denofgeek.com/sites/denofgeekus/files/big_thumb_cd04cc40bd2e7060c7a2b417b1743b74.jpg" alt="Avatar" style="width:100%">
+ 				 			<div class="container">
+							<br/>
+ 				 			
+    							<p Id="cardValues4"></p>
+    							<p Id="Size4"></p>
+    							<p Id="Speed4"></p>
+    							<p Id="Range4"></p>
+    							<p Id="Firepower4"></p>
+    							<p Id="Cargo4"></p>
+  							</div>
+						</div>
+					</article>				
 	</div>
 
 
