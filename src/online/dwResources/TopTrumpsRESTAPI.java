@@ -129,7 +129,7 @@ public class TopTrumpsRESTAPI {
 		gameOver = false;
 		turn = 0;
 		round = 0;
-		return "game started se command line";
+		return "game started";
 	}
 	
 	

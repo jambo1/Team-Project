@@ -107,7 +107,9 @@
 </body>
 <script>
 		function initalize() {
-				document.getElementById("button1").onclick = gameOn;  
+				document.getElementById("button1").onclick = gameOn;
+				document.getElementById("button2").onclick = gameStats; 
+				document.getElementById("button3").onclick = exitGame; 
 				document.getElementById("yourCard").display = none; 
 				// --------------------------------------------------------------------------
 				//pick players
@@ -117,19 +119,36 @@
 				// --------------------------------------------------------------------------
 
 			}
-
+	
+	function endCurrentGame() {
+		// function to end the current game.
+	}		
+			
+	function exitGame() {
+		if (confirm("By pressing OK you will exit the game. Continue?")) {
+			location.href = 'http://localhost:7777/toptrumps';
+			// endCurrentGame();
+			
+		}
+	}
+	function gameStats() {
+		if (confirm("By pressing OK you will exit the game. Continue?")) {
+			location.href = 'http://localhost:7777/toptrumps/stats';
+			// endCurrentGame();
+		}
+	}
 	function gameOn() {
 				//setPlayers();
 				alert("Bitches get stitches"); 
-				 	this.button1.style.visibility = "hidden";
-				 	document.getElementById("numberOfPlayers").display; 
+				 	document.getElementById("button1").style.visibility = "hidden";
+				 	document.getElementById("numberOfPlayers").style.visibility = "hidden"; 
 				 	startGame();
 				//displayCard();
 			}
 		// --------------------------------------------------------------------------
 			function startGame()
 			 {
-			 	document.getElementById("yourCard").innerHTML; 
+			 	//document.getElementById("yourCard").innerHTML; 
 				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/startGame");
 				if (!xhr) {
 					alert("CORS not supported");
@@ -137,7 +156,7 @@
 				xhr.onload = function(e) {
  					var responseText = xhr.response; // the text of the response
 
-					//alert(responseText);
+					alert(responseText);
 					
  					
  				}
@@ -244,7 +263,7 @@
 				xhr.onload = function(e) {
  					var responseText = xhr.response; // the text of the response
 
- 					document.getElementById("messageBoard").innerHTML = responseText;
+ 					alert(responseText);
  					
 
  				}
