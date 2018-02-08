@@ -198,8 +198,13 @@
 			<ul.b>
 			<br/>
 		   		<li><a><h2>Round Winner</h2></a></li>
+		   		<p Id="RoundWinner"></p>
+		   		<li><a><h2>Rounds Played</h2></a></li>
+		   		<p Id="RoundNumber"></p>
 		    		<li><a><h2>Draws</h2></a></li>
+		    		<p Id="DrawCount"></p>
    			 	<li><a><h2>Turn</h2></a></li>
+   			 	<p Id="Turn">It's your turn to start!</p>
    			 <ul.b>
 		</aside>
 	</div>
@@ -216,7 +221,11 @@
 							<br/>
  				 			
     							<p Id="cardValues"></p>
-    							
+    							<p Id="Size"></p>
+    							<p Id="Speed"></p>
+    							<p Id="Range"></p>
+    							<p Id="Firepower"></p>
+    							<p Id="Cargo"></p>
   							</div>
 						</div>
  					
@@ -230,7 +239,9 @@
   						<option value="Firepower">Firepower</option>
   						<option value="Cargo">Cargo</option>
 					</select>
-					<button onclick="playRound()" id="button4">Play Round</button>
+					</p>
+					<p>
+					<button onclick="playCategory()" id="button4">Play Round</button>
 				</p>
 			<br/>
   					
@@ -335,8 +346,7 @@
 				xhr.onload = function(e) {
  					var responseText = xhr.response; // the text of the response
 
- 					$document.getElementById("cardValues").append("Size: " + responseText);
-
+ 					document.getElementById("Size").innerHTML = "Size: " + responseText;
  				
  				}
  				xhr.send();
@@ -349,8 +359,7 @@
 				xhr.onload = function(e) {
  					var responseText = xhr.response; // the text of the response
 
- 					$document.getElementById("cardValues").append("Speed: " + responseText);
-
+					document.getElementById("Speed").innerHTML = "Speed: " + responseText;
  	
  				}
  				xhr.send();
@@ -363,7 +372,7 @@
 				xhr.onload = function(e) {
  					var responseText = xhr.response; // the text of the response
 
- 					$document.getElementById("cardValues").append("Range: " + responseText);
+ 					document.getElementById("Range").innerHTML = "Range: " + responseText;
 
  		
  				}
@@ -377,7 +386,7 @@
 				xhr.onload = function(e) {
  					var responseText = xhr.response; // the text of the response
 
- 					$document.getElementById("cardValues").append("Firepower: " + responseText);
+ 					document.getElementById("Firepower").innerHTML = "Firepower: " +responseText;
 
  					
  				}
@@ -391,7 +400,7 @@
 				xhr.onload = function(e) {
  					var responseText = xhr.response; // the text of the response
 
- 					$document.getElementById("cardValues").append("Cargo: " + responseText);
+ 					document.getElementById("Cargo").innerHTML = "Cargo: " + responseText;
 
  				}
  				xhr.send();
@@ -413,11 +422,25 @@
 	// --------------------------------------------------------------------------
 	
 	// --------------------------------------------------------------------------
+	var rounds = 0; 
+	var drawCount = 0;
+	var turn = 0;
 			function playCategory() {
 				// 
+				rounds++; 
 			 	var p = document.getElementById("no3");
 			 	var num = p.options[p.selectedIndex].value;
-
+				if ( num == "Size") {
+					num = 1;
+				} else if ( num == "Speed" ) {
+					num = 2;
+				} else if ( num == "Range" ) {
+					num = 3;
+				} else if ( num == "Firepower" ) {
+					num = 4;
+				} else if ( num == "Cargo" ) {
+					num = 5;
+				}
 			 	var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/playCategory?Category="+num); // Request type and URL+parameters
 				if (!xhr) {
 		  			alert("CORS not supported");
@@ -425,15 +448,59 @@
 				xhr.onload = function(e) {
 					// Returns which category was chosen ie "speed" or "Firepower"
  					var responseText = xhr.response; // the text of the response
-
- 					// document.getElementById("").innerHTML = responseText;
+					
+					if (responseText == "0") {
+						turn = responseText;
+						document.getElementById("RoundWinner").innerHTML = "You won the round!";
+						document.getElementById("Turn").innerHTML = "It's your turn, choose category and play!"; 
+						document.getElementById("categoryChoice").style.visibility = "visible";
+					} else if (responseText == "5") {
+						document.getElementById("RoundWinner").innerHTML = "That round was a draw!";
+						drawCount++;
+						document.getElementById("DrawCount").innerHTML = drawCount;
+						if (turn == 0 ) {
+							document.getElementById("Turn").innerHTML = "It's your turn, choose category and play!"; 
+							
+						} else {
+							document.getElementById("Turn").innerHTML = "It's player "+turn+ "'s turn. Press 'Play Round'!"; 
+							document.getElementById("categoryChoice").style.visibility = "hidden";
+							
+						}
+					} else {
+						turn = responseText;
+						document.getElementById("RoundWinner").innerHTML = "Player " + responseText + " won that round!";
+						document.getElementById("Turn").innerHTML = "It's player "+turn+ "'s turn. Press 'Play Round'!";
+						document.getElementById("categoryChoice").style.visibility = "hidden";
+					}
+					
+					document.getElementById("cardValues").innerHTML = getCardDescription(0) + "<br />" +getCardSize(0) + "<br />" +
+																	getCardSpeed(0) + "<br />" +getCardRange(0) + "<br />" +getCardFirepower(0) + "<br />" +getCardCargo(0);
+				
+					
+ 					document.getElementById("RoundNumber").innerHTML = rounds;
  					
 
  				}
  				xhr.send();
  				
 			 };
-		
+			function getNumberOfPlayers() {
+				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/getNumberOfPlayers"); // Request type and URL+parameters
+					if (!xhr) {
+			  			alert("CORS not supported");
+					}
+					var responseText;
+					xhr.onload = function(e) {
+						
+	 					responseText = xhr.response; // the text of the response
+	
+	 					
+	 					
+	
+	 				}
+	 				xhr.send();
+	 				return responseText;
+			}
 	// --------------------------------------------------------------------------
 			function isGameOver() {
 			var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/isGameOver"); // Request type and URL+parameters
@@ -471,7 +538,7 @@
  				
 			}
 	// --------------------------------------------------------------------------
-	
+			
 	
 	
 	

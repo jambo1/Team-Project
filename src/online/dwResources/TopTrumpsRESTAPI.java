@@ -113,7 +113,7 @@ public class TopTrumpsRESTAPI {
 			
 		}
 		
-		
+		System.out.println(victor);
 		return victor;
 	}
 	
@@ -154,6 +154,16 @@ public class TopTrumpsRESTAPI {
 		turn = 0;
 		round = 0;
 		return "game started";
+	}
+	/**
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
+	@GET
+	@Path("/getNumberOfPlayers")
+	public int getNumberOfPlayers() throws IOException {
+		return aGame.getNumPlayers();
 	}
 	
 	/**
