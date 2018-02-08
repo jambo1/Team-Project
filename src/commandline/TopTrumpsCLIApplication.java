@@ -16,6 +16,7 @@ public class TopTrumpsCLIApplication {
 	private static boolean gameOver;
 	private static int round, turn;
 	private static boolean timer = false;
+	private static logWriter log = new logWriter();
 
 	/**
 	 * This main method is called by TopTrumps.java when the user specifies that they want to run in
@@ -39,6 +40,7 @@ public class TopTrumpsCLIApplication {
 		// Loop until the user wants to exit the game
 		while (!userWantsToQuit) {
 			Collections.shuffle(Arrays.asList(deck));
+			log.logShuffledDeck(deck);
 			//Get User input
 			 int choice = getUserChoice();
 			 
@@ -104,8 +106,8 @@ public class TopTrumpsCLIApplication {
 							aGame.getPlayer(i).printHand();
 						}
 						else {
+							System.out.println(String.format("-----P%d HAND --------", i));
 							aGame.getPlayer(i).printHand();
-							System.out.println(String.format("-----P%d1 HAND --------", i));
 						}
 					}
 					aGame.nullAndSort();
@@ -216,11 +218,13 @@ public class TopTrumpsCLIApplication {
 	
 	public static void shuffle() {
 		Collections.shuffle(Arrays.asList(deck));
+		log.logShuffledDeck(deck);
 	}
 	
 
 	public static void createGame() {
 		aGame = new Game(deck);
+		aGame.deal();
 	}
 	
 	/**
@@ -234,7 +238,7 @@ public class TopTrumpsCLIApplication {
     		in= new Scanner(reader);
     		//Line counter
     		int count =0;
-    		try {
+    		try{
 				while (in.hasNext()){
 					//Reads id from file, if this corresponds to a valid class then the class is stored as activity
 					String line = in.nextLine();
@@ -259,20 +263,28 @@ public class TopTrumpsCLIApplication {
 						
 					}
 				}
-    		}
+	    	}
     		//Close reader and scanner and return the deck
     		finally {
+    			log.logFreshDeck(deck);
 				reader.close();
 				in.close();
 				return true;
-			}
+    		}
     	}
-    	//Catch input/output errors
+		//Catch input/output errors
 		catch(IOException ioe) {
     		System.out.println("IOException error");
     		return false;
-    	}	
+    	}
+    			
+    		
     }
+    	
+	
+    	
+    		
+    
 	
 	/**
 	 * Prints a menu of options to the user,

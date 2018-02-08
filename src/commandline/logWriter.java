@@ -43,6 +43,8 @@ public class logWriter {
 				
 				//Use a StringBuilder to build the contents of the cards into a printable format
 				StringBuilder sb = new StringBuilder();
+				//Print that the deck has just been generated
+				sb.append(String.format("Deck has been generated%n"));
 				//Loop through the deck and get the description of each card, separated by a tab
 				for(int i=0;i<NUMCARDS;i++) {
 					sb.append(String.format(deck[i].getDescription() + TAB));
@@ -79,6 +81,7 @@ public class logWriter {
 				writer = new BufferedWriter(fw);
 				//Stringbuilder to store the card information
 				StringBuilder sb = new StringBuilder();
+				sb.append(String.format("Deck has been shuffled%n"));
 				//Loop through the deck and store each cards description in the stringbuilder, separated by a tab
 				for(int i=0;i<NUMCARDS;i++) {
 					sb.append(String.format(deck[i].getDescription() + TAB));

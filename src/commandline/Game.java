@@ -31,23 +31,23 @@ public class Game {
 			players[i] = new AIPlayer();
 		}
 
-		deal();
 	}
 	
 
 	/**
 	 * Deals the cards between players until there are no cards in the deck.
 	 */
-	private void deal()	{
-		int cardCount = 0, playerCount=0;
-		while(cardCount<MAXCARDS)	{
-			for(int i = 0; i < NUMPLAYERS; i++) {
-			players[i].getPlayerHand()[playerCount] = deck[cardCount];
-			cardCount++;
+	public void deal()	{
+		int playerCount =0;
+		for(int i=0;i<MAXCARDS;) {
+			for(int j=0; j<NUMPLAYERS;j++) {
+				players[j].getPlayerHand()[playerCount] = deck[i];
+				i++;
 			}
 			playerCount++;
 		}
 	}
+		
 	
 	
 
