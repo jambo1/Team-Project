@@ -17,23 +17,27 @@
     	<link rel="stylesheet" href="http://dcs.gla.ac.uk/~richardm/assets/stylesheets/vex-theme-os.css"/>
     	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	
+	// --------------------------------------------------------------------------
+	// ---------------------------STYLING----------------------------------------
+	// --------------------------------------------------------------------------
+	
 	<head>
-		meta name="viewport" content="width=device-width, initial-scale=1">
 		<style>
 			div.container {
-			color: white; 
-			background-color: #2E4053; 
-    			width: 100%;
-   			border: 1px solid gray;
-		}
-
-			header, footer {
-   				padding: 1em;
-   				color: white;
-   			 	background-color: #85929E;
-   			 	clear: left;
-    				text-align: center;
-			}
+				color: white; 
+					background-color: #2E4053; 
+    					width: 100%;
+   				border: 1px solid gray;
+				}
+	
+				header, footer {
+   					padding: 1em;
+   						color: white;
+   			 			background-color: #85929E;
+   			 			clear: left;
+    					text-align: center;
+				}
 
 			aside {
     				float: left;
@@ -106,113 +110,15 @@
 		</style>
 	</head>
 </body>
+
 	</head>
-
+	// --------------------------------------------------------------------------
+	// ---------------------JAVASCRIPT-------------------------------------------
+	// --------------------------------------------------------------------------
 <script>
-	function gameOn() {
-			alert("ALERT");
-			//	setPlayers();
-			//	document.getElementById("numberOfPlayers").innerHTML = "";
-			//	//startGame();
-			//	displayCard();
-			}
-			</script>
-    <body onload="initalize()"> <!-- Call the initalize method when the page loads -->
-
-
-    	<div class="container" Id = "pickPlayers">
-    		<header>
-   			<h1>Top Trumps</h1>
-		</header>
-			<p Id = "numberOfPlayers">
-				<br/>
-				<b>Choose number of players</b>
-				<select id="nop">
-	 				<option value="2">2</option>
-	  				<option value="3">3</option>
-	  				<option value="4">4</option>
-	  				<option value="5">5</option>
-				</select>
-					<button onclick="gameOn()" id="button1">Start Game</button>
-				<!-- need a method to make this button work -->
-			</p>
-					<button onclick="gameStats()" id="button2">Game Stats</button>
-					<button onclick="existGame()" id="button3">Exit</button>
-			
-			<br/>
-		<aside>
-			<ul.b>
-			<br/>
-		   		<li><a><h2>Round Winner</h2></a></li>
-		    		<li><a><h2>Draws</h2></a></li>
-   			 	<li><a><h2>Turn</h2></a></li>
-   			 <ul.b>
-		</aside>
-	</div>
-		<div class = "container">
-			<article>
-  				<h2>Your Card</h2>
- 					<p Id = "test">Need method to print top card here</p>
- 						<!--METHOD here should only allow to pick when its the humans turn-->
-							<div class="card">
-  								<img src="https://vignette.wikia.nocookie.net/starwars/images/2/21/MF_over_Takodana_SWCT.png/revision/latest?cb=20170605041002" alt="Avatar" style="width:100%">
- 				 			<div class="container">
- 				 			<br/>
- 				 			<br/>
-    							<!--h4><b></b></h4-->
-  							</div>
-						</div>
- 					
-					<p Id = "categoryChoice">
-				<b>Select Category</b>
-					<select id="no3">
- 						<option value="Size">Size</option>
-  						<option value="Speed">Speed</option>
-  						<option value="Range">Range</option>
-  						<option value="Firepower">Firepower</option>
-  						<option value="Cargo">Cargo</option>
-					</select>
-					<button onclick="playRound()" id="button4">Play Round</button>
-				</p>
-			<br/>
-  					
-		</article>
-	</div>
-
-
-			<!-- Add your HTML Here -->
-			
-			<header class="main-header">
-    <div class="container" style="background-color: #cce6ff;">
-        <div class="row">
-            <div class="col-sm-3 col-xs-3 header-left">
-            </div>
-            <div class="col-sm6 xs-hidden header-center">
-                <h1 class = "start">
-                    <br>
-                    <span class="start-highlight"> Top Trumps: Let's Play </span>
-                </h1>
-            </div>
-            <div class="col-sm-3 col-xs-9 header-top">
-                 <div class="row">
-                    <div class="col-md-5"></div>
-                    <div class="col-md-2">
-                </div>
-            <div class="col-md-5"></div>
-        </div>
-            </div>
-        </div>
-    </div>
-</header>
-		
-		</div>
-		
-
-		<script type="text/javascript">
-
-			// Method that is called on page load
-			function initalize() {
-
+		function initalize() {
+				document.getElementById("button1").onclick = gameOn;  
+				document.getElementById("yourCard").display = none; 
 				// --------------------------------------------------------------------------
 				//pick players
 				//start game
@@ -220,28 +126,39 @@
 				// You can call other methods you want to run when the page first loads here
 				// --------------------------------------------------------------------------
 
-
-
- /// can courtnee l?
-
-				
-				// For example, lets call our sample methods
-				helloJSONList();
-				helloWord("Top Trumps Online");
-				
-				
-
 			}
 
-			// -----------------------------------------
-			// Add your other Javascript methods Here
-			// -----------------------------------------
-
-
-	// --------------------------------------------------------------------------
-		
+	function gameOn() {
+				//setPlayers();
+				alert("Bitches get stitches"); 
+				 	this.button1.style.visibility = "hidden";
+				 	document.getElementById("numberOfPlayers").display; 
+				 	startGame();
+				//displayCard();
+			}
+			
 			
 	// --------------------------------------------------------------------------
+			function startGame()
+			 {
+			 	document.getElementById("yourCard").innerHTML; 
+				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/startGame");
+				if (!xhr) {
+					alert("CORS not supported");
+				}
+				xhr.onload = function(e) {
+ 					var responseText = xhr.response; // the text of the response
+
+					//alert(responseText);
+					
+ 					
+ 				}
+ 				
+ 				xhr.send();
+ 				
+			 };	
+			 
+	 // --------------------------------------------------------------------------
 			function setPlayers()
 			 {
 			 	var p = document.getElementById("nop");
@@ -260,25 +177,7 @@
  				}
  				xhr.send();
 			 };
-	// --------------------------------------------------------------------------
-			function startGame()
-			 {
-				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/startGame");
-				if (!xhr) {
-					alert("CORS not supported");
-				}
-				xhr.onload = function(e) {
- 					var responseText = xhr.response; // the text of the response
-
-					//alert(responseText);
-					
- 					
- 				}
- 				
- 				
- 				xhr.send();
- 				
-			 };
+	
 	// --------------------------------------------------------------------------
 			function displayCard() {
 
@@ -394,7 +293,144 @@
 	
 	
 	
+	// --------------------------------------------------------------------------
 	
+			 
+			 
+		</script>
+	// --------------------------------------------------------------------------
+	// ---------------------------HTML-------------------------------------------
+	// --------------------------------------------------------------------------
+    <body onload="initalize()"> <!-- Call the initalize method when the page loads -->
+
+
+    	<div class="container" Id = "pickPlayers">
+    		<header>
+   			<h1>Top Trumps</h1>
+		</header>
+			<p Id = "numberOfPlayers">
+
+				<br/>
+				<b>Choose number of players</b>
+				<select id="nop">
+	 				<option value="2">2</option>
+	  				<option value="3">3</option>
+	  				<option value="4">4</option>
+	  				<option value="5">5</option>
+				</select>
+					<button onclick="gameOn()" id="button1">Start Game</button>
+				<!-- need a method to make this button work -->
+			</p>
+					<button onclick="gameStats()" id="button2">Game Stats</button>
+					<button onclick="existGame()" id="button3">Exit</button>
+			
+
+			<br/>
+		<aside>
+			<ul.b>
+			<br/>
+		   		<li><a><h2>Round Winner</h2></a></li>
+		    		<li><a><h2>Draws</h2></a></li>
+   			 	<li><a><h2>Turn</h2></a></li>
+   			 <ul.b>
+		</aside>
+	</div>
+
+		<div class = "container">
+
+			<article>
+  				<h2>Your Card</h2>
+ 					<p Id = "test">Need method to print top card here</p>
+ 						<!--METHOD here should only allow to pick when its the humans turn-->
+							<div class="card">
+  								<img src="https://vignette.wikia.nocookie.net/starwars/images/2/21/MF_over_Takodana_SWCT.png/revision/latest?cb=20170605041002" alt="Avatar" style="width:100%">
+ 				 			<div class="container">
+
+ 				 			<br/>
+ 				 			<br/>
+    							<!--h4><b></b></h4-->
+  							</div>
+						</div>
+ 					
+
+					<p Id = "categoryChoice">
+				<b>Select Category</b>
+					<select id="no3">
+ 						<option value="Size">Size</option>
+  						<option value="Speed">Speed</option>
+  						<option value="Range">Range</option>
+  						<option value="Firepower">Firepower</option>
+  						<option value="Cargo">Cargo</option>
+					</select>
+					<button onclick="playRound()" id="button4">Play Round</button>
+				</p>
+			<br/>
+  					
+		</article>
+	</div>
+
+
+			<!-- Add your HTML Here -->
+			
+			<header class="main-header">
+    <div class="container" style="background-color: #cce6ff;">
+        <div class="row">
+            <div class="col-sm-3 col-xs-3 header-left">
+            </div>
+            <div class="col-sm6 xs-hidden header-center">
+                <h1 class = "start">
+                    <br>
+                    <span class="start-highlight"> Top Trumps: Let's Play </span>
+                </h1>
+            </div>
+            <div class="col-sm-3 col-xs-9 header-top">
+                 <div class="row">
+                    <div class="col-md-5"></div>
+                    <div class="col-md-2">
+                </div>
+            <div class="col-md-5"></div>
+        </div>
+            </div>
+        </div>
+    </div>
+</header>
+		
+		</div>
+		
+
+		<script type="text/javascript">
+
+			// Method that is called on page load
+			function initalize() {
+				document.getElementById("button1").onclick = gameOn;  
+				document.getElementById("yourCard").innerHTML = " "; 
+				// --------------------------------------------------------------------------
+				//pick players
+				//start game
+				//choose category
+				// You can call other methods you want to run when the page first loads here
+				// --------------------------------------------------------------------------
+
+
+ /// can courtnee l?
+
+				
+				// For example, lets call our sample methods
+				helloJSONList();
+				helloWord("Top Trumps Online");
+				
+				
+
+			}
+
+			// -----------------------------------------
+			// Add your other Javascript methods Here
+			// -----------------------------------------
+
+
+	// --------------------------------------------------------------------------
+
+			
 	
 	// --------------------------------------------------------------------------
 	// ----------------------------Written by Richard----------------------------
