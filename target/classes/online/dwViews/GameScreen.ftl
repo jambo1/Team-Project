@@ -175,7 +175,10 @@
 				document.getElementById("button3").onclick = exitGame; 
 				document.getElementById("card").style.visibility = "hidden"; 
 				document.getElementById("aside").style.visibility = "hidden";
-			
+				document.getElementById("player1").style.visibility = "hidden";
+				document.getElementById("player2").style.visibility = "hidden";
+				document.getElementById("player3").style.visibility = "hidden";
+				document.getElementById("player4").style.visibility = "hidden";
 			}
 	
 	function endCurrentGame() {
@@ -461,9 +464,21 @@
 				if (!xhr) {
 		  			alert("CORS not supported");
 				}
+				
 				xhr.onload = function(e) {
  					var responseText = xhr.response; // the text of the response
-					document.getElementById("cardValues").innerHTML = responseText;
+					
+					if (player == 0 ) {
+						document.getElementById("cardValues").innerHTML = responseText;
+					} else if (player == 1) {
+						document.getElementById("cardValues1").innerHTML = responseText;
+					} else if (player == 2) {
+						document.getElementById("cardValues2").innerHTML = responseText;
+					} else if (player == 3) {
+						document.getElementById("cardValues3").innerHTML = responseText;
+					} else if (player == 4) {
+						document.getElementById("cardValues4").innerHTML = responseText;
+					}	
  				}
  				xhr.send();
 			}
@@ -475,8 +490,18 @@
 				}
 				xhr.onload = function(e) {
  					var responseText = xhr.response; // the text of the response
-
- 					document.getElementById("Size").innerHTML = "Size: " + responseText;
+					
+					if (player == 0 ) {
+						document.getElementById("Size").innerHTML = "Size: "+ responseText;
+					} else if (player == 1) {
+						document.getElementById("Size1").innerHTML ="Size: "+  responseText;
+					} else if (player == 2) {
+						document.getElementById("Size2").innerHTML = "Size: "+ responseText;
+					} else if (player == 3) {
+						document.getElementById("Size3").innerHTML = "Size: "+ responseText;
+					} else if (player == 4) {
+						document.getElementById("Size4").innerHTML = "Size: "+ responseText;
+					}	
  				
  				}
  				xhr.send();
@@ -488,8 +513,17 @@
 				}
 				xhr.onload = function(e) {
  					var responseText = xhr.response; // the text of the response
-
-					document.getElementById("Speed").innerHTML = "Speed: " + responseText;
+					if (player == 0 ) {
+						document.getElementById("Speed").innerHTML = "Speed: "+ responseText;
+					} else if (player == 1) {
+						document.getElementById("Speed1").innerHTML = "Speed: "+responseText;
+					} else if (player == 2) {
+						document.getElementById("Speed2").innerHTML = "Speed: "+responseText;
+					} else if (player == 3) {
+						document.getElementById("Speed3").innerHTML = "Speed: "+responseText;
+					} else if (player == 4) {
+						document.getElementById("Speed4").innerHTML = "Speed: "+responseText;
+					}	
  	
  				}
  				xhr.send();
@@ -501,8 +535,17 @@
 				}
 				xhr.onload = function(e) {
  					var responseText = xhr.response; // the text of the response
-
- 					document.getElementById("Range").innerHTML = "Range: " + responseText;
+					if (player == 0 ) {
+						document.getElementById("Range").innerHTML = "Range: "+responseText;
+					} else if (player == 1) {
+						document.getElementById("Range1").innerHTML ="Range: "+ responseText;
+					} else if (player == 2) {
+						document.getElementById("Range2").innerHTML = "Range: "+responseText;
+					} else if (player == 3) {
+						document.getElementById("Range3").innerHTML = "Range: "+responseText;
+					} else if (player == 4) {
+						document.getElementById("Range4").innerHTML ="Range: "+ responseText;
+					}	
 
  		
  				}
@@ -515,8 +558,17 @@
 				}
 				xhr.onload = function(e) {
  					var responseText = xhr.response; // the text of the response
-
- 					document.getElementById("Firepower").innerHTML = "Firepower: " +responseText;
+					if (player == 0 ) {
+						document.getElementById("Firepower").innerHTML = "Firepower: "+responseText;
+					} else if (player == 1) {
+						document.getElementById("Firepower1").innerHTML ="Firepower: "+ responseText;
+					} else if (player == 2) {
+						document.getElementById("Firepower2").innerHTML = "Firepower: "+responseText;
+					} else if (player == 3) {
+						document.getElementById("Firepower3").innerHTML = "Firepower: "+responseText;
+					} else if (player == 4) {
+						document.getElementById("Firepower4").innerHTML ="Firepower: "+ responseText;
+					}	
 
  					
  				}
@@ -529,8 +581,17 @@
 				}
 				xhr.onload = function(e) {
  					var responseText = xhr.response; // the text of the response
-
- 					document.getElementById("Cargo").innerHTML = "Cargo: " + responseText;
+					if (player == 0 ) {
+						document.getElementById("Cargo").innerHTML ="Cargo: "+ responseText;
+					} else if (player == 1) {
+						document.getElementById("Cargo1").innerHTML = "Cargo: "+ responseText;
+					} else if (player == 2) {
+						document.getElementById("Cargo2").innerHTML = "Cargo: "+ responseText;
+					} else if (player == 3) {
+						document.getElementById("Cargo3").innerHTML = "Cargo: "+ responseText;
+					} else if (player == 4) {
+						document.getElementById("Cargo4").innerHTML = "Cargo: "+ responseText;
+					}	
 
  				}
  				xhr.send();
@@ -579,6 +640,12 @@
 					// Returns which category was chosen ie "speed" or "Firepower"
  					var responseText = xhr.response; // the text of the response
 					
+						document.getElementById("player1").style.visibility = "visible";
+				document.getElementById("player2").style.visibility = "visible";
+				document.getElementById("player3").style.visibility = "visible";
+				document.getElementById("player4").style.visibility = "visible";
+				
+					
 					if (responseText == "0") {
 						turn = responseText;
 						document.getElementById("RoundWinner").innerHTML = "You won the round!";
@@ -605,6 +672,14 @@
 					
 					document.getElementById("cardValues").innerHTML = getCardDescription(0) + "<br />" +getCardSize(0) + "<br />" +
 																	getCardSpeed(0) + "<br />" +getCardRange(0) + "<br />" +getCardFirepower(0) + "<br />" +getCardCargo(0);
+					document.getElementById("cardValues1").innerHTML = getCardDescription(1) + "<br />" +getCardSize(1) + "<br />" +
+																	getCardSpeed(1) + "<br />" +getCardRange(1) + "<br />" +getCardFirepower(1) + "<br />" +getCardCargo(1);
+					document.getElementById("cardValues2").innerHTML = getCardDescription(2) + "<br />" +getCardSize(2) + "<br />" +
+																	getCardSpeed(2) + "<br />" +getCardRange(2) + "<br />" +getCardFirepower(2) + "<br />" +getCardCargo(2);
+					document.getElementById("cardValues3").innerHTML = getCardDescription(3) + "<br />" +getCardSize(3) + "<br />" +
+																	getCardSpeed(3) + "<br />" +getCardRange(3) + "<br />" +getCardFirepower(3) + "<br />" +getCardCargo(3);
+					document.getElementById("cardValues4").innerHTML = getCardDescription(4) + "<br />" +getCardSize(4) + "<br />" +
+																	getCardSpeed(4) + "<br />" +getCardRange(4) + "<br />" +getCardFirepower(4) + "<br />" +getCardCargo(4);
 				
 					
  					document.getElementById("RoundNumber").innerHTML = rounds;
