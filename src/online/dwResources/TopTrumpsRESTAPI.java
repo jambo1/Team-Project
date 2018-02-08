@@ -51,9 +51,8 @@ public class TopTrumpsRESTAPI {
 	 * @param conf
 	 */
 	public TopTrumpsRESTAPI(TopTrumpsJSONConfiguration conf) {
-		final int MAXCARDS = 40;
-		final Cards[] deck = new Cards[MAXCARDS];
-		int NUMPLAYERS;
+		
+		
 		
 		// ----------------------------------------------------
 		// Add relevant initalization here
@@ -81,6 +80,7 @@ public class TopTrumpsRESTAPI {
 	@Path("/playCategory")
 	public int playCategory(@QueryParam("Category") int category) throws IOException {
 		int victor = 10;
+		round++;
 		if (turn == 0) {
 			// do nothing, use QueryParam since it's the users choice
 		} else {
@@ -148,6 +148,7 @@ public class TopTrumpsRESTAPI {
 	@GET
 	@Path("/startGame")
 	public String startGame() throws IOException {
+		
 		createGame();
 		gameOver = false;
 		turn = 0;
@@ -204,7 +205,41 @@ public class TopTrumpsRESTAPI {
 	@GET
 	@Path("/getCardDescription")
 	public String getCardDescription(@QueryParam("player") int player) throws IOException {
+	
 		return aGame.getPlayer(player).getTopCard().getDescription();
+	}
+	
+	@GET
+	@Path("/getCardSize")
+	public String getCardSize(@QueryParam("player") int player) throws IOException {
+	
+		return "" + aGame.getPlayer(player).getTopCard().getSize();
+	}
+	
+	@GET
+	@Path("/getCardSpeed")
+	public String getCardSpeed(@QueryParam("player") int player) throws IOException {
+
+		return "" + aGame.getPlayer(player).getTopCard().getSpeed();
+	}
+	
+	@GET
+	@Path("/getCardRange")
+	public String getCardRange(@QueryParam("player") int player) throws IOException {
+
+		return "" + aGame.getPlayer(player).getTopCard().getRange();
+	}
+	@GET
+	@Path("/getCardFirepower")
+	public String getCardFirepower(@QueryParam("player") int player) throws IOException {
+
+		return "" + aGame.getPlayer(player).getTopCard().getFirepower();
+	}
+	@GET
+	@Path("/getCardCargo")
+	public String getCardCargo(@QueryParam("player") int player) throws IOException {
+
+		return "" + aGame.getPlayer(player).getTopCard().getCargo();
 	}
 	
 	/**
@@ -218,12 +253,12 @@ public class TopTrumpsRESTAPI {
 	public String getCardValues(@QueryParam("player") int player)  throws IOException {
 		
 		StringBuilder sb = new StringBuilder("");
-		sb.append(String.format("| %26s |\r\n", aGame.getPlayer(player).getTopCard().getDescription()));
-		sb.append(String.format("| Size: %20d |\r\n", aGame.getPlayer(player).getTopCard().getSize()));
-		sb.append(String.format("| Speed: %19d |\r\n", aGame.getPlayer(player).getTopCard().getSpeed()));
-		sb.append(String.format("| Range: %19d |\r\n",aGame.getPlayer(player).getTopCard().getRange()));
-		sb.append(String.format("| Firepower: %15d |\r\n",aGame.getPlayer(player).getTopCard().getFirepower()));
-		sb.append(String.format("| Cargo: %19d |\r\n",aGame.getPlayer(player).getTopCard().getCargo()));
+		sb.append(String.format("%26s\r\n\r\n", aGame.getPlayer(player).getTopCard().getDescription()));
+		sb.append(String.format("Size: %20d\r\n", aGame.getPlayer(player).getTopCard().getSize()));
+		sb.append(String.format("Speed: %19d\r\n", aGame.getPlayer(player).getTopCard().getSpeed()));
+		sb.append(String.format("Range: %19d\r\n",aGame.getPlayer(player).getTopCard().getRange()));
+		sb.append(String.format("Firepower: %15d\r\n",aGame.getPlayer(player).getTopCard().getFirepower()));
+		sb.append(String.format("Cargo: %19d\r\n",aGame.getPlayer(player).getTopCard().getCargo()));
 		
 		return sb.toString();
 	}
@@ -275,6 +310,7 @@ public class TopTrumpsRESTAPI {
 		TopTrumpsCLIApplication.shuffle();
 		deck = TopTrumpsCLIApplication.getDeck();
 		aGame = new Game(deck);
+		
 		
 		}
 		catch(NullPointerException e) { 

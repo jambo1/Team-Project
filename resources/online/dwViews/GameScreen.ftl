@@ -115,14 +115,9 @@
 				document.getElementById("button1").onclick = gameOn;
 				document.getElementById("button2").onclick = gameStats; 
 				document.getElementById("button3").onclick = exitGame; 
-				document.getElementById("yourCard").display = none; 
-				// --------------------------------------------------------------------------
-				//pick players
-				//start game
-				//choose category
-				// You can call other methods you want to run when the page first loads here
-				// --------------------------------------------------------------------------
-
+				document.getElementById("card").style.visibility = "hidden"; 
+				document.getElementById("aside").style.visibility = "hidden";
+			
 			}
 	
 	function endCurrentGame() {
@@ -133,7 +128,6 @@
 		if (confirm("By pressing OK you will exit the game. Continue?")) {
 			location.href = 'http://localhost:7777/toptrumps';
 			// endCurrentGame();
-			
 		}
 	}
 	function gameStats() {
@@ -144,33 +138,32 @@
 	}
 	function gameOn() {
 				//setPlayers();
-				alert("Bitches get stitches"); 
-				 	document.getElementById("button1").style.visibility = "hidden";
-				 	document.getElementById("numberOfPlayers").style.visibility = "hidden"; 
-				 	startGame();
+				//alert("Bitches get stitches"); 
+				startGame(); 
+				document.getElementById("button1").style.visibility = "hidden";
+				document.getElementById("numberOfPlayers").style.visibility = "hidden"; 
+				
+				document.getElementById("cardValues").innerHTML = getCardDescription(0) + "<br />" +getCardSize(0) + "<br />" +
+																	getCardSpeed(0) + "<br />" +getCardRange(0) + "<br />" +getCardFirepower(0) + "<br />" +getCardCargo(0);
+				
+				
+				document.getElementById("card").style.visibility = "visible"; 
+				document.getElementById("aside").style.visibility = "visible";
+				
+				
 				//displayCard();
-			}
-			
-			
-	// --------------------------------------------------------------------------
-			function startGame()
-			 {
-			 	//document.getElementById("yourCard").innerHTML; 
+	}
+	function startGame() {
 				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/startGame");
 				if (!xhr) {
 					alert("CORS not supported");
 				}
 				xhr.onload = function(e) {
  					var responseText = xhr.response; // the text of the response
-
-					alert(responseText);
-					
- 					
+					//alert(responseText);
  				}
- 				
  				xhr.send();
- 				
-			 };	
+	}
 			 
 	 
 			 
@@ -193,15 +186,15 @@
 	  				<option value="4">4</option>
 	  				<option value="5">5</option>
 				</select>
-					<button onclick="gameOn()" id="button1">Start Game</button>
+					<button id="button1">Start Game</button>
 				<!-- need a method to make this button work -->
 			</p>
-					<button onclick="gameStats()" id="button2">Game Stats</button>
-					<button onclick="existGame()" id="button3">Exit</button>
+					<button id="button2">Game Stats</button>
+					<button id="button3">Exit</button>
 			
 
 			<br/>
-		<aside>
+		<aside Id ="aside">
 			<ul.b>
 			<br/>
 		   		<li><a><h2>Round Winner</h2></a></li>
@@ -211,19 +204,19 @@
 		</aside>
 	</div>
 
-		<div class = "container">
+		<div class = "container" Id="card">
 
 			<article>
   				<h2>Your Card</h2>
- 					<p Id = "test">Need method to print top card here</p>
+ 					<p Id = "cardname"></p>
  						<!--METHOD here should only allow to pick when its the humans turn-->
 							<div class="card">
   								<img src="https://vignette.wikia.nocookie.net/starwars/images/2/21/MF_over_Takodana_SWCT.png/revision/latest?cb=20170605041002" alt="Avatar" style="width:100%">
  				 			<div class="container">
-
- 				 			<br/>
- 				 			<br/>
-    							<!--h4><b></b></h4-->
+							<br/>
+ 				 			
+    							<p Id="cardValues"></p>
+    							
   							</div>
 						</div>
  					
@@ -275,28 +268,7 @@
 
 		<script type="text/javascript">
 
-			// Method that is called on page load
-			function initalize() {
-				document.getElementById("button1").onclick = gameOn;  
-				document.getElementById("yourCard").innerHTML = " "; 
-				// --------------------------------------------------------------------------
-				//pick players
-				//start game
-				//choose category
-				// You can call other methods you want to run when the page first loads here
-				// --------------------------------------------------------------------------
 
-
- /// can courtnee l?
-
-				
-				// For example, lets call our sample methods
-				helloJSONList();
-				helloWord("Top Trumps Online");
-				
-				
-
-			}
 
 			// -----------------------------------------
 			// Add your other Javascript methods Here
@@ -344,38 +316,102 @@
 			};
 	// --------------------------------------------------------------------------		
 			function getCardDescription(player) {
-			 	var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/getCardDescription?player="player); // Request type and URL+parameters
+			 	var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/getCardDescription?player="+player); // Request type and URL+parameters
 				if (!xhr) {
 		  			alert("CORS not supported");
 				}
 				xhr.onload = function(e) {
  					var responseText = xhr.response; // the text of the response
+					document.getElementById("cardValues").innerHTML = responseText;
+ 				}
+ 				xhr.send();
+			}
+	// --------------------------------------------------------------------------
+			function getCardSize(player) {
+			 	var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/getCardSize?player="+player); // Request type and URL+parameters
+				if (!xhr) {
+		  			alert("CORS not supported");
+				}
+				xhr.onload = function(e) {
+ 					var responseText = xhr.response; // the text of the response
+
+ 					$document.getElementById("cardValues").append("Size: " + responseText);
 
  				
-
- 					document.getElementById("card").innerHTML = responseText;
  				}
  				xhr.send();
 			}
-	// --------------------------------------------------------------------------
-			function getCardValues(player) {
-					var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/getCardValues?player="player); // Request type and URL+parameters
+		function getCardSpeed(player) {
+			 	var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/getCardSpeed?player="+player); // Request type and URL+parameters
 				if (!xhr) {
 		  			alert("CORS not supported");
 				}
 				xhr.onload = function(e) {
  					var responseText = xhr.response; // the text of the response
 
- 					document.getElementById("board").innerHTML = "Your card:";
+ 					$document.getElementById("cardValues").append("Speed: " + responseText);
 
- 					document.getElementById("card").innerHTML = responseText;
+ 	
+ 				}
+ 				xhr.send();
+			}
+				function getCardRange(player) {
+			 	var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/getCardRange?player="+player); // Request type and URL+parameters
+				if (!xhr) {
+		  			alert("CORS not supported");
+				}
+				xhr.onload = function(e) {
+ 					var responseText = xhr.response; // the text of the response
+
+ 					$document.getElementById("cardValues").append("Range: " + responseText);
+
+ 		
+ 				}
+ 				xhr.send();
+			}
+				function getCardFirepower(player) {
+			 	var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/getCardFirepower?player="+player); // Request type and URL+parameters
+				if (!xhr) {
+		  			alert("CORS not supported");
+				}
+				xhr.onload = function(e) {
+ 					var responseText = xhr.response; // the text of the response
+
+ 					$document.getElementById("cardValues").append("Firepower: " + responseText);
+
+ 					
+ 				}
+ 				xhr.send();
+			}
+				function getCardCargo(player) {
+			 	var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/getCardCargo?player="+player); // Request type and URL+parameters
+				if (!xhr) {
+		  			alert("CORS not supported");
+				}
+				xhr.onload = function(e) {
+ 					var responseText = xhr.response; // the text of the response
+
+ 					$document.getElementById("cardValues").append("Cargo: " + responseText);
+
+ 				}
+ 				xhr.send();
+			}
+			function getCardValues(player) {
+					var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/getCardValues?player="+player); // Request type and URL+parameters
+				if (!xhr) {
+		  			alert("CORS not supported");
+				}
+				xhr.onload = function(e) {
+ 					var responseText = xhr.response; // the text of the response
+
+ 					
+
+ 					document.getElementById("cardValues").innerHTML = responseText;
  				}
  				xhr.send();
 			}
 	// --------------------------------------------------------------------------
-			function displayActiveCards() {
-			
-			}
+	
 	// --------------------------------------------------------------------------
 			function playCategory() {
 				// 
@@ -435,7 +471,7 @@
  				
 			}
 	// --------------------------------------------------------------------------
-			function 
+	
 	
 	
 	

@@ -184,6 +184,8 @@ public class Interaction {
 
 
 	public void updateSQL ()
+	{
+	}
 
 	public void updateStats ()
 
@@ -255,9 +257,4 @@ public class Interaction {
 
 }
 
-			System.out.println("Connection could not be closed – SQL exception");
-		}
-	}
-
-}
 
