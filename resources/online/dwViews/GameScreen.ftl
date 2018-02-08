@@ -17,6 +17,8 @@
     	<link rel="stylesheet" href="http://dcs.gla.ac.uk/~richardm/assets/stylesheets/vex-theme-os.css"/>
     	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+	
 	<head>
 		<style>
 			div.container {
@@ -105,6 +107,9 @@
 		</style>
 	</head>
 </body>
+
+	</head>
+
 <script>
 		function initalize() {
 				document.getElementById("button1").onclick = gameOn;
@@ -145,7 +150,9 @@
 				 	startGame();
 				//displayCard();
 			}
-		// --------------------------------------------------------------------------
+			
+			
+	// --------------------------------------------------------------------------
 			function startGame()
 			 {
 			 	//document.getElementById("yourCard").innerHTML; 
@@ -165,53 +172,62 @@
  				
 			 };	
 			 
+	 
+			 
 		</script>
 
     <body onload="initalize()"> <!-- Call the initalize method when the page loads -->
+
 
     	<div class="container" Id = "pickPlayers">
     		<header>
    			<h1>Top Trumps</h1>
 		</header>
 			<p Id = "numberOfPlayers">
-			</br>
-			<b>Choose number of players</b>
-			<select id="nop">
- 				<option value="2">2</option>
-  				<option value="3">3</option>
-  				<option value="4">4</option>
-  				<option value="5">5</option>
-			</select>
+
+				<br/>
+				<b>Choose number of players</b>
+				<select id="nop">
+	 				<option value="2">2</option>
+	  				<option value="3">3</option>
+	  				<option value="4">4</option>
+	  				<option value="5">5</option>
+				</select>
+					<button onclick="gameOn()" id="button1">Start Game</button>
+				<!-- need a method to make this button work -->
 			</p>
-			<p>
-				<button id="button1" onclick ="gameOn();">Start Game</button>
-			<!-- need a method to make this button work -->
-				<button onclick="gameStats()" id="button2">Game Stats</button>
-				<button onclick="existGame()" id="button3">Exit</button>
-		</p>
+					<button onclick="gameStats()" id="button2">Game Stats</button>
+					<button onclick="existGame()" id="button3">Exit</button>
+			
+
 			<br/>
 		<aside>
 			<ul.b>
-			</br>
+			<br/>
 		   		<li><a><h2>Round Winner</h2></a></li>
 		    		<li><a><h2>Draws</h2></a></li>
    			 	<li><a><h2>Turn</h2></a></li>
    			 <ul.b>
 		</aside>
 	</div>
-		<div class = "container" id = "yourCard">
+
+		<div class = "container">
+
 			<article>
   				<h2>Your Card</h2>
- 					<p>Need method to print top card here</p>
+ 					<p Id = "test">Need method to print top card here</p>
  						<!--METHOD here should only allow to pick when its the humans turn-->
 							<div class="card">
   								<img src="https://vignette.wikia.nocookie.net/starwars/images/2/21/MF_over_Takodana_SWCT.png/revision/latest?cb=20170605041002" alt="Avatar" style="width:100%">
  				 			<div class="container">
- 				 			</br>
- 				 		</br>
+
+ 				 			<br/>
+ 				 			<br/>
     							<!--h4><b></b></h4-->
   							</div>
 						</div>
+ 					
+
 					<p Id = "categoryChoice">
 				<b>Select Category</b>
 					<select id="no3">
@@ -228,6 +244,35 @@
 		</article>
 	</div>
 
+
+			<!-- Add your HTML Here -->
+			
+			<header class="main-header">
+    <div class="container" style="background-color: #cce6ff;">
+        <div class="row">
+            <div class="col-sm-3 col-xs-3 header-left">
+            </div>
+            <div class="col-sm6 xs-hidden header-center">
+                <h1 class = "start">
+                    <br>
+                    <span class="start-highlight"> Top Trumps: Let's Play </span>
+                </h1>
+            </div>
+            <div class="col-sm-3 col-xs-9 header-top">
+                 <div class="row">
+                    <div class="col-md-5"></div>
+                    <div class="col-md-2">
+                </div>
+            <div class="col-md-5"></div>
+        </div>
+            </div>
+        </div>
+    </div>
+</header>
+		
+		</div>
+		
+
 		<script type="text/javascript">
 
 			// Method that is called on page load
@@ -241,6 +286,16 @@
 				// You can call other methods you want to run when the page first loads here
 				// --------------------------------------------------------------------------
 
+
+ /// can courtnee l?
+
+				
+				// For example, lets call our sample methods
+				helloJSONList();
+				helloWord("Top Trumps Online");
+				
+				
+
 			}
 
 			// -----------------------------------------
@@ -249,8 +304,7 @@
 
 
 	// --------------------------------------------------------------------------
-			
-	// --------------------------------------------------------------------------
+	 // --------------------------------------------------------------------------
 			function setPlayers()
 			 {
 			 	var p = document.getElementById("nop");
@@ -263,7 +317,9 @@
 				xhr.onload = function(e) {
  					var responseText = xhr.response; // the text of the response
 
+
  					alert(responseText);
+
  					
 
  				}
@@ -385,7 +441,10 @@
 	
 	
 	
+	// --------------------------------------------------------------------------
 	
+		
+			
 	
 	// --------------------------------------------------------------------------
 	// ----------------------------Written by Richard----------------------------

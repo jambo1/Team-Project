@@ -38,6 +38,15 @@
 			// Method that is called on page load
 			function initalize() {
 			
+
+				// --------------------------------------------------------------------------
+				// You can call other methods you want to run when the page first loads here
+				// --------------------------------------------------------------------------
+				
+				// For example, lets call our sample methods
+				helloJSONList();
+				helloWord("Top Trumps Online");
+
 			}
 			
 			// -----------------------------------------
