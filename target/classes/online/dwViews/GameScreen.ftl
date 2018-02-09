@@ -292,7 +292,7 @@
 			<article>
   				<h2>Your Card</h2>
  					<p Id = "cardname"></p>
- 						<!--METHOD here should only allow to pick when its the humans turn-->
+ 						<!--BUTTON here should only allow to pick when its the humans turn-->
 							<div class="card">
   								<img src="https://vignette.wikia.nocookie.net/starwars/images/2/21/MF_over_Takodana_SWCT.png/revision/latest?cb=20170605041002" alt="Avatar" style="width:100%">
  				 			<div class="container">
@@ -320,7 +320,7 @@
 					</p>
 					<p>
 					<button onclick="playCategory()" id="button4">Play Round</button>
-					<button onclick="nextRound()" id="button5">OK, Let's Go!</button>
+					<button onclick="nextRound()" id="button5">Next Round</button>
 				</p>
 			<br/>
   					
@@ -398,9 +398,6 @@
 						</div>
 					</article>				
 	</div>
-
-
-			<!-- Add your HTML Here -->
 			
 			<header class="main-header">
     <div class="container" style="background-color: #cce6ff;">

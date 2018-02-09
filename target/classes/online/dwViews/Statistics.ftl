@@ -1,5 +1,5 @@
 <html>
-
+	<body background= "https://i.ytimg.com/vi/fOl6TUPTcO8/maxresdefault.jpg">
 	<head>
 		<!-- Web page title -->
     	<title>Top Trumps</title>
@@ -19,21 +19,123 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
 	</head>
+	<head>
+		<style>
+			div.container {
+				color: white; 
+					background-color: #2E4053; 
+    					width: 100%;
+   				border: 1px solid gray;
+				}
+	
+				header, footer {
+   					padding: 1em;
+   						color: white;
+   			 			background-color: #85929E;
+   			 			clear: left;
+    					text-align: center;
+				}
+
+			aside {
+    				float: left;
+    				max-width: 160px;
+    				margin: 0;
+   			 	padding: 1em;
+   			 	<!--background-color: #2E4053;--> 
+			}
+
+			aside {
+   			 	list-style-type: none;
+    				padding: 0;
+			}
+   
+			aside ul b{
+    				text-decoration: none;
+			}
+
+			article {
+				color: white; 
+   				margin-left: 170px;
+    				border-left: 1px solid gray;
+    				padding: 1em;
+    				overflow: hidden;
+			}
+			h1{
+				font-family: 'Allerta Stencil', monospace;
+				font-size: 36px;
+				font-style: italic; 
+				font-variant: normal;
+				font-weight: 900;
+				line-height: 26.4px;
+				}
+			h2{
+				font-family: 'Allerta Stencil', monospace;
+				font-size: 17px;
+				font-style: italic; 
+				font-variant: normal;
+				font-weight: 900;
+				line-height: 26.4px;
+				}
+			#button1, #button2, #button3{
+				display:inline-block;
+				font-family: 'Allerta Stencil', monospace;
+				font-size: 12px; 
+				width: 90px;
+				height: 30px;
+				}
+			#button4{
+				display:inline-block;
+				font-family: 'Allerta Stencil', monospace;
+				font-size: 12px; 
+				width: 90px;
+				height: 30px;
+				}
+			</div>
+		</style>
+	</head>
 
     <body onload="initalize()"> <!-- Call the initalize method when the page loads -->
     	
     	<div class="container">
 
-			<h5>Game Statistics</h5>
-		<br/>
-			<p Id = "gameStats">
-			</p>
+		<h5>Top Trumps: Game Statistics</h5>
 			<br/>
-			<p Id = "Stats">
+			<br/>
+			<p Id = "Exit">
+			<button id="button1" onclick = "exitGame()">Exit</button>
 			</p>
 		</div>
-		
-		</div>
+	<br/>
+	<div class = "container" Id="statslist">
+			<article>
+  				<h2>Last Game Statistics</h2></p>
+  					</br>
+  					<ul b>
+		   				<li>Game Winner:</li>
+		   				</br>
+		   				<li>Draws:</li>
+		   				</br>
+		    				<li>Rounds won by per player:</li>
+		    			</ul b>
+			    		</br>
+			    		</br>
+		    		<h2>Total Statistics</h2></p>
+		    			</br>
+		    			<ul b>
+		   			 	<li>Number of Games Played Overall:</li>	
+		   			 	</br>
+		   			 	<li>Draws:</li>
+		   			 	</br>
+		   			 	<li>Number of games won by AI:</li>
+		   			 	</br>
+		   			 	<li>Average number of draws:</li>  
+		   			 	</br> 
+		   			 	<li>Longest games:</li>	
+		   			 </ul>	
+	   			 	</br>
+		</article>
+	</div>
+</head>
 		
 		<script type="text/javascript">
 		
@@ -44,9 +146,7 @@
 				// You can call other methods you want to run when the page first loads here
 				// --------------------------------------------------------------------------
 				
-				// For example, lets call our sample methods
-				helloJSONList();
-				helloWord("Student");
+				
 				
 			}
 			
@@ -78,6 +178,13 @@
   				 }
   				 return xhr;
 			}
+	
+	//-------------
+	//-------------
+		
+		function exitGame() {
+			location.href = 'http://localhost:7777/toptrumps';
+		}
 		
 		</script>
 		

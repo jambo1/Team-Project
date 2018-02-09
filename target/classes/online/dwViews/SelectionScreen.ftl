@@ -1,5 +1,5 @@
 <html>
-
+	<body background= "https://i.ytimg.com/vi/fOl6TUPTcO8/maxresdefault.jpg">
 	<head>
 		<!-- Web page title -->
     	<title>Top Trumps</title>
@@ -22,12 +22,17 @@
 
     <body onload="initalize()"> <!-- Call the initalize method when the page loads -->
     	
-    	<div class="container">
-
+    	<div class="container" col-xs-4 col1 center-block>
+		<article>
+			</br>
+			</br>
+			</br>
+			</br>
+			</br>
+			<button onclick="setSelection(1)" align: center>Play game</button>					
+			<button onclick="setSelection(2)" align: center>View game statistics</button>
 			
-			<!-- Add your HTML Here -->
-			<button onclick="setSelection(1)">Play game</button>					
-			<button onclick="setSelection(2)">View game statistics</button>
+		</article>	
 			
 		</div>
 		
