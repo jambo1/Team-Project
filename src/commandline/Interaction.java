@@ -183,8 +183,23 @@ public class Interaction {
 	
 
 
-	public void updateSQL ()
+	public void updateSQL (int humanRounds, int p1Rounds, int p2Rounds, int p3Rounds, int p4Rounds, int drawRounds,
+			int rounds, int winner)
 	{
+		hrw = humanRounds;
+		p2rw = p1Rounds;
+		p3rw = p2Rounds;
+		p4rw = p3Rounds;
+		p4rw = p4Rounds;
+		td = drawRounds;
+		tr = rounds;
+		
+		if(winner ==0) {
+			humanwins = 1;
+		}
+		else {
+			aiwins =1;
+		}
 	}
 
 	public void updateStats ()

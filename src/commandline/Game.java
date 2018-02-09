@@ -349,4 +349,13 @@ public class Game {
 	public int getNumPlayers() {
 		return NUMPLAYERS;
 	}
+	
+	public boolean isHPin() {
+		if(players[0].getTopCard()!=null) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 }

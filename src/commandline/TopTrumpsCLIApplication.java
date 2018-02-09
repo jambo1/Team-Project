@@ -15,9 +15,12 @@ public class TopTrumpsCLIApplication {
 	public static Game aGame;
 	private static boolean gameOver;
 	private static int round, turn;
-	private static boolean timer = false;
+	private static boolean timer = false; //set to true before hand in
 	private static logWriter log = new logWriter();
 	private static boolean writeGameLogsToFile = true;
+	private static int humanRounds, p1Rounds, p2Rounds, p3Rounds, p4Rounds, drawRounds; 
+	private static int winner;
+	private static Interaction in;
 
 	/**
 	 * This main method is called by TopTrumps.java when the user specifies that they want to run in
@@ -63,7 +66,18 @@ public class TopTrumpsCLIApplication {
 				gameOver = false;
 				turn = 0;
 				round = 0;
+				humanRounds = 0;
+				p1Rounds = 0;
+				p2Rounds =0;
+				p3Rounds = 0;
+				p4Rounds =0;
 				while(gameOver==false)	{
+					/*
+					 * Uncomment before turn in
+					 */
+					//Check if the human is in, if not turn timer off
+					//timer = aGame.isHPin();
+					
 					round++;
 					StringBuilder roundString = new StringBuilder("");
 					System.out.println(roundString.append(String.format("--------------- Round %2d ---------------", round)).toString());
@@ -129,7 +143,9 @@ public class TopTrumpsCLIApplication {
 					}
 					aGame.nullAndSort();
 					
-					// Process win
+					/*
+					 * Process a player winning the game
+					 */
 					if (gameOver) {
 					
 						//Print a buffer
@@ -145,14 +161,20 @@ public class TopTrumpsCLIApplication {
 						if(aGame.getPlayer(0).getTopCard()!=null) {
 							System.out.println("Congratulations you have won!");
 							if(writeGameLogsToFile = true) {log.logWinner(0);}
+							//Save winner for persistent data
+							winner = 0;
 						}
 						for (int i = 1; i < aGame.getNumPlayers(); i++) {
 							if (aGame.getPlayer(i).getTopCard() != null ) {
 								//Log winner
 								if(writeGameLogsToFile = true) {log.logWinner(i);}
 								System.out.println(String.format("Player %d has won the game!", i));
+								//Save winner for persistent data
+								winner=i;
 							}
 						}
+						
+						updatePersistent();
 
 						//Print another buffer
 						for(int i =0;i<30;i++) {
@@ -162,9 +184,14 @@ public class TopTrumpsCLIApplication {
 						System.out.println("");
 						// gameover
 					}
-					// 
+					
+					/*
+					 * Otherwise continue with the game
+					 */
 					else {
 						int victor = aGame.doRoundCalc(catChoice);
+						//update counters for persistent data collection
+						updateRoundWinner(victor);
 						// if not a draw
 						if (victor != aGame.getNumPlayers()) {
 						
@@ -212,7 +239,7 @@ public class TopTrumpsCLIApplication {
 			if(choice ==2) {
 				System.out.println("User choice was 2");  
 				
-				Interaction in = new Interaction();
+				
 				in.connection();
 				System.out.println("The total number of games played is " + in.TotalGames());			
 				System.out.println("The total number of human wins is " + in.HumanWins());
@@ -327,6 +354,43 @@ public class TopTrumpsCLIApplication {
 	
 	public static Cards[] getDeck() {
 		return deck;
+	}
+	
+	/**
+	 * Updates statistics with the winner of each round
+	 * @param winner
+	 */
+	private static void updateRoundWinner(int winner) {
+		switch(winner) {
+		case 0 : 
+			humanRounds++;
+			break;
+		case 1 :
+			p1Rounds++;
+			break;
+		case 2 :
+			p2Rounds++;
+			break;
+		case 3 :
+			p3Rounds++;
+			break;
+		case 4 :
+			p4Rounds++;
+			break;
+		case 5 :
+			drawRounds++;
+			break;
+		}
+	}
+	/**
+	 * Updates the persistent data to be written to the sql table
+	 */
+	private static void updatePersistent() {
+		//Update data for the sql queries
+		in.updateSQL(humanRounds, p1Rounds, p2Rounds, p3Rounds, p4Rounds, drawRounds, round, winner);
+		//Update statistics in the SQL database
+		in.updateStats();
+		System.out.println(""+humanRounds + p1Rounds+ p2Rounds+ p3Rounds+ p4Rounds+ drawRounds+ round+ winner);
 	}
 }
 	
