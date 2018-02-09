@@ -20,7 +20,7 @@ public class TopTrumpsCLIApplication {
 	private static boolean writeGameLogsToFile = true;
 	private static int humanRounds, p1Rounds, p2Rounds, p3Rounds, p4Rounds, drawRounds; 
 	private static int winner;
-	private static Interaction in;
+	private static Interaction in = new Interaction();
 
 	/**
 	 * This main method is called by TopTrumps.java when the user specifies that they want to run in
@@ -128,8 +128,10 @@ public class TopTrumpsCLIApplication {
 					gameOver = aGame.playCategory(catChoice);
 					
 					//Log the active cards chosen category and values
-					log.logActivePile(aGame.getActiveCards());
-					log.logCategoryValues(aGame.getActiveCards(), catChoice);
+					if(writeGameLogsToFile = true) {
+						log.logActivePile(aGame.getActiveCards());
+						log.logCategoryValues(aGame.getActiveCards(), catChoice);
+					}
 					
 					for (int i = 0; i < aGame.getNumPlayers(); i++) {
 						if (i==0) {

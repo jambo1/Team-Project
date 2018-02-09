@@ -11,7 +11,7 @@ public class Interaction {
 	private int newGame;
 
 	//Variables to store the round winds for each player
-	private int hrw, p2rw, p3rw, p4rw , p5rw; 
+	private int hrw=0, p2rw=0, p3rw=0, p4rw=0 , p5rw=0; 
 	//Total draws and total rounds
 	private int td , tr;
 	//updates the wins for either ai player or human
