@@ -13,12 +13,14 @@ import java.util.concurrent.TimeUnit;
 		 */
 		private Cards[] hand;
 		private final int DECKSIZE = 40;
+		private boolean out;
 
 		/**
 		 * Constructor taking @param deckSize as input
 		 */
 		public AIPlayer() {
 			hand = new Cards[DECKSIZE];
+			out = false;
 		}
 		
 		/**
@@ -146,4 +148,8 @@ import java.util.concurrent.TimeUnit;
 		public Cards[] getHand() {
 			return this.hand;
 		}
+		
+		public boolean getOut()	{return out;}
+		
+		public void setOut()	{out=true;}
 	}

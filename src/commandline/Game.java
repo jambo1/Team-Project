@@ -12,6 +12,7 @@ public class Game {
 	 */
 	private final int MAXCARDS = 40;
 	private final int NUMPLAYERS = 5;
+	private int nPlayers = 5;
 	private Cards[] deck = new Cards[MAXCARDS];
 	private Cards[] communalPile = new Cards[MAXCARDS];
 	public Cards[]  activeCards = new Cards[NUMPLAYERS];
@@ -32,19 +33,32 @@ public class Game {
 		}
 
 	}
-	
+	//////////////////////////////
+	public Game(Cards[] cards, int nPlayers) {
+		this.nPlayers = nPlayers;
+		deck = cards;
+		for(int i = 0; i < nPlayers; i++) {
+			players[i] = new AIPlayer();
+		}
+
+	}
+	////////////////////////////////////////
 
 	/**
 	 * Deals the cards between players until there are no cards in the deck.
 	 */
 	public void deal()	{
-		int playerCount =0;
+/*		int playerCount =0;
 		for(int i=0;i<MAXCARDS;) {
-			for(int j=0; j<NUMPLAYERS;j++) {
+			for(int j=0; j<nPlayers;j++) {
 				players[j].getPlayerHand()[playerCount] = deck[i];
 				i++;
 			}
 			playerCount++;
+		}
+*/		
+		for(int i=0; i<MAXCARDS; i++)	{
+			players[i%nPlayers].getPlayerHand()[i/nPlayers]=deck[i];
 		}
 	}
 		
@@ -81,6 +95,21 @@ public class Game {
 	
 	public boolean playCategory(int c)	{
 		
+		for(int i=0; i<nPlayers; i++)	{
+			if(players[i].getTopCard()!=null&&players[i].getOut()==false) {
+				activeCards[i] = players[i].getTopCard();
+			}
+			else if(players[i].getTopCard()==null) {
+				System.out.println("You are out!");
+				activeCards[i] = null;
+				players[i].setOut();
+				if(i==1)	{
+				timer = false;
+				}
+			}
+		}
+		
+/*		
 		//If human player has a topcard it is placed in the activecards pile, otherwise they are set to being out
 		if(players[0].getTopCard()!=null&&hpOut<1) {
 			activeCards[0] = players[0].getTopCard();
@@ -131,13 +160,16 @@ public class Game {
 			activeCards[4] = null;
 			p4Out=1;
 		}
-		
+*/		
 
 		/*
 		 * If 4 players are out someone has won
 		 */
-		totalOut = hpOut+p1Out+p2Out+p3Out+p4Out;
-		if(totalOut == 4) {
+		totalOut = 0;
+		for(int i=0; i<nPlayers; i++)	{
+			if(players[i].getOut()==true)	{totalOut++;}
+		}
+		if(totalOut == nPlayers-1) {
 		//	playerWins();
 			return true;
 		}
@@ -157,11 +189,11 @@ public class Game {
 		//Values of the victor of the round, representing each player or a draw and the best value in the cards
 		int victor=0, bestValue=0;
 		//The value of the chosen categories for each player
-		int[] cardValArray = new int[NUMPLAYERS];
+		int[] cardValArray = new int[nPlayers];
 		
 		//Plays chosen category 1, size. Checks for the largest value in the category and sets that player as the victor
 		if(c==1)	{
-			for(int i=0; i<NUMPLAYERS; i++)	{
+			for(int i=0; i<nPlayers; i++)	{
 				if(activeCards[i]!=null) {
 					cardValArray[i] = activeCards[i].getSize();
 					if(bestValue<activeCards[i].getSize())	{
@@ -176,7 +208,7 @@ public class Game {
 		}
 		//Plays chosen category 2, speed. Checks for the largest value in the category and sets that player as the victor
 		else if(c==2)	{
-			for(int i=0; i<NUMPLAYERS; i++)	{
+			for(int i=0; i<nPlayers; i++)	{
 				if(activeCards[i]!=null) {
 					cardValArray[i] = activeCards[i].getSpeed();
 					if(bestValue<activeCards[i].getSpeed())	{
@@ -191,7 +223,7 @@ public class Game {
 		}
 		//Plays chosen category 3, range. Checks for the largest value in the category and sets that player as the victor
 		else if(c==3)	{
-			for(int i=0; i<NUMPLAYERS; i++)	{
+			for(int i=0; i<nPlayers; i++)	{
 				if(activeCards[i]!=null) {
 					cardValArray[i] = activeCards[i].getRange();
 					if(bestValue<activeCards[i].getRange())	{
@@ -206,7 +238,7 @@ public class Game {
 		}
 		//Plays chosen category 4, firepower. Checks for the largest value in the category and sets that player as the victor
 		else if(c==4)	{
-			for(int i=0; i<NUMPLAYERS; i++)	{
+			for(int i=0; i<nPlayers; i++)	{
 				if(activeCards[i]!=null) {
 					cardValArray[i] = activeCards[i].getFirepower();
 					if(bestValue<activeCards[i].getFirepower())	{
@@ -221,7 +253,7 @@ public class Game {
 		}
 		//Plays chosen category 5, cargo. Checks for the largest value in the category and sets that player as the victor
 		else if(c==5)	{
-			for(int i=0; i<NUMPLAYERS; i++)	{
+			for(int i=0; i<nPlayers; i++)	{
 				if(activeCards[i]!=null) {
 					cardValArray[i] = activeCards[i].getCargo();
 					if(bestValue<activeCards[i].getCargo())	{
@@ -240,8 +272,8 @@ public class Game {
 		}
 		//tests for draw bases and passes a number above any possible player index to takePile to process a draw
 		Arrays.sort(cardValArray);
-		if(cardValArray[NUMPLAYERS-1]==cardValArray[NUMPLAYERS-2])	{
-			return NUMPLAYERS;
+		if(cardValArray[nPlayers-1]==cardValArray[nPlayers-2])	{
+			return nPlayers;
 		}
 		
 		return victor;
@@ -283,7 +315,7 @@ public class Game {
 		int active =0;
 		for(int i=0; i<MAXCARDS;i++) {
 			if(communalPile[i]==null) {
-				if(active<NUMPLAYERS) {
+				if(active<nPlayers) {
 					if(activeCards[active]!=null) {
 						communalPile[i]=activeCards[active];
 					}
@@ -315,7 +347,7 @@ public class Game {
 		 * Pushes all the cards up one slot in the array so the top card is not void
 		 */
 		
-		for (int i = 0; i < NUMPLAYERS; i++) {
+		for (int i = 0; i < nPlayers; i++) {
 			players[i].nullTopCard();
 			players[i].sortCards();
 		}		
@@ -347,7 +379,7 @@ public class Game {
 	}
 	
 	public int getNumPlayers() {
-		return NUMPLAYERS;
+		return nPlayers;
 	}
 	
 	public boolean isHPin() {
