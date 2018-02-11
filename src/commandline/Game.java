@@ -12,7 +12,7 @@ public class Game {
 	 */
 	private final int MAXCARDS = 40;
 	private final int NUMPLAYERS = 5;
-	private int nPlayers = 5;
+	private int nPlayers;
 	private Cards[] deck = new Cards[MAXCARDS];
 	private Cards[] communalPile = new Cards[MAXCARDS];
 	public Cards[]  activeCards = new Cards[NUMPLAYERS];

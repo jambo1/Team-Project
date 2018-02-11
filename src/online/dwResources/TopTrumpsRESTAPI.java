@@ -43,6 +43,7 @@ public class TopTrumpsRESTAPI {
 	private boolean gameOver;
 	private int round, turn;
 	private int finalVictor;
+	private int numberOfPlayers;
 	
 	/**
 	 * Contructor method for the REST API. This is called first. It provides
@@ -153,7 +154,6 @@ public class TopTrumpsRESTAPI {
 	@GET
 	@Path("/startGame")
 	public String startGame() throws IOException {
-		
 		createGame();
 		gameOver = false;
 		turn = 0;
@@ -194,7 +194,8 @@ public class TopTrumpsRESTAPI {
 	@GET
 	@Path("/numberOfPlayers")
 	public String setNumberOfPlayers(@QueryParam("numberOfPlayers") int numberOfPlayers) throws IOException {
-		// Game.setNUMPLAYERS = numberOfPlayers;
+		this.numberOfPlayers = numberOfPlayers;
+		//Game.setNUMPLAYERS = numberOfPlayers;
 		//System.out.println("You choose " + numberOfPlayers + " players. Good luck!");
 		return "You choose " + numberOfPlayers + " players. Good luck!";
 	}
@@ -311,7 +312,7 @@ public class TopTrumpsRESTAPI {
 		
 		deck = TopTrumpsCLIApplication.getDeck();
 		Collections.shuffle(Arrays.asList(deck));
-		aGame = new Game(deck);
+		aGame = new Game(deck, numberOfPlayers);
 		aGame.deal();
 		
 		

@@ -29,7 +29,7 @@ public class TopTrumpsCLIApplication {
 	 */
 	public static void main(String[] args) {
 	
-		
+
 		
 		//Read file and create the deck
 		createDeck();
