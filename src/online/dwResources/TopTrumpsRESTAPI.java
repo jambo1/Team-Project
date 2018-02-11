@@ -111,9 +111,9 @@ public class TopTrumpsRESTAPI {
 				aGame.draw();
 			}
 			aGame.clearActiveCards();
-			
+
 		}
-		
+
 		System.out.println(victor);
 		return victor;
 	}

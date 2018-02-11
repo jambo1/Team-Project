@@ -28,6 +28,7 @@ public class Game {
 	 */
 	public Game(Cards[] cards) {
 		deck = cards;
+		nPlayers=NUMPLAYERS;
 		for(int i = 0; i < NUMPLAYERS; i++) {
 			players[i] = new AIPlayer();
 		}
@@ -381,6 +382,8 @@ public class Game {
 	public int getNumPlayers() {
 		return nPlayers;
 	}
+	
+	public void setNumPlayers(int nP)	{nPlayers = nP;}
 	
 	public boolean isHPin() {
 		if(players[0].getTopCard()!=null) {
