@@ -15,9 +15,9 @@ public class Game {
 	private int nPlayers;
 	private Cards[] deck = new Cards[MAXCARDS];
 	private Cards[] communalPile = new Cards[MAXCARDS];
-	public Cards[]  activeCards = new Cards[NUMPLAYERS];
+	public Cards[]  activeCards;
 
-	private AIPlayer[] players = new AIPlayer[NUMPLAYERS];
+	private AIPlayer[] players;
 
 	private boolean timer = false;
 	private int hpOut=0, p1Out=0, p2Out=0, p3Out=0, p4Out=0, totalOut=0, drawCount=0, drawNo=0;
@@ -29,6 +29,8 @@ public class Game {
 	public Game(Cards[] cards) {
 		deck = cards;
 		nPlayers=NUMPLAYERS;
+		activeCards = new Cards[nPlayers];
+		players = new AIPlayer[nPlayers];
 		for(int i = 0; i < NUMPLAYERS; i++) {
 			players[i] = new AIPlayer();
 		}
@@ -38,6 +40,8 @@ public class Game {
 	public Game(Cards[] cards, int nPlayers) {
 		this.nPlayers = nPlayers;
 		deck = cards;
+		activeCards = new Cards[nPlayers];
+		players = new AIPlayer[nPlayers];
 		for(int i = 0; i < nPlayers; i++) {
 			players[i] = new AIPlayer();
 		}
@@ -372,7 +376,10 @@ public class Game {
 	}
 	
 	public AIPlayer getPlayer(int p) {
-		return players[p];
+		try{return players[p];}
+		catch(ArrayIndexOutOfBoundsException n)	{
+			return null;
+		}
 	}
 	
 	public AIPlayer[] getAllPlayers() {

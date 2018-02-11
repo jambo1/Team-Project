@@ -221,41 +221,66 @@ public class TopTrumpsRESTAPI {
 	@GET
 	@Path("/getCardDescription")
 	public String getCardDescription(@QueryParam("player") int player) throws IOException {
+		try {
 		System.out.println(aGame.getPlayer(player).getTopCard().getDescription());
 		return aGame.getPlayer(player).getTopCard().getDescription();
+		}
+		catch(NullPointerException n1)	{
+			return "Player not in game";
+		}
 	}
 	
 	@GET
 	@Path("/getCardSize")
 	public String getCardSize(@QueryParam("player") int player) throws IOException {
-	
+	try {
 		return "" + aGame.getPlayer(player).getTopCard().getSize();
+	}
+	catch(NullPointerException n2)	{
+		return "Player not in game";
+	}
 	}
 	
 	@GET
 	@Path("/getCardSpeed")
 	public String getCardSpeed(@QueryParam("player") int player) throws IOException {
-
+try {
 		return "" + aGame.getPlayer(player).getTopCard().getSpeed();
+}
+catch(NullPointerException n3)	{
+	return "Player not in game";
+}
 	}
 	
 	@GET
 	@Path("/getCardRange")
 	public String getCardRange(@QueryParam("player") int player) throws IOException {
-
+try {
 		return "" + aGame.getPlayer(player).getTopCard().getRange();
+}
+catch(NullPointerException n4)	{
+	return "Player not in game";
+}
 	}
 	@GET
 	@Path("/getCardFirepower")
 	public String getCardFirepower(@QueryParam("player") int player) throws IOException {
-
+try {
 		return "" + aGame.getPlayer(player).getTopCard().getFirepower();
+}
+catch(NullPointerException n5)	{
+	return "Player not in game";
+}
 	}
 	@GET
 	@Path("/getCardCargo")
 	public String getCardCargo(@QueryParam("player") int player) throws IOException {
-
+try {
 		return "" + aGame.getPlayer(player).getTopCard().getCargo();
+}
+catch(NullPointerException n6)	{
+	return "Player not in game";
+}
 	}
 	
 	/**
@@ -267,7 +292,7 @@ public class TopTrumpsRESTAPI {
 	@GET
 	@Path("/getCardValues")
 	public String getCardValues(@QueryParam("player") int player)  throws IOException {
-		
+		try {
 		StringBuilder sb = new StringBuilder("");
 		sb.append(String.format("%26s\r\n\r\n", aGame.getPlayer(player).getTopCard().getDescription()));
 		sb.append(String.format("Size: %20d\r\n", aGame.getPlayer(player).getTopCard().getSize()));
@@ -277,6 +302,10 @@ public class TopTrumpsRESTAPI {
 		sb.append(String.format("Cargo: %19d\r\n",aGame.getPlayer(player).getTopCard().getCargo()));
 		
 		return sb.toString();
+		}
+		catch(NullPointerException n1)	{
+			return "Not in game";
+		}
 	}
 	
 	@GET
