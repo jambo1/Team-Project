@@ -60,8 +60,7 @@ public class TopTrumpsCLIApplication {
 				createGame();
 				aGame.deal();
 				
-				//Log the hands dealt
-				if(writeGameLogsToFile = true) {log.logHands(aGame.getAllPlayers());}
+				
 				
 				gameOver = false;
 				turn = 0;
@@ -77,6 +76,9 @@ public class TopTrumpsCLIApplication {
 					 */
 					//Check if the human is in, if not turn timer off
 					//timer = aGame.isHPin();
+					
+					//Log the players' hands
+					if(writeGameLogsToFile = true) {log.logHands(aGame.getAllPlayers(), round);}
 					
 					round++;
 					StringBuilder roundString = new StringBuilder("");
@@ -115,6 +117,7 @@ public class TopTrumpsCLIApplication {
 						}
 					}
 					int catChoice = 0;
+					
 					// human
 					if(turn == 0) {
 						catChoice = aGame.getPlayerChoice();	

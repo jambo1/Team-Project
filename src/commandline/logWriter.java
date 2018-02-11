@@ -104,7 +104,7 @@ public class logWriter {
 	/**
 	 * Prints the user and computer's hands. User hand is always in hands[0]
 	 */
-	public void logHands(AIPlayer[] players) {
+	public void logHands(AIPlayer[] players, int round) {
 		//Store the player hands
 		Cards[][] hands = new Cards[NUMPLAYERS][];
 		for(int i=0;i<NUMPLAYERS;i++) {
@@ -113,7 +113,13 @@ public class logWriter {
 		}
 		//Stringbuilder to store the information
 		StringBuilder sb = new StringBuilder();
-		sb.append("Hands dealt to players");
+		if(round==0) {
+			sb.append("Hands dealt to players");
+		}
+		else {
+			sb.append("Player hands at the opening of round "+ (round+1));
+		}
+		
 		try {
 			try {
 				//FileWriter, true to signify append to file and bufferedwriter for efficiency
