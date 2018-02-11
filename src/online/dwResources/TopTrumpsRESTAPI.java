@@ -43,7 +43,7 @@ public class TopTrumpsRESTAPI {
 	private boolean gameOver;
 	private int round, turn;
 	private int finalVictor;
-	
+	private Interaction in = new Interaction();
 	/**
 	 * Contructor method for the REST API. This is called first. It provides
 	 * a TopTrumpsJSONConfiguration from which you can get the location of
@@ -323,7 +323,50 @@ public class TopTrumpsRESTAPI {
 		return true;
 	}
 	
+
+	@GET
+	@Path("/totalGames")
+	public int totalGames() {
+		int stats = in.TotalGames();
+		return stats;
+	}
+	@GET
+	@Path("/humanWins")
+	public int humanWins() {
+		int stats = in.HumanWins();
+		return stats;
+	}
+	@GET
+	@Path("/AIwins")
+	public int aiWins() {
+		int stats = in.AIwins();
+		return stats;
+	}
+	
+	@GET
+	@Path("/averageDraws")
+	public int averageDraws() {
+		int stats = in.AverageDraws();
+		return stats;
+	}
+	
+	@GET
+	@Path("/longestGame")
+	public int longestGame() {
+		int stats = in.HighestRounds();
+		return stats;
+	}
 	
 	
-	
+	@GET
+	@Path("/connect")
+	public void connect() {
+		in.connection();
+	}
+
+	@GET
+	@Path("/disconnect")
+	public void disconnect() {
+		in.disconnect();
+	}
 }

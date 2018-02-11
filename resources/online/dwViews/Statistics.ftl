@@ -94,7 +94,7 @@
 		</style>
 	</head>
 
-    <body onload="initalize()"> <!-- Call the initalize method when the page loads -->
+    <body onload="initalize()" onunload="disconnect()"> <!-- Call the initalize method when the page loads -->
     	
     	<div class="container">
 
@@ -111,26 +111,26 @@
   				<h2>Last Game Statistics</h2></p>
   					</br>
   					<ul b>
-		   				<li>Game Winner:</li>
+		   				<li>Game Winner: </li>
 		   				</br>
 		   				<li>Draws:</li>
 		   				</br>
-		    				<li>Rounds won by per player:</li>
+		    				<li>Rounds won by per player: </li>
 		    			</ul b>
 			    		</br>
 			    		</br>
 		    		<h2>Total Statistics</h2></p>
 		    			</br>
 		    			<ul b>
-		   			 	<li>Number of Games Played Overall:</li>	
+		   			 	<li>Number of Games Played Overall: <strong id="gamesPlayed"></strong></li>	
 		   			 	</br>
-		   			 	<li>Draws:</li>
+		   			 	<li>Number of games won by human: <strong id="humanwins"></strong></li>
 		   			 	</br>
-		   			 	<li>Number of games won by AI:</li>
+		   			 	<li>Number of games won by AI: <strong id="AIwins"></strong></li>
 		   			 	</br>
-		   			 	<li>Average number of draws:</li>  
+		   			 	<li>Average number of draws: <strong id="draws"></strong></li>  
 		   			 	</br> 
-		   			 	<li>Longest games:</li>	
+		   			 	<li>Longest game: <strong id="longestGames"></strong> rounds </li>	
 		   			 </ul>	
 	   			 	</br>
 		</article>
@@ -141,7 +141,8 @@
 		
 			// Method that is called on page load
 			function initalize() {
-			
+				connect();
+				readStats();
 				// --------------------------------------------------------------------------
 				// You can call other methods you want to run when the page first loads here
 				// --------------------------------------------------------------------------
@@ -153,6 +154,131 @@
 			// -----------------------------------------
 			// Add your other Javascript methods Here
 			// -----------------------------------------
+		
+				// This calls the helloJSONList REST method from TopTrumpsRESTAPI
+			function readStats() {
+					totalGames();
+					humanWins();
+					aiWins();
+					averageDraws();
+					longestGame();
+			
+			}
+			
+			function totalGames() { 
+				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/totalGames"); // Request type and URL
+				
+				if (!xhr) {
+  					alert("CORS not supported");
+				}
+
+				xhr.onload = function(e) {
+ 					var stats = xhr.response; // the text of the response
+ 					
+					document.getElementById("gamesPlayed").innerHTML = stats;
+					
+				};
+				
+				xhr.send();	
+			}
+		
+			function humanWins() {
+				
+				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/humanWins"); // Request type and URL
+				
+				if (!xhr) {
+  					alert("CORS not supported");
+				}
+
+				xhr.onload = function(e) {
+ 					var stats = xhr.response; // the text of the response
+ 					
+					document.getElementById("humanwins").innerHTML = stats;
+					
+				};
+				
+				xhr.send();		
+			}	
+				function aiWins() {
+				
+				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/AIwins"); // Request type and URL
+				
+				if (!xhr) {
+  					alert("CORS not supported");
+				}
+
+				xhr.onload = function(e) {
+ 					var stats = xhr.response; // the text of the response
+ 				
+					document.getElementById("AIwins").innerHTML = stats;
+				};
+				
+				xhr.send();		
+			}
+			function averageDraws() {
+				
+				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/averageDraws"); // Request type and URL
+				
+				if (!xhr) {
+  					alert("CORS not supported");
+				}
+
+				xhr.onload = function(e) {
+ 					var stats = xhr.response; // the text of the response
+ 					
+					document.getElementById("draws").innerHTML = stats;
+				};
+				
+				xhr.send();		
+			}
+			function longestGame() {
+				
+				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/longestGame"); // Request type and URL
+				
+				if (!xhr) {
+  					alert("CORS not supported");
+				}
+
+				xhr.onload = function(e) {
+ 					var stats = xhr.response; // the text of the response
+ 					
+					document.getElementById("longestGames").innerHTML = stats;
+				};
+				
+				xhr.send();		
+			}
+			
+				function connect() {
+				
+				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/connect"); // Request type and URL
+				
+				if (!xhr) {
+  					alert("CORS not supported");
+				}
+
+				xhr.onload = function(e) {
+ 					var stats = xhr.response; // the text of the response
+ 					// if no connection alert?
+				};
+				
+				xhr.send();		
+			}
+			
+				function disconnect() {
+				
+				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/disconnect"); // Request type and URL
+				
+				if (!xhr) {
+  					alert("CORS not supported");
+				}
+
+				xhr.onload = function(e) {
+ 					var stats = xhr.response; // the text of the response
+ 					
+				};
+				
+				xhr.send();		
+			}
 		
 			// This is a reusable method for creating a CORS request. Do not edit this.
 			function createCORSRequest(method, url) {
