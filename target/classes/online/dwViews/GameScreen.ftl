@@ -439,7 +439,7 @@
 	 // --------------------------------------------------------------------------
 			function setPlayers(num)
 			 {
-			 	
+
 				if (num == 2) {
 					document.getElementById("UserPlayer").innerHTML = "You";
 					document.getElementById("AIPlayer1").innerHTML = "Player 1";
@@ -459,8 +459,8 @@
 					document.getElementById("AIPlayer3").innerHTML = "Player 3";
 					document.getElementById("AIPlayer3").innerHTML = "Player 4";
 				}
-				
-				
+
+
 			 	var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/numberOfPlayers?numberOfPlayers="+num); // Request type and URL+parameters
 				if (!xhr) {
 		  			alert("CORS not supported");
@@ -471,7 +471,7 @@
 
  					//alert(responseText);
 
- 					
+
 
  				}
  				xhr.send();

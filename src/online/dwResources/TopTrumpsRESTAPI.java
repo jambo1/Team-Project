@@ -43,7 +43,11 @@ public class TopTrumpsRESTAPI {
 	private boolean gameOver;
 	private int round, turn;
 	private int finalVictor;
+
 	private Interaction in = new Interaction();
+
+	private int numberOfPlayers;
+	
 	/**
 	 * Contructor method for the REST API. This is called first. It provides
 	 * a TopTrumpsJSONConfiguration from which you can get the location of
@@ -110,9 +114,9 @@ public class TopTrumpsRESTAPI {
 				aGame.draw();
 			}
 			aGame.clearActiveCards();
-			
+
 		}
-		
+
 		System.out.println(victor);
 		return victor;
 	}
@@ -153,7 +157,6 @@ public class TopTrumpsRESTAPI {
 	@GET
 	@Path("/startGame")
 	public String startGame() throws IOException {
-		
 		createGame();
 		gameOver = false;
 		turn = 0;
@@ -194,7 +197,8 @@ public class TopTrumpsRESTAPI {
 	@GET
 	@Path("/numberOfPlayers")
 	public String setNumberOfPlayers(@QueryParam("numberOfPlayers") int numberOfPlayers) throws IOException {
-		// Game.setNUMPLAYERS = numberOfPlayers;
+		this.numberOfPlayers = numberOfPlayers;
+		//Game.setNUMPLAYERS = numberOfPlayers;
 		//System.out.println("You choose " + numberOfPlayers + " players. Good luck!");
 		return "You choose " + numberOfPlayers + " players. Good luck!";
 	}
@@ -220,41 +224,66 @@ public class TopTrumpsRESTAPI {
 	@GET
 	@Path("/getCardDescription")
 	public String getCardDescription(@QueryParam("player") int player) throws IOException {
+		try {
 		System.out.println(aGame.getPlayer(player).getTopCard().getDescription());
 		return aGame.getPlayer(player).getTopCard().getDescription();
+		}
+		catch(NullPointerException n1)	{
+			return "Player not in game";
+		}
 	}
 	
 	@GET
 	@Path("/getCardSize")
 	public String getCardSize(@QueryParam("player") int player) throws IOException {
-	
+	try {
 		return "" + aGame.getPlayer(player).getTopCard().getSize();
+	}
+	catch(NullPointerException n2)	{
+		return "Player not in game";
+	}
 	}
 	
 	@GET
 	@Path("/getCardSpeed")
 	public String getCardSpeed(@QueryParam("player") int player) throws IOException {
-
+try {
 		return "" + aGame.getPlayer(player).getTopCard().getSpeed();
+}
+catch(NullPointerException n3)	{
+	return "Player not in game";
+}
 	}
 	
 	@GET
 	@Path("/getCardRange")
 	public String getCardRange(@QueryParam("player") int player) throws IOException {
-
+try {
 		return "" + aGame.getPlayer(player).getTopCard().getRange();
+}
+catch(NullPointerException n4)	{
+	return "Player not in game";
+}
 	}
 	@GET
 	@Path("/getCardFirepower")
 	public String getCardFirepower(@QueryParam("player") int player) throws IOException {
-
+try {
 		return "" + aGame.getPlayer(player).getTopCard().getFirepower();
+}
+catch(NullPointerException n5)	{
+	return "Player not in game";
+}
 	}
 	@GET
 	@Path("/getCardCargo")
 	public String getCardCargo(@QueryParam("player") int player) throws IOException {
-
+try {
 		return "" + aGame.getPlayer(player).getTopCard().getCargo();
+}
+catch(NullPointerException n6)	{
+	return "Player not in game";
+}
 	}
 	
 	/**
@@ -266,7 +295,7 @@ public class TopTrumpsRESTAPI {
 	@GET
 	@Path("/getCardValues")
 	public String getCardValues(@QueryParam("player") int player)  throws IOException {
-		
+		try {
 		StringBuilder sb = new StringBuilder("");
 		sb.append(String.format("%26s\r\n\r\n", aGame.getPlayer(player).getTopCard().getDescription()));
 		sb.append(String.format("Size: %20d\r\n", aGame.getPlayer(player).getTopCard().getSize()));
@@ -276,6 +305,10 @@ public class TopTrumpsRESTAPI {
 		sb.append(String.format("Cargo: %19d\r\n",aGame.getPlayer(player).getTopCard().getCargo()));
 		
 		return sb.toString();
+		}
+		catch(NullPointerException n1)	{
+			return "Not in game";
+		}
 	}
 	
 	@GET
@@ -311,7 +344,7 @@ public class TopTrumpsRESTAPI {
 		
 		deck = TopTrumpsCLIApplication.getDeck();
 		Collections.shuffle(Arrays.asList(deck));
-		aGame = new Game(deck);
+		aGame = new Game(deck, numberOfPlayers);
 		aGame.deal();
 		
 		

@@ -116,7 +116,7 @@ import java.util.concurrent.TimeUnit;
 				}
 				//Gives the player the cards from the active pile in available slots
 				if(hand[i]==null)	{
-					for(int j=0; j<5; j++)	{
+					for(int j=0; j<ap.length; j++)	{
 						if(ap[j]!=null)	{
 							hand[i]=ap[j];
 							ap[j]=null;

@@ -14,7 +14,7 @@ public class TopTrumpsCLIApplication {
 
 	public static Game aGame;
 	private static boolean gameOver;
-	private static int round, turn;
+	private static int round, turn, cmd5;
 	private static boolean timer = false; //set to true before hand in
 	private static logWriter log = new logWriter();
 	private static boolean writeGameLogsToFile = true;
@@ -29,7 +29,7 @@ public class TopTrumpsCLIApplication {
 	 */
 	public static void main(String[] args) {
 	
-		
+
 		
 		//Read file and create the deck
 		createDeck();
@@ -360,6 +360,8 @@ public class TopTrumpsCLIApplication {
 	public static Cards[] getDeck() {
 		return deck;
 	}
+	
+	public static void setCmd5() {cmd5=5;}
 	
 	/**
 	 * Updates statistics with the winner of each round
