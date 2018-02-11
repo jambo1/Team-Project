@@ -269,7 +269,7 @@ public class Interaction {
 		humanwins += humanWinner;
 		aiwins += AIWinner;
 	}
-
+	
 }
 
 

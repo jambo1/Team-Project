@@ -1,0 +1,29 @@
+[33mcommit dccff191f44aef3eac30bef2f206a0918d7f73f3[m[33m ([m[1;36mHEAD -> [m[1;32maddedCards[m[33m)[m
+Author: Jamie <j.g1992@live.co.uk>
+Date:   Mon Jan 22 18:27:45 2018 +0000
+
+    Added method to shuffle the deck
+
+[33mcommit 81a96beaf9ac395b09a8df20cfe50cd9ba5601c2[m
+Author: Jamie <j.g1992@live.co.uk>
+Date:   Fri Jan 19 16:14:04 2018 +0000
+
+    Some further changes added to the main to make a menu and get user input for it
+
+[33mcommit 3116becc74ef379c517177444b29e7080b82a4d8[m[33m ([m[1;31morigin/addedCards[m[33m)[m
+Author: Jamie <j.g1992@live.co.uk>
+Date:   Fri Jan 19 12:35:37 2018 +0000
+
+    Added the cards class and creating a deck from CLI main class, can someone verify it works and merge?
+
+[33mcommit 16b5c3363ba5840fa7f330ccbfd2ea975a924e5d[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Court Persson <courtnee.persson@gmail.com>
+Date:   Wed Jan 17 16:24:03 2018 +0000
+
+    hey y'all
+
+[33mcommit 91a4c608cb93a5ab354dfdd346fc179ad3085ef4[m
+Author: [jambo1] <[j.g1992@live.co.uk]>
+Date:   Wed Jan 10 22:35:30 2018 +0000
+
+    First Commit

@@ -68,7 +68,7 @@
 						}
 				xhr.onload = function(e) {
  					var responseText = xhr.response; // the text of the response
- 					alert(responseText); 
+ 					//alert(responseText); 
  					
  					// document.getElementById("category").innerHTML = responseText;
 				}

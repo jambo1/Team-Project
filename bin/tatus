@@ -1,0 +1,277 @@
+[33mcommit 504ba9d2b1515f8e501c8816833ddb4f4c721909[m[33m ([m[1;36mHEAD -> [m[1;32monlinemadness[m[33m, [m[1;31morigin/onlinemadness[m[33m)[m
+Author: Court Persson <courtnee.persson@gmail.com>
+Date:   Wed Feb 7 13:04:01 2018 +0000
+
+    cat button
+
+[33mcommit cbd1e5d9744a067ba04a88eed6e27302172e8450[m
+Author: Court Persson <courtnee.persson@gmail.com>
+Date:   Wed Feb 7 13:01:46 2018 +0000
+
+    all the hmtl things started
+
+[33mcommit 5ae58e3f2802699a714ea5f26d5cba6cdac34f34[m
+Author: Court Persson <courtnee.persson@gmail.com>
+Date:   Wed Feb 7 11:45:59 2018 +0000
+
+    comments & cleaning up
+
+[33mcommit ca237b713b8005e686d9eacace0fb79f6f646be2[m
+Author: Viktor Eriksson <2277194e@AD.DCS.GLA.AC.UK>
+Date:   Tue Feb 6 20:55:45 2018 +0000
+
+    the madness is real. continue restructuring the code from game to CLI. cheers
+
+[33mcommit 012ae1d96998d663092720c495e826a83f32d22b[m
+Author: Viktor Eriksson <2277194e@AD.DCS.GLA.AC.UK>
+Date:   Tue Feb 6 17:07:54 2018 +0000
+
+    it works
+
+[33mcommit b48891738ee0264aabf5f7d2e2df0dd3c8e55be2[m
+Author: Viktor Eriksson <2277194e@AD.DCS.GLA.AC.UK>
+Date:   Tue Feb 6 16:29:38 2018 +0000
+
+    can't import packages? trying to resolve
+
+[33mcommit 602644b4a8456535f2fadcbd11f931d3fc7456c3[m
+Author: Viktor Eriksson <2277194e@AD.DCS.GLA.AC.UK>
+Date:   Mon Feb 5 21:38:41 2018 +0000
+
+    discovered issue, see comment in Game.java
+
+[33mcommit 70ee38b51777ba2f6414b65b385ed0c392393a2e[m
+Author: Viktor Eriksson <2277194e@AD.DCS.GLA.AC.UK>
+Date:   Sun Feb 4 20:10:23 2018 +0000
+
+    Problem with aGame being null and currently getDeck() is not being called fsr
+
+[33mcommit 6e259bea76a411469e6b816259f913d64fa963e1[m
+Author: Viktor Eriksson <2277194e@ad.dcs.gla.ac.uk>
+Date:   Sun Feb 4 12:39:13 2018 +0000
+
+    Online stuff trouble with eventlistener on dynamically made buttn
+
+[33mcommit 06fa5232d8d49471f6b566aa2450e5a00cb79f3f[m
+Author: Viktor Eriksson <2277194e@AD.DCS.GLA.AC.UK>
+Date:   Sat Feb 3 21:35:55 2018 +0000
+
+    getting places.. Can start CL game from web browser. need methods for displaying in browser + fix ability to choose no of players.
+
+[33mcommit 1f0d451052c5a6f38010973a11f8803c0fc9da78[m
+Author: Viktor Eriksson <2277194e@AD.DCS.GLA.AC.UK>
+Date:   Sat Feb 3 15:45:59 2018 +0000
+
+    not much progress
+
+[33mcommit 337998c15a856282e9cca1764a3642cb659186b4[m
+Author: Court Persson <courtnee.persson@gmail.com>
+Date:   Fri Feb 2 17:22:24 2018 +0000
+
+    leave a message
+
+[33mcommit 36277d549c59e055bbac69c4499f939d117db650[m
+Merge: eb1913c f5dee32
+Author: Court Persson <courtnee.persson@gmail.com>
+Date:   Fri Feb 2 17:06:45 2018 +0000
+
+    Merge pull request #2 from jambo1/courtpersson-patch-1
+    
+    Add files via upload
+
+[33mcommit f5dee323731f4e6323e8de8262a1eb7123748662[m[33m ([m[1;31morigin/courtpersson-patch-1[m[33m)[m
+Author: Court Persson <courtnee.persson@gmail.com>
+Date:   Fri Feb 2 16:58:30 2018 +0000
+
+    Add files via upload
+
+[33mcommit eb1913c7ae9dc9b81e92b3733d345e37fb37a128[m
+Author: Court Persson <courtnee.persson@gmail.com>
+Date:   Wed Jan 31 16:17:59 2018 +0000
+
+    online thingsss
+
+[33mcommit 939e825435f6ba533f19cf083a28784a93045fd5[m
+Author: Jamie <j.g1992@live.co.uk>
+Date:   Wed Jan 31 14:51:12 2018 +0000
+
+    More commenting added
+
+[33mcommit 7f6c177c8e3a42b2006dfe1c096ca0bf0245d320[m
+Author: Jamie <j.g1992@live.co.uk>
+Date:   Wed Jan 31 14:28:14 2018 +0000
+
+    Added more comments to game
+
+[33mcommit 12b6f0001c37b892f5acbc5cef2739dff2970085[m
+Author: Jamie <j.g1992@live.co.uk>
+Date:   Wed Jan 31 14:20:56 2018 +0000
+
+    Added more comments to game and shortened some methods
+
+[33mcommit 321c3261b9a6d498d23ea6e7e735704966f94dd3[m
+Author: Jamie <j.g1992@live.co.uk>
+Date:   Wed Jan 31 12:49:36 2018 +0000
+
+    Added comments in the Game method and split up the play category method
+
+[33mcommit 7a3684173d7091ed5500641a2672d33f12e8afbe[m
+Author: thomasdavidholmes <33161811+thomasdavidholmes@users.noreply.github.com>
+Date:   Wed Jan 31 12:02:38 2018 +0000
+
+    Game done
+
+[33mcommit bceb79b1dbcb580e3bff7fa242fb9029d47249ed[m
+Author: thomasdavidholmes <33161811+thomasdavidholmes@users.noreply.github.com>
+Date:   Wed Jan 31 10:46:50 2018 +0000
+
+    Fixed potential bug
+
+[33mcommit d419c980dbb96c1f997698f68683b3ef5ccd6b43[m
+Author: thomasdavidholmes <33161811+thomasdavidholmes@users.noreply.github.com>
+Date:   Wed Jan 31 10:28:38 2018 +0000
+
+    Tidied up a bit
+
+[33mcommit 87056598fcc8b8b4946cd355a28c38c4bbda138e[m
+Author: thomasdavidholmes <33161811+thomasdavidholmes@users.noreply.github.com>
+Date:   Tue Jan 30 10:41:09 2018 +0000
+
+    FINAL BUG FIXED
+
+[33mcommit 974cf007deb0f7571ad15120da7569ae4ca895e8[m
+Merge: f088a8e b58c383
+Author: Jamie <32044368+jambo1@users.noreply.github.com>
+Date:   Mon Jan 29 17:45:20 2018 +0000
+
+    Merge pull request #1 from jambo1/T5
+    
+    T5
+
+[33mcommit b58c38315efb368bed7a4309a1af36c8c5e01916[m[33m ([m[1;31morigin/T5[m[33m)[m
+Merge: 855ee31 f088a8e
+Author: Jamie <32044368+jambo1@users.noreply.github.com>
+Date:   Mon Jan 29 17:44:38 2018 +0000
+
+    Merge branch 'master' into T5
+
+[33mcommit 855ee31664c26e53e219c9258f8d4166ccfd6a6e[m
+Author: thomasdavidholmes <33161811+thomasdavidholmes@users.noreply.github.com>
+Date:   Mon Jan 29 15:22:06 2018 +0000
+
+    I think it works
+
+[33mcommit 52b151e4665eb07b0936c554be9f4f8814697b7c[m
+Author: thomasdavidholmes <33161811+thomasdavidholmes@users.noreply.github.com>
+Date:   Sun Jan 28 14:10:12 2018 +0000
+
+    fixed growing cards
+
+[33mcommit c4474a751bc86d56af462414625893bc96c03f0e[m
+Author: thomasdavidholmes <33161811+thomasdavidholmes@users.noreply.github.com>
+Date:   Fri Jan 26 14:51:00 2018 +0000
+
+    communal bug fixed
+
+[33mcommit 4dcbb917d0e40813a53e821189d4e69c02b8b50a[m
+Author: thomasdavidholmes <33161811+thomasdavidholmes@users.noreply.github.com>
+Date:   Fri Jan 26 13:04:30 2018 +0000
+
+    I don't know why it doesn't work
+
+[33mcommit f0659ac723428465dd7d51566edc9d4b0bb9cf1f[m
+Author: thomasdavidholmes <33161811+thomasdavidholmes@users.noreply.github.com>
+Date:   Thu Jan 25 12:45:18 2018 +0000
+
+    fixed some buggy play. now just need to deal with loserz
+
+[33mcommit c92de4b57476bdbbfa5adb29cb362d46234d528a[m
+Author: Jamie <j.g1992@live.co.uk>
+Date:   Wed Jan 24 23:12:31 2018 +0000
+
+    Game plays past a player being put out. Needs autofinish when human is put out and recognising when a player is out to be implemented.
+
+[33mcommit 4718a5d0dd70139f494a5a80f4ed29118bd9d424[m
+Author: thomasdavidholmes <33161811+thomasdavidholmes@users.noreply.github.com>
+Date:   Wed Jan 24 19:28:37 2018 +0000
+
+    game almost ready, until someone loses
+
+[33mcommit ff524caa2ffdde3d815a2d8c1d54b45a38888fa1[m
+Author: thomasdavidholmes <33161811+thomasdavidholmes@users.noreply.github.com>
+Date:   Wed Jan 24 13:37:22 2018 +0000
+
+    current game class checkpoint
+
+[33mcommit f088a8ecd4c7e825455de3b6a34ff0dd06af5944[m
+Merge: 2a2a5c2 f3bcd8f
+Author: thomasdavidholmes <33161811+thomasdavidholmes@users.noreply.github.com>
+Date:   Wed Jan 24 12:15:07 2018 +0000
+
+    please commit
+
+[33mcommit 2a2a5c240886e3b4c5fd0a8cc3fba290c850923a[m[33m ([m[1;31morigin/AItestin[m[33m)[m
+Author: thomasdavidholmes <33161811+thomasdavidholmes@users.noreply.github.com>
+Date:   Wed Jan 24 12:00:31 2018 +0000
+
+    game half written
+
+[33mcommit f3bcd8f938bc8c2772cac1769d611bacaea367c8[m
+Author: ViktorSoftDev <32965939+viktorSoftDev@users.noreply.github.com>
+Date:   Tue Jan 23 19:12:11 2018 +0000
+
+    AI done?
+
+[33mcommit b1c52bf9c12030fef4dd03be0c31519d7224d167[m
+Author: ViktorSoftDev <32965939+viktorSoftDev@users.noreply.github.com>
+Date:   Tue Jan 23 10:31:48 2018 +0000
+
+    added createAIPlayers() in Game.java; compiling error cannot find symbol still present
+
+[33mcommit 0ad320a8eaea70a6c16851c5e321978398c9a045[m
+Author: ViktorSoftDev <32965939+viktorSoftDev@users.noreply.github.com>
+Date:   Tue Jan 23 09:05:40 2018 +0000
+
+    Fixed bug in AIPlayer. Pretty much good to go except playCategory().
+
+[33mcommit f77e46f20e19c95387d243735f3fdbb15604d32a[m
+Author: ViktorSoftDev <32965939+viktorSoftDev@users.noreply.github.com>
+Date:   Mon Jan 22 22:21:27 2018 +0000
+
+    Created the class AIplayer, doesn't work yet, something about Cards being referenced.
+
+[33mcommit 230602639c8a0a1786d05904118e566432b78e98[m[33m ([m[1;31morigin/addedCards[m[33m)[m
+Author: Jamie <j.g1992@live.co.uk>
+Date:   Mon Jan 22 18:39:42 2018 +0000
+
+    Commenting on the shuffle method added
+
+[33mcommit dccff191f44aef3eac30bef2f206a0918d7f73f3[m
+Author: Jamie <j.g1992@live.co.uk>
+Date:   Mon Jan 22 18:27:45 2018 +0000
+
+    Added method to shuffle the deck
+
+[33mcommit 81a96beaf9ac395b09a8df20cfe50cd9ba5601c2[m
+Author: Jamie <j.g1992@live.co.uk>
+Date:   Fri Jan 19 16:14:04 2018 +0000
+
+    Some further changes added to the main to make a menu and get user input for it
+
+[33mcommit 3116becc74ef379c517177444b29e7080b82a4d8[m
+Author: Jamie <j.g1992@live.co.uk>
+Date:   Fri Jan 19 12:35:37 2018 +0000
+
+    Added the cards class and creating a deck from CLI main class, can someone verify it works and merge?
+
+[33mcommit 16b5c3363ba5840fa7f330ccbfd2ea975a924e5d[m
+Author: Court Persson <courtnee.persson@gmail.com>
+Date:   Wed Jan 17 16:24:03 2018 +0000
+
+    hey y'all
+
+[33mcommit 91a4c608cb93a5ab354dfdd346fc179ad3085ef4[m
+Author: [jambo1] <[j.g1992@live.co.uk]>
+Date:   Wed Jan 10 22:35:30 2018 +0000
+
+    First Commit
