@@ -90,11 +90,19 @@
 				width: 90px;
 				height: 30px;
 				}
+			#button5{
+				display:inline-block;
+				font-family: 'Allerta Stencil', monospace;
+				font-size: 12px; 
+				width: 90px;
+				height: 30px;
+				}
 				
 		.card {
     			box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
    		 	transition: 0.3s;
     			width: 40%;
+    			
 			}
 
 		.card:hover {
@@ -107,7 +115,7 @@
 		.card1 {
     			box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
    		 	transition: 0.3s;
-    			width: 40%;
+    			width: 40%; 
     			
 			}
 
@@ -169,6 +177,8 @@
 	</head>
 
 <script>
+
+
 		function initalize() {
 				document.getElementById("button1").onclick = gameOn;
 				document.getElementById("button2").onclick = gameStats; 
@@ -307,7 +317,6 @@
     							<p Id="Cargo"></p>
   							</div>
 						</div>
- 					
 						</br>
 					<p Id = "categoryChoice">
 				<b>Select Category</b>
@@ -328,8 +337,8 @@
 		</article>
 		<article Id="player1">
   				<h2>Player 1</h2>
+  				<p id="active1">
  					<p Id = "cardplayer1"></p>
- 						
 							<div class="card1">
   								<img src="https://lumiere-a.akamaihd.net/v1/images/Death-Star-II_b5760154.jpeg?region=0%2C68%2C2160%2C1080" alt="Avatar" style="width:100%">
  				 			<div class="container">
@@ -343,16 +352,16 @@
     							<p Id="Cargo1"></p>
   							</div>
 						</div>
+						</p>
 					</article>
 		<article Id="player2">
   				<h2>Player 2</h2>
+  					<id="active2">
  					<p Id = "cardplayer2"></p>
- 						
 							<div class="card2">
   								<img src="https://lumiere-a.akamaihd.net/v1/images/vaders-tie-fighter_8bcb92e1.jpeg?region=0%2C147%2C1560%2C878&width=768" alt="Avatar" style="width:100%">
  				 			<div class="container">
 							<br/>
- 				 			
     							<p Id="cardValues2"></p>
     							<p Id="Size2"></p>
     							<p Id="Speed2"></p>
@@ -361,11 +370,12 @@
     							<p Id="Cargo2"></p>
   							</div>
 						</div>
+						</p>
 					</article>	
 		<article Id="player3">
   				<h2>Player 3</h2>
  					<p Id = "cardplayer3"></p>
- 						
+ 						<id="active3">
 							<div class="card3">
   								<img src="https://nerdist.com/wp-content/uploads/2015/04/StarDestroyer04222015-970x545.jpg" alt="Avatar" style="width:100%">
  				 			<div class="container">
@@ -379,11 +389,12 @@
     							<p Id="Cargo3"></p>
   							</div>
 						</div>
+						</p>
 					</article>	
 		<article Id="player4">
   				<h2>Player 4</h2>
  					<p Id = "cardplayer4"></p>
- 						
+ 						<p id="active4">
 							<div class="card4">
   								<img src="http://cdn2us.denofgeek.com/sites/denofgeekus/files/big_thumb_cd04cc40bd2e7060c7a2b417b1743b74.jpg" alt="Avatar" style="width:100%">
  				 			<div class="container">
@@ -397,8 +408,9 @@
     							<p Id="Cargo4"></p>
   							</div>
 						</div>
+						</p>
 					</article>				
-	</div>
+				</div>
 			
 			<header class="main-header">
     <div class="container" style="background-color: #cce6ff;">
@@ -437,27 +449,46 @@
 
 	// --------------------------------------------------------------------------
 	 // --------------------------------------------------------------------------
-			function setPlayers(num)
-			 {
-
+			var ActiveUser;
+			var ActiveAI1;
+			var ActiveAI2;
+			var ActiveAI3;
+			var ActiveAI4;
+			
+			function setPlayers(num) {
+			
 				if (num == 2) {
 					document.getElementById("UserPlayer").innerHTML = "You";
 					document.getElementById("AIPlayer1").innerHTML = "Player 1";
+					ActiveUser = 1;
+					ActiveAI1 = 1;
 				} else if (num == 3) {
 					document.getElementById("UserPlayer").innerHTML = "You";
 					document.getElementById("AIPlayer1").innerHTML = "Player 1";
 					document.getElementById("AIPlayer2").innerHTML = "Player 2";
+					ActiveUser = 1;
+					ActiveAI1 = 1;
+					ActiveAI2 = 1;
 				} else if (num == 4) {
 					document.getElementById("UserPlayer").innerHTML = "You";
 					document.getElementById("AIPlayer1").innerHTML = "Player 1";
 					document.getElementById("AIPlayer2").innerHTML = "Player 2";
 					document.getElementById("AIPlayer3").innerHTML = "Player 3";
+					ActiveUser = 1;
+					ActiveAI1 = 1;
+					ActiveAI2 = 1;
+					ActiveAI3 = 1;
 				} else if (num == 5) {
 					document.getElementById("UserPlayer").innerHTML = "You";
 					document.getElementById("AIPlayer1").innerHTML = "Player 1";
 					document.getElementById("AIPlayer2").innerHTML = "Player 2";
 					document.getElementById("AIPlayer3").innerHTML = "Player 3";
-					document.getElementById("AIPlayer3").innerHTML = "Player 4";
+					document.getElementById("AIPlayer4").innerHTML = "Player 4";
+					ActiveUser = 1;
+					ActiveAI1 = 1;
+					ActiveAI2 = 1;
+					ActiveAI4 = 1;
+					ActiveAI3 = 1;
 				}
 
 
@@ -478,21 +509,7 @@
 			 };
 	
 	// --------------------------------------------------------------------------
-			function displayCard() {
-
-			 	var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/displayCard"); // Request type and URL+parameters
-				if (!xhr) {
-		  			alert("CORS not supported");
-				}
-				xhr.onload = function(e) {
- 					var responseText = xhr.response; // the text of the response
-
- 					document.getElementById("board").innerHTML = "Your card:";
-
- 					document.getElementById("card").innerHTML = responseText;
- 				}
- 				xhr.send();
-			};
+			
 	// --------------------------------------------------------------------------		
 			function getCardDescription(player) {
 			 	var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/getCardDescription?player="+player); // Request type and URL+parameters
@@ -700,23 +717,29 @@
 			 };
 			 
 			 function roundResults() {
+			 
+			 
 			 	document.getElementById("button4").style.visibility = "hidden";
 			 	document.getElementById("categoryChoice").style.visibility = "hidden";
 			 	document.getElementById("button5").style.visibility = "visible";
-			 			document.getElementById("player1").style.visibility = "visible";
-						document.getElementById("player2").style.visibility = "visible";
-						document.getElementById("player3").style.visibility = "visible";
-						document.getElementById("player4").style.visibility = "visible";
-		
+			 	
+			 	if (ActiveAI1 == 1) {
+			 		document.getElementById("player1").style.visibility = "visible";
+				}		
+				if (ActiveAI2 == 1) {
+					document.getElementById("player2").style.visibility = "visible";
+				}
+				if (ActiveAI3 == 1) {
+					document.getElementById("player3").style.visibility = "visible";
+				}
+				if (ActiveAI4 == 1) {
+					document.getElementById("player4").style.visibility = "visible";
+				}
 			 }
 			 // thinking that we need to determine which cards to print etc. keep track
 			 // of what users that are still in the game. for now every1 will show.
 			 // if someone knows a neat way of doing this that would be gr8!
-			 var ActiveUser = true;
-			 var ActiveAI1 = true;
-			 var ActiveAI2 = true;
-			 var ActiveAI3 = true;
-			 var ActiveAI4 = true;
+	
 			 var gameOver; 
 			 
 			 
@@ -735,7 +758,7 @@
 																		getCardSpeed(3) + "<br />" +getCardRange(3) + "<br />" +getCardFirepower(3) + "<br />" +getCardCargo(3);
 						document.getElementById("cardValues4").innerHTML = getCardDescription(4) + "<br />" +getCardSize(4) + "<br />" +
 																		getCardSpeed(4) + "<br />" +getCardRange(4) + "<br />" +getCardFirepower(4) + "<br />" +getCardCargo(4);
-				 		
+				 	
 				 		document.getElementById("player1").style.visibility = "hidden";
 						document.getElementById("player2").style.visibility = "hidden";
 						document.getElementById("player3").style.visibility = "hidden";
@@ -773,9 +796,6 @@
 					xhr.onload = function(e) {
 						
 	 					responseText = xhr.response; // the text of the response
-	
-	 					
-	 					
 	
 	 				}
 	 				xhr.send();
