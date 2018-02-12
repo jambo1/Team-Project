@@ -19,6 +19,7 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
 	</head>
+	<!-- CSS layout for the game -->
 	<head>
 		<style>
 			div.container {
@@ -76,6 +77,7 @@
 				font-weight: 900;
 				line-height: 26.4px;
 				}
+			<!-- Display CSS for all buttons -->
 			#button1, #button2, #button3{
 				display:inline-block;
 				font-family: 'Allerta Stencil', monospace;
@@ -92,20 +94,22 @@
 				}
 			</div>
 		</style>
-	</head>
 
-    <body onload="initalize()" onunload="disconnect()"> <!-- Call the initalize method when the page loads -->
-    	
+	</head>
+	
+	<!-- Call the initalize method when the page loads -->
+    <body onload="initalize()" onunload="disconnect()"> 
     	<div class="container">
 
-		<h5>Top Trumps: Game Statistics</h5>
-			<br/>
-			<br/>
-			<p Id = "Exit">
-			<button id="button1" onclick = "exitGame()">Exit</button>
-			</p>
-		</div>
-	<br/>
+			<h5>Top Trumps: Game Statistics</h5>
+				<br/>
+				<br/>
+				<p Id = "Exit">
+				<button id="button1" onclick = "exitGame()">Exit</button>
+				</p>
+			</div>
+		<br/>
+	<!-- Holds current game info - updates while user is playing -->
 	<div class = "container" Id="statslist">
 	
 		    		<h2>Game Statistics</h2></p>
@@ -124,26 +128,18 @@
 	   			 	</br>
 		</article>
 	</div>
-</head>
+	<!-- calling methos below as javascript -->
+	<script type="text/javascript">
 		
-		<script type="text/javascript">
-		
-			// Method that is called on page load
-			function initalize() {
-				connect();
+		// Method that is called on page load
+		function initalize() {
+			connect();
 				
 				readStats();
-				// --------------------------------------------------------------------------
-				// You can call other methods you want to run when the page first loads here
-				// --------------------------------------------------------------------------
-				
-				
 				
 			}
 			
-			// -----------------------------------------
-			// Add your other Javascript methods Here
-			// -----------------------------------------
+			// --------------------------------------------
 		
 				// This calls the helloJSONList REST method from TopTrumpsRESTAPI
 			function readStats() {
@@ -152,9 +148,11 @@
 					aiWins();
 					averageDraws();
 					longestGame();
+				}
 			
-			}
+			//-----------------------------------------------
 			
+				//calls total number of games & prints to the stats page
 			function totalGames() { 
 				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/totalGames"); // Request type and URL
 				
@@ -172,6 +170,9 @@
 				xhr.send();	
 			}
 		
+			//-----------------------------------------------------
+			
+				//calls total number of wins by the human player & prints to the stats page		
 			function humanWins() {
 				
 				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/humanWins"); // Request type and URL
@@ -189,6 +190,10 @@
 				
 				xhr.send();		
 			}	
+			
+			//--------------------------------------------------------------
+				
+					//calls total number of wins by the AI player & prints to the stats page
 				function aiWins() {
 				
 				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/AIwins"); // Request type and URL
@@ -205,6 +210,10 @@
 				
 				xhr.send();		
 			}
+			
+			//-------------------------------------------------------------------
+			
+				//calls avg draw count & prints to the stats page
 			function averageDraws() {
 				
 				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/averageDraws"); // Request type and URL
@@ -221,6 +230,10 @@
 				
 				xhr.send();		
 			}
+			
+			//--------------------------------------------------------------------
+			
+				//calls longest game played & prints to stats page 
 			function longestGame() {
 				
 				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/longestGame"); // Request type and URL
@@ -238,6 +251,9 @@
 				xhr.send();		
 			}
 			
+			//----------------------------------------------------------------
+			
+					//connects to the SQL database 
 				function connect() {
 				
 				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/connect"); // Request type and URL
@@ -254,6 +270,9 @@
 				xhr.send();		
 			}
 			
+			//-----------------------------------------------------------------
+			
+					//disconnects from the database 
 				function disconnect() {
 				
 				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/disconnect"); // Request type and URL
@@ -269,8 +288,17 @@
 				
 				xhr.send();		
 			}
+			
+			//-----------------------------------------------------------------------
+			
+					//exits game & prompts back to selection screen 
+				function exitGame() {
+				location.href = 'http://localhost:7777/toptrumps';
+			}
 		
-			// This is a reusable method for creating a CORS request. Do not edit this.
+			//-----------------------------------------------------------------------
+		
+				// This is a reusable method for creating a CORS request. Do not edit this.
 			function createCORSRequest(method, url) {
   				var xhr = new XMLHttpRequest();
   				if ("withCredentials" in xhr) {
@@ -293,62 +321,6 @@
 
   				 }
   				 return xhr;
-			}
-	
-	//-------------
-	//-------------
-		
-		function exitGame() {
-			location.href = 'http://localhost:7777/toptrumps';
-		}
-		
-		</script>
-		
-		<!-- Here are examples of how to call REST API Methods -->
-		<script type="text/javascript">
-		
-			// This calls the helloJSONList REST method from TopTrumpsRESTAPI
-			function helloJSONList() {
-			
-				// First create a CORS request, this is the message we are going to send (a get request in this case)
-				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/helloJSONList"); // Request type and URL
-				
-				// Message is not sent yet, but we can check that the browser supports CORS
-				if (!xhr) {
-  					alert("CORS not supported");
-				}
-
-				// CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-				// to do when the response arrives 
-				xhr.onload = function(e) {
- 					var responseText = xhr.response; // the text of the response
-					alert(responseText); // lets produce an alert
-				};
-				
-				// We have done everything we need to prepare the CORS request, so send it
-				xhr.send();		
-			}
-			
-			// This calls the helloJSONList REST method from TopTrumpsRESTAPI
-			function helloWord(word) {
-			
-				// First create a CORS request, this is the message we are going to send (a get request in this case)
-				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/helloWord?Word="+word); // Request type and URL+parameters
-				
-				// Message is not sent yet, but we can check that the browser supports CORS
-				if (!xhr) {
-  					alert("CORS not supported");
-				}
-
-				// CORS requests are Asynchronous, i.e. we do not wait for a response, instead we define an action
-				// to do when the response arrives 
-				xhr.onload = function(e) {
- 					var responseText = xhr.response; // the text of the response
-					alert(responseText); // lets produce an alert
-				};
-				
-				// We have done everything we need to prepare the CORS request, so send it
-				xhr.send();		
 			}
 
 		</script>

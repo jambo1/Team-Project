@@ -273,9 +273,6 @@ public class TopTrumpsCLIApplication {
 		}
 	}
 	
-	public int getRandomTurn() {
-		
-	}
 
 	public static void createGame() {
 		aGame = new Game(deck);

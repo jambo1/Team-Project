@@ -447,4 +447,29 @@ catch(NullPointerException n6)	{
 		
 		
 	}
+	@GET
+	@Path("/countHand")
+	public int countHand(@QueryParam("player") int player) throws IOException {
+		int count = 0;
+		for (int i = 0; i < deck.length; i++) {
+			if (aGame.getPlayer(player).getPlayerHand()[i] != null) {
+				count++;
+			}
+		}
+		
+		return count;
+	}
+	
+	@GET
+	@Path("/countCom")
+	public int countCom() throws IOException {
+		int count = 0;
+		for (int i = 0; i < deck.length; i++) {
+			if (aGame.getCommunalPile()[i] != null) {
+				count++;
+			}
+		}
+		System.err.println(count);
+		return count;
+	}
 }

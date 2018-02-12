@@ -237,7 +237,10 @@
 	}
 	function gameOn() {
 				setPlayers(document.getElementById("nop").options[document.getElementById("nop").selectedIndex].value);
-				
+				for (i = 0; i < playerNo; i++) {
+							countHand(i);
+				}
+				countCom();
 				startGame(); 
 				document.getElementById("cardValues1").innerHTML = getCardDescription(1) + "<br />" +getCardSize(1) + "<br />" +
 																	getCardSpeed(1) + "<br />" +getCardRange(1) + "<br />" +getCardFirepower(1) + "<br />" +getCardCargo(1);
@@ -307,20 +310,22 @@
 			<ul.b>
 			<br/>
 		   		<li><a><h2>Round Winner</h2></a></li>
-		   		<p Id="RoundWinner"></p>
+		   			<p Id="RoundWinner"></p>
 		   		<li><a><h2>Rounds Played</h2></a></li>
-		   		<p Id="RoundNumber"></p>
-		    		<li><a><h2>Draws</h2></a></li>
+		   			<p Id="RoundNumber"></p>
+		    	<li><a><h2>Draws</h2></a></li>
 		    		<p Id="DrawCount"></p>
+		    	<li><a><h2>Communal Pile Count</h2></a></li>
+		   			<p Id="commPilecount"></p>
    			 	<li><a><h2>Turn</h2></a></li>
-   			 	<p Id="Turn">It's your turn to start!</p>
+   			 		<p Id="Turn">It's your turn to start!</p>
    			 	<br />
    			 	<li><a><h2>Players</h2></a></li>
-		   		<p Id="UserPlayer"></p>
-		   		<p Id="AIPlayer1"></p>
-		   		<p Id="AIPlayer2"></p>
-		   		<p Id="AIPlayer3"></p>
-		   		<p Id="AIPlayer4"></p>
+		   			<p Id="UserPlayer"></p>
+		   			<p Id="AIPlayer1"></p>
+		   			<p Id="AIPlayer2"></p>
+		   			<p Id="AIPlayer3"></p>
+		   			<p Id="AIPlayer4"></p>
    			 <ul.b>
 		</aside>
 	</div>
@@ -468,12 +473,6 @@
 		<script type="text/javascript">
 
 
-
-			// -----------------------------------------
-			// Add your other Javascript methods Here
-			// -----------------------------------------
-
-
 	// --------------------------------------------------------------------------
 	 // --------------------------------------------------------------------------
 			var ActiveUser;
@@ -481,7 +480,7 @@
 			var ActiveAI2;
 			var ActiveAI3;
 			var ActiveAI4;
-			
+			var playerNo;
 			function setPlayers(num) {
 			
 				if (num == 2) {
@@ -489,6 +488,7 @@
 					document.getElementById("AIPlayer1").innerHTML = "Player 1";
 					ActiveUser = 1;
 					ActiveAI1 = 1;
+					playerNo = 2;
 				} else if (num == 3) {
 					document.getElementById("UserPlayer").innerHTML = "You";
 					document.getElementById("AIPlayer1").innerHTML = "Player 1";
@@ -496,6 +496,7 @@
 					ActiveUser = 1;
 					ActiveAI1 = 1;
 					ActiveAI2 = 1;
+					playerNo = 3;
 				} else if (num == 4) {
 					document.getElementById("UserPlayer").innerHTML = "You";
 					document.getElementById("AIPlayer1").innerHTML = "Player 1";
@@ -505,6 +506,7 @@
 					ActiveAI1 = 1;
 					ActiveAI2 = 1;
 					ActiveAI3 = 1;
+						playerNo = 4;
 				} else if (num == 5) {
 					document.getElementById("UserPlayer").innerHTML = "You";
 					document.getElementById("AIPlayer1").innerHTML = "Player 1";
@@ -516,6 +518,7 @@
 					ActiveAI2 = 1;
 					ActiveAI4 = 1;
 					ActiveAI3 = 1;
+						playerNo = 5;
 				}
 
 
@@ -534,8 +537,6 @@
  				}
  				xhr.send();
 			 };
-	
-	// --------------------------------------------------------------------------
 			
 	// --------------------------------------------------------------------------		
 			function getCardDescription(player) {
@@ -561,6 +562,8 @@
  				}
  				xhr.send();
 			}
+	
+
 	// --------------------------------------------------------------------------
 			function getCardSize(player) {
 			 	var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/getCardSize?player="+player); // Request type and URL+parameters
@@ -689,7 +692,6 @@
  				}
  				xhr.send();
 			}
-	// --------------------------------------------------------------------------
 	
 	// --------------------------------------------------------------------------
 	var rounds = 0; 
@@ -779,8 +781,10 @@
 					} else {
 						isHumanOut();
 					if (humanOut != 1) {
-					
-					
+						for (i = 0; i < playerNo; i++) {
+							countHand(i);
+						}
+						countCom();
 				 		document.getElementById("cardValues").innerHTML = getCardDescription(0) + "<br />" +getCardSize(0) + "<br />" +
 																		getCardSpeed(0) + "<br />" +getCardRange(0) + "<br />" +getCardFirepower(0) + "<br />" +getCardCargo(0);
 						document.getElementById("cardValues1").innerHTML = getCardDescription(1) + "<br />" +getCardSize(1) + "<br />" +
@@ -817,7 +821,7 @@
 								document.getElementById("button4").style.visibility = "visible";
 							}
 					} else {
-					alert("you are out, auto playing the rest of the game");
+					alert("you are out, auto playing the rest of the game. press next round!");
 					autoPlay();
 				
 					}
@@ -881,7 +885,7 @@
  					var responseText = xhr.response; // the text of the response
 					if (gameOver != responseText) {
 					gameOver = responseText;
-					alert("game is over");
+					alert("game is over. press next round to see who won");
 					}
  					
 
@@ -902,21 +906,63 @@
  					var responseWinner = xhr.response; // the text of the response
 
  					//  do what needs to be done with ze winner
- 					 
+ 						for (i = 0; i < playerNo; i++) {
+							countHand(i);
+						}
+						countCom();
+ 					 	
 						alert("Player " + responseWinner + " won the game!");
-						
+						location.href = "http://localhost:7777/toptrumps/";
  				}
  				xhr.send();
  			
 			}
+			
+		function countHand(player) {
+				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/countHand?player="+player); // Request type and URL+parameters
+				if (!xhr) {
+		  			alert("CORS not supported");
+				}
+				xhr.onload = function(e) {
+					
+ 					var responseText = xhr.response; // the text of the response
+
+ 					// Here print put inner html for the aside.
+					if (player == 0) {
+						document.getElementById("UserPlayer").innerHTML = "You (cards left: " + responseText + ")";
+					} else if (player == 1) {
+						document.getElementById("AIPlayer1").innerHTML = "Player 1 (cards left: " + responseText + ")";
+					} else if (player == 2) {
+						document.getElementById("AIPlayer2").innerHTML = "Player 2 (cards left: " + responseText + ")";
+					}	else if (player == 3) {
+						document.getElementById("AIPlayer3").innerHTML = "Player 3 (cards left: " + responseText + ")";
+					}	else if (player == 4) {
+						document.getElementById("AIPlayer4").innerHTML = "Player 4 (cards left: " + responseText + ")";
+					}	
+							
+						
+ 				}
+ 				xhr.send();
+		}	
+		
+		function countCom() {
+				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/countCom"); // Request type and URL+parameters
+				if (!xhr) {
+		  			alert("CORS not supported");
+				}
+				xhr.onload = function(e) {
+					
+ 					var responseText = xhr.response; // the text of the response
+
+					
+					document.getElementById("commPilecount").innerHTML = responseText;
+						
+ 				}
+ 				xhr.send();
+		}	
 	// --------------------------------------------------------------------------
 			
-	
-	
-	
-	
-	
-	// --------------------------------------------------------------------------
+
 	
 		
 			
