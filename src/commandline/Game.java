@@ -109,9 +109,7 @@ public class Game {
 					System.out.println("You are out!");
 					activeCards[i] = null;
 					players[i].setOut();
-					if(i==1)	{
-						timer = false;
-					}	
+				
 				} else {
 					System.out.println(String.format("Player %d is out", i));
 					activeCards[i] = null;
@@ -355,7 +353,9 @@ public class Game {
 	
 	public boolean isHPin() {
 		if(players[0].getTopCard()!=null) {
+			timer=false;
 			return true;
+			
 		}
 		else {
 			return false;

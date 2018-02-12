@@ -15,7 +15,7 @@ public class TopTrumpsCLIApplication {
 	public static Game aGame;
 	private static boolean gameOver;
 	private static int round, turn;
-	private static boolean timer = false; //set to true before hand in
+	private static boolean timer = true; //set to true before hand in
 	private static logWriter log = new logWriter();
 	private static boolean writeGameLogsToFile = false;
 	private static int humanRounds, p1Rounds, p2Rounds, p3Rounds, p4Rounds, drawRounds; 
@@ -139,16 +139,16 @@ public class TopTrumpsCLIApplication {
 						log.logCategoryValues(aGame.getActiveCards(), catChoice);
 					}
 					
-					for (int i = 0; i < aGame.getNumPlayers(); i++) {
-						if (i==0) {
-							System.out.println("-----HUMAN HAND --------");
-							aGame.getPlayer(i).printHand();
-						}
-						else {
-							System.out.println(String.format("-----P%d HAND --------", i));
-							aGame.getPlayer(i).printHand();
-						}
-					}
+//					for (int i = 0; i < aGame.getNumPlayers(); i++) {
+//						if (i==0) {
+//							System.out.println("-----HUMAN HAND --------");
+//							aGame.getPlayer(i).printHand();
+//						}
+//						else {
+//							System.out.println(String.format("-----P%d HAND --------", i));
+//							aGame.getPlayer(i).printHand();
+//						}
+//					}
 					aGame.nullAndSort();
 					
 					/*

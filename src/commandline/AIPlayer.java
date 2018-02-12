@@ -53,7 +53,7 @@ import java.util.concurrent.TimeUnit;
 		//If the human player is still in the game a timer is used between moves to enhance gameplay
 		if(timer == true) {
 	    	try {
-	          TimeUnit.SECONDS.sleep(3);
+	          TimeUnit.SECONDS.sleep(1);
 	        }
 	        catch (InterruptedException e) {
 	          System.err.println("Timer interrupted.");
