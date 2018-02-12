@@ -49,8 +49,7 @@
 				// --------------------------------------------------------------------------
 				
 				// For example, lets call our sample methods
-				helloJSONList();
-				helloWord("Top Trumps Online");
+		
 
 			}
 			

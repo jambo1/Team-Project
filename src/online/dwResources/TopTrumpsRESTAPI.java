@@ -121,7 +121,7 @@ public class TopTrumpsRESTAPI {
 
 		}
 
-		System.out.println(victor);
+	
 		return victor;
 	}
 	
@@ -186,6 +186,18 @@ public class TopTrumpsRESTAPI {
 	public int getNumberOfPlayers() throws IOException {
 		return aGame.getNumPlayers();
 	}
+	
+	@GET
+	@Path("/autoPlay")
+	public int autoPlay() throws IOException {
+		while (gameOver == false) {
+			playCategory(0);
+		}
+		
+		return finalVictor;
+	}
+	
+	
 	
 	/**
 	 * This funciton is called whenever a user presses a button on the home screen.
@@ -324,26 +336,7 @@ catch(NullPointerException n6)	{
 		}
 	}
 	
-	@GET
-	@Path("/helloJSONList")
-	/**
-	 * Here is an example of a simple REST get request that returns a String.
-	 * We also illustrate here how we can convert Java objects to JSON strings.
-	 * @return - List of words as JSON
-	 * @throws IOException
-	 */
-	public String helloJSONList() throws IOException {
-		
-		List<String> listOfWords = new ArrayList<String>();
-		listOfWords.add("Let's");
-		listOfWords.add("Play!");
-		
-		// We can turn arbatory Java objects directly into JSON strings using
-		// Jackson seralization, assuming that the Java objects are not too complex.
-		String listAsJSONString = oWriter.writeValueAsString(listOfWords);
-		
-		return listAsJSONString;
-	}
+
 	
 
 	/**
@@ -451,7 +444,7 @@ catch(NullPointerException n6)	{
 		in.updateSQL(humanRounds, p1Rounds, p2Rounds, p3Rounds, p4Rounds, drawRounds, round, winner);
 		//Update statistics in the SQL database
 		in.updateStats();
-		System.out.println(""+humanRounds + p1Rounds+ p2Rounds+ p3Rounds+ p4Rounds+ drawRounds+ round+ winner);
+		
 		
 	}
 }

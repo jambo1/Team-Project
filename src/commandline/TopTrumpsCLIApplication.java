@@ -14,7 +14,7 @@ public class TopTrumpsCLIApplication {
 
 	public static Game aGame;
 	private static boolean gameOver;
-	private static int round, turn, cmd5;
+	private static int round, turn;
 	private static boolean timer = false; //set to true before hand in
 	private static logWriter log = new logWriter();
 	private static boolean writeGameLogsToFile = false;
@@ -63,7 +63,7 @@ public class TopTrumpsCLIApplication {
 				
 				
 				gameOver = false;
-				turn = 0;
+				turn = (int)Math.round((Math.random() * 4 ));
 				round = 0;
 				humanRounds = 0;
 				p1Rounds = 0;
@@ -273,7 +273,9 @@ public class TopTrumpsCLIApplication {
 		}
 	}
 	
-	
+	public int getRandomTurn() {
+		
+	}
 
 	public static void createGame() {
 		aGame = new Game(deck);
@@ -365,7 +367,7 @@ public class TopTrumpsCLIApplication {
 		return deck;
 	}
 	
-	public static void setCmd5() {cmd5=5;}
+
 	
 	/**
 	 * Updates statistics with the winner of each round

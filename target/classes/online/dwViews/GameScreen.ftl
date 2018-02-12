@@ -190,7 +190,34 @@
 				document.getElementById("player3").style.visibility = "hidden";
 				document.getElementById("player4").style.visibility = "hidden";
 				document.getElementById("button5").style.visibility = "hidden";
+				
+				connect();
 			}
+	function connect() {
+		var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/connect");
+				if (!xhr) {
+					alert("CORS not supported");
+				}
+				xhr.onload = function(e) {
+ 					
+				
+					
+ 				}
+ 				xhr.send();
+	}
+	function disconnect() {
+		var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/disconnect");
+				if (!xhr) {
+					alert("CORS not supported");
+				}
+				xhr.onload = function(e) {
+ 					
+				
+					
+ 				}
+ 				xhr.send();
+	}
+	
 	
 	function endCurrentGame() {
 		// function to end the current game.
@@ -251,7 +278,7 @@
 			 
 		</script>
 
-    <body onload="initalize()"> <!-- Call the initalize method when the page loads -->
+    <body onload="initalize()" onunload="disconnect()"> <!-- Call the initalize method when the page loads -->
 
 
     	<div class="container" Id = "pickPlayers">
@@ -718,9 +745,7 @@
 			 };
 			 
 			 function roundResults() {
-			 if (autoPlay == 1) {
-					nextRound();
-				}
+		
 			 
 			 	document.getElementById("button4").style.visibility = "hidden";
 			 	document.getElementById("categoryChoice").style.visibility = "hidden";
@@ -738,9 +763,7 @@
 				if (ActiveAI4 == 1) {
 					document.getElementById("player4").style.visibility = "visible";
 				}
-				if (autoPlay == 1) {
-					nextRound();
-				}
+				
 			 }
 			 // thinking that we need to determine which cards to print etc. keep track
 			 // of what users that are still in the game. for now every1 will show.
@@ -750,20 +773,14 @@
 			 var humanOut;
 			 var autoPlay;
 			 function nextRound() {
-			 			if (gameOver != 2) {
-			 				isGameOver();
-			 			}
-						if (gameOver==1) {
+			 			isGameOver();
+					if (gameOver==1) {
 							gameIsOver();
-							autoplay = 0;
-							location.href = 'http://localhost:7777/toptrumps';
-						}
-						
+					} else {
 						isHumanOut();
-						if (humanOut == 1) {
-							autoPlay = 1;
-							playCategory();
-						}
+					if (humanOut != 1) {
+					
+					
 				 		document.getElementById("cardValues").innerHTML = getCardDescription(0) + "<br />" +getCardSize(0) + "<br />" +
 																		getCardSpeed(0) + "<br />" +getCardRange(0) + "<br />" +getCardFirepower(0) + "<br />" +getCardCargo(0);
 						document.getElementById("cardValues1").innerHTML = getCardDescription(1) + "<br />" +getCardSize(1) + "<br />" +
@@ -799,9 +816,28 @@
 								document.getElementById("categoryChoice").style.visibility = "hidden";
 								document.getElementById("button4").style.visibility = "visible";
 							}
-					if (autoPlay == 1) { 
-						playCategory();
+					} else {
+					alert("you are out, auto playing the rest of the game");
+					autoPlay();
+				
 					}
+					}
+			 }
+			 
+			 	 function autoPlay() {
+			 	var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/autoPlay"); // Request type and URL+parameters
+				if (!xhr) {
+		  			alert("CORS not supported");
+				}
+				xhr.onload = function(e) {
+					// Returns int , 1 = game is over.
+ 					var responseText = xhr.response; // the text of the response
+					
+ 					
+
+ 				}
+ 				xhr.send();
+ 				
 			 }
 			 
 			 function isHumanOut() {
@@ -845,8 +881,7 @@
  					var responseText = xhr.response; // the text of the response
 					if (gameOver != responseText) {
 					gameOver = responseText;
-					} else {
-						gameOver = 2;
+					alert("game is over");
 					}
  					
 

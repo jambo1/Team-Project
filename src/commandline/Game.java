@@ -120,61 +120,10 @@ public class Game {
 			}
 		}
 		
-/*		
-		//If human player has a topcard it is placed in the activecards pile, otherwise they are set to being out
-		if(players[0].getTopCard()!=null&&hpOut<1) {
-			activeCards[0] = players[0].getTopCard();
-		}
-		else if(players[0].getTopCard()==null) {
-			System.out.println("You are out!");
-			activeCards[0] = null;
-			hpOut=1;
-			timer = false;
-		}
-		
-		//If player one has a topcard it is placed in the activecards pile, otherwise they are set to being out
-		if(players[1].getTopCard()!=null&&p1Out<1) {
-			activeCards[1] = players[1].getTopCard();
-		}
-		else if(players[1].getTopCard()==null) {
-			System.out.println("Player 1 is out!");
-			activeCards[1] = null;
-			p1Out=1;
-		}
 
-		//If player two has a topcard it is placed in the activecards pile, otherwise they are set to being out
-		if(players[2].getTopCard()!=null&&p2Out<1) {
-			activeCards[2] = players[2].getTopCard();
-		}
-		else if(players[2].getTopCard()==null) {
-			System.out.println("Player 2 is out!");
-			activeCards[2] = null;
-			p2Out=1;
-		}
-
-		//If player three has a topcard it is placed in the activecards pile, otherwise they are set to being out
-		if(players[3].getTopCard()!=null&&p3Out<1) {
-			activeCards[3] = players[3].getTopCard();
-		}
-		else if(players[3].getTopCard()==null) {
-			System.out.println("Player 3 is out!");
-			activeCards[3] = null;
-			p3Out=1;
-		}
-
-		//If player four has a topcard it is placed in the activecards pile, otherwise they are set to being out
-		if(players[4].getTopCard()!=null&&p4Out<1) {
-			activeCards[4] = players[4].getTopCard();
-		}
-		else if(players[4].getTopCard()==null) {
-			System.out.println("Player 4 is out!");
-			activeCards[4] = null;
-			p4Out=1;
-		}
-*/		
 
 		/*
-		 * If 4 players are out someone has won
+		 * If totalOut = nPlayers - 1 someone has won
 		 */
 		totalOut = 0;
 		for(int i=0; i<nPlayers; i++)	{
