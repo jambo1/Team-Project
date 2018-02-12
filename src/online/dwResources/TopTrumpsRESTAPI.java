@@ -43,7 +43,8 @@ public class TopTrumpsRESTAPI {
 	private boolean gameOver;
 	private int round, turn;
 	private int finalVictor;
-
+	private static int humanRounds, p1Rounds, p2Rounds, p3Rounds, p4Rounds, drawRounds; 
+	private static int winner;
 	private Interaction in = new Interaction();
 
 	private int numberOfPlayers;
@@ -98,10 +99,13 @@ public class TopTrumpsRESTAPI {
 					finalVictor = i;
 				}
 			}
+			updateRoundWinner(finalVictor);
+			updatePersistent();
 			
 		}
 		else {
 			victor = aGame.doRoundCalc(category);
+			updateRoundWinner(victor);
 			if (victor != aGame.getNumPlayers()) {
 				aGame.setDrawNo(0);
 				aGame.getPlayer(victor).givePlayerCards(aGame.getActiveCards(), aGame.getCommunalPile());
@@ -147,6 +151,15 @@ public class TopTrumpsRESTAPI {
 		} else {
 			return 0;
 		}
+	}
+	
+	@GET
+	@Path("isHumanOut")
+	public int isHumanOut() throws IOException {
+		if (aGame.isHPin() == true) 
+			return 0;
+		else
+			return 1;
 	}
 	/**
 	 * This method is called when user press 'Start Game'. it creates a new game and 
@@ -346,7 +359,16 @@ catch(NullPointerException n6)	{
 		Collections.shuffle(Arrays.asList(deck));
 		aGame = new Game(deck, numberOfPlayers);
 		aGame.deal();
-		
+
+		gameOver = false;
+		turn = 0;
+		round = 0;
+		humanRounds = 0;
+		p1Rounds = 0;
+		p2Rounds = 0;
+		p3Rounds = 0;
+		p4Rounds = 0;
+		drawRounds = 0;
 		
 		}
 		catch(NullPointerException e) { 
@@ -401,5 +423,35 @@ catch(NullPointerException n6)	{
 	@Path("/disconnect")
 	public void disconnect() {
 		in.disconnect();
+	}
+	private static void updateRoundWinner(int winner) {
+	System.out.println(winner);	
+		if(winner == 0) { 
+			humanRounds++;
+		}
+		else if(winner == 1) { 
+			p1Rounds++;
+		}
+		else if(winner == 2) { 
+			p2Rounds++;
+		}
+		else if(winner == 3) { 
+			p3Rounds++;
+		}
+		else if(winner == 4) { 
+			p4Rounds++;
+		}
+		else if(winner == 5) { 
+			drawRounds++;
+		}
+	}
+	private void updatePersistent() {
+		//Update data for the sql queries
+		
+		in.updateSQL(humanRounds, p1Rounds, p2Rounds, p3Rounds, p4Rounds, drawRounds, round, winner);
+		//Update statistics in the SQL database
+		in.updateStats();
+		System.out.println(""+humanRounds + p1Rounds+ p2Rounds+ p3Rounds+ p4Rounds+ drawRounds+ round+ winner);
+		
 	}
 }

@@ -15,7 +15,7 @@ public class Interaction {
 	//Total draws and total rounds
 	private int td , tr;
 	//updates the wins for either ai player or human
-	private int aiwins, humanwins;
+	private int aiwins, humanwins, newAiWins, newHumanWins;
 
 	
 
@@ -190,7 +190,7 @@ public class Interaction {
 		p2rw = p1Rounds;
 		p3rw = p2Rounds;
 		p4rw = p3Rounds;
-		p4rw = p4Rounds;
+		p5rw = p4Rounds;
 		td = drawRounds;
 		tr = rounds;
 		
@@ -214,16 +214,61 @@ public class Interaction {
 			while (rsid.next()) {
 
 				newGame = rsid.getInt("gamenumber") + 1;
+				
+			}
+			
+			stmt = null;
+			query = "select max (aiwins) as aiwins from toptrumps.overallstats";
+
+			try {
+				stmt = connection.createStatement();
+				rsid = stmt.executeQuery(query);
+				while (rsid.next()) {
+
+					newAiWins = rsid.getInt("aiwins") + 1;
+					
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+				System.err.println("error executing query ");
 
 			}
+			stmt = null;
+			query = "select max (humanwins) as humanwins from toptrumps.overallstats";
 
+			try {
+				stmt = connection.createStatement();
+				rsid = stmt.executeQuery(query);
+				while (rsid.next()) {
+
+					newHumanWins = rsid.getInt("humanwins") + 1;
+					
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+				System.err.println("error executing query ");
+
+			}
+			
+			
 			String query1 = "Insert into toptrumps.gamestats Values ("+ newGame +", " + hrw +", " + p2rw + ", " + p3rw + ", " + p4rw + ", " + p5rw +", " + td + ", " + tr + " )";
 			PreparedStatement insert = connection.prepareStatement(query1);
 			insert.executeUpdate();	
 
-			String query2 = "Insert into toptrumps.overallstats Values (" + newGame +", " + aiwins + ", " + humanwins + ")";
+			String query2 = "Insert into toptrumps.overallstats Values (" + newGame +", " + newAiWins + ", " + newHumanWins + ")";
 			PreparedStatement insert1 = connection.prepareStatement(query2);
-			insert.executeUpdate();	
+			insert1.executeUpdate();	
+			
+			
+			hrw = 0;
+			p2rw = 0;
+			p3rw = 0;
+			p4rw = 0;
+			p5rw = 0;
+			td = 0;
+			tr = 0;
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -258,17 +303,17 @@ public class Interaction {
 	 * @param humanWinner
 	 * @param AIWinner
 	 */
-	public void statisticsUpdate(int human, int p1, int p2, int p3, int p4, int totalDraws, int totalRounds, int humanWinner, int AIWinner) {
-		hrw += human;
-		p2rw += p1;
-		p3rw += p2;
-		p4rw += p3;
-		p5rw += p4;
-		td += totalDraws;
-		tr += totalRounds;
-		humanwins += humanWinner;
-		aiwins += AIWinner;
-	}
+//	public void statisticsUpdate(int human, int p1, int p2, int p3, int p4, int totalDraws, int totalRounds, int humanWinner, int AIWinner) {
+//		hrw += human;
+//		p2rw += p1;
+//		p3rw += p2;
+//		p4rw += p3;
+//		p5rw += p4;
+//		td += totalDraws;
+//		tr += totalRounds;
+//		humanwins += humanWinner;
+//		aiwins += AIWinner;
+//	}
 	
 }
 

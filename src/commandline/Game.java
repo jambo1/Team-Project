@@ -105,11 +105,17 @@ public class Game {
 				activeCards[i] = players[i].getTopCard();
 			}
 			else if(players[i].getTopCard()==null) {
-				System.out.println("You are out!");
-				activeCards[i] = null;
-				players[i].setOut();
-				if(i==1)	{
-				timer = false;
+				if (i == 0) {
+					System.out.println("You are out!");
+					activeCards[i] = null;
+					players[i].setOut();
+					if(i==1)	{
+						timer = false;
+					}	
+				} else {
+					System.out.println(String.format("Player %d is out", i));
+					activeCards[i] = null;
+					players[i].setOut();
 				}
 			}
 		}

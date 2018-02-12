@@ -692,7 +692,7 @@
 				xhr.onload = function(e) {
 					// Returns the winner of the round
  					var responseText = xhr.response; // the text of the response
-					
+					if (autoPlay != 1) {
 					if (responseText == "0") {
 						turn = responseText;
 						document.getElementById("RoundWinner").innerHTML = "You won the round!";
@@ -709,15 +709,18 @@
 					}
  					document.getElementById("RoundNumber").innerHTML = rounds;
  					
- 					roundResults();
-
+ 					
+					}
+					roundResults();
  				}
  				xhr.send();
  				
 			 };
 			 
 			 function roundResults() {
-			 
+			 if (autoPlay == 1) {
+					nextRound();
+				}
 			 
 			 	document.getElementById("button4").style.visibility = "hidden";
 			 	document.getElementById("categoryChoice").style.visibility = "hidden";
@@ -735,18 +738,31 @@
 				if (ActiveAI4 == 1) {
 					document.getElementById("player4").style.visibility = "visible";
 				}
+				if (autoPlay == 1) {
+					nextRound();
+				}
 			 }
 			 // thinking that we need to determine which cards to print etc. keep track
 			 // of what users that are still in the game. for now every1 will show.
 			 // if someone knows a neat way of doing this that would be gr8!
 	
-			 var gameOver; 
-			 
-			 
+			 var gameOver = 0; 
+			 var humanOut;
+			 var autoPlay;
 			 function nextRound() {
-			 			isGameOver();
-						if (gameOver==true) {
+			 			if (gameOver != 2) {
+			 				isGameOver();
+			 			}
+						if (gameOver==1) {
 							gameIsOver();
+							autoplay = 0;
+							location.href = 'http://localhost:7777/toptrumps';
+						}
+						
+						isHumanOut();
+						if (humanOut == 1) {
+							autoPlay = 1;
+							playCategory();
 						}
 				 		document.getElementById("cardValues").innerHTML = getCardDescription(0) + "<br />" +getCardSize(0) + "<br />" +
 																		getCardSpeed(0) + "<br />" +getCardRange(0) + "<br />" +getCardFirepower(0) + "<br />" +getCardCargo(0);
@@ -783,9 +799,26 @@
 								document.getElementById("categoryChoice").style.visibility = "hidden";
 								document.getElementById("button4").style.visibility = "visible";
 							}
-					
+					if (autoPlay == 1) { 
+						playCategory();
+					}
 			 }
 			 
+			 function isHumanOut() {
+			 	var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/isHumanOut"); // Request type and URL+parameters
+				if (!xhr) {
+		  			alert("CORS not supported");
+				}
+				xhr.onload = function(e) {
+					// Returns int , 1 = game is over.
+ 					var responseText = xhr.response; // the text of the response
+					humanOut = responseText;
+ 					
+
+ 				}
+ 				xhr.send();
+ 				
+			 }
 			 
 			function getNumberOfPlayers() {
 				var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/getNumberOfPlayers"); // Request type and URL+parameters
@@ -810,7 +843,11 @@
 				xhr.onload = function(e) {
 					// Returns int , 1 = game is over.
  					var responseText = xhr.response; // the text of the response
+					if (gameOver != responseText) {
 					gameOver = responseText;
+					} else {
+						gameOver = 2;
+					}
  					
 
  				}
@@ -830,11 +867,12 @@
  					var responseWinner = xhr.response; // the text of the response
 
  					//  do what needs to be done with ze winner
- 					// 
-					alert("GAME IS OVER");
+ 					 
+						alert("Player " + responseWinner + " won the game!");
+						
  				}
  				xhr.send();
- 				
+ 			
 			}
 	// --------------------------------------------------------------------------
 			
@@ -874,7 +912,7 @@
 
   				 }
   				 return xhr;
-			}
+			};
 	// --------------------------------------------------------------------------
 
 		</script>

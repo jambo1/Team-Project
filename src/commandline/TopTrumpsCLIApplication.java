@@ -47,7 +47,7 @@ public class TopTrumpsCLIApplication {
 			Collections.shuffle(Arrays.asList(deck));
 			//Log the shuffled deck
 			if(writeGameLogsToFile = true) {log.logShuffledDeck(deck);}
-			
+			in.connection();
 			
 			//Get User input
 			 int choice = getUserChoice();
@@ -67,9 +67,12 @@ public class TopTrumpsCLIApplication {
 				round = 0;
 				humanRounds = 0;
 				p1Rounds = 0;
-				p2Rounds =0;
+				p2Rounds = 0;
 				p3Rounds = 0;
-				p4Rounds =0;
+				p4Rounds = 0;
+				drawRounds = 0;
+				
+				
 				while(gameOver==false)	{
 					/*
 					 * Uncomment before turn in
@@ -178,7 +181,7 @@ public class TopTrumpsCLIApplication {
 								winner=i;
 							}
 						}
-						
+						updateRoundWinner(winner);
 						updatePersistent();
 
 						//Print another buffer
@@ -238,14 +241,14 @@ public class TopTrumpsCLIApplication {
 					}
 					
 					}
-				
+			
 			}
 			//Connect to database and show statistics
 			if(choice ==2) {
 				System.out.println("User choice was 2");  
 				
 				
-				in.connection();
+				
 				System.out.println("The total number of games played is " + in.TotalGames());			
 				System.out.println("The total number of human wins is " + in.HumanWins());
 				System.out.println("The total number of AI wins is " + in.AIwins());
@@ -261,6 +264,7 @@ public class TopTrumpsCLIApplication {
 			if(choice ==3) {
 				System.out.println("Game closing");
 				userWantsToQuit=true;
+				in.disconnect();
 			}
 			//No valid choice
 			else {
@@ -368,6 +372,25 @@ public class TopTrumpsCLIApplication {
 	 * @param winner
 	 */
 	private static void updateRoundWinner(int winner) {
+//	System.out.println(winner);	
+//		if(winner == 0) { 
+//			humanRounds++;
+//		}
+//		else if(winner == 1) { 
+//			p1Rounds++;
+//		}
+//		else if(winner == 2) { 
+//			p2Rounds++;
+//		}
+//		else if(winner == 3) { 
+//			p3Rounds++;
+//		}
+//		else if(winner == 4) { 
+//			p4Rounds++;
+//		}
+//		else if(winner == 5) { 
+//			drawRounds++;
+//		}
 		switch(winner) {
 		case 0 : 
 			humanRounds++;
@@ -394,10 +417,12 @@ public class TopTrumpsCLIApplication {
 	 */
 	private static void updatePersistent() {
 		//Update data for the sql queries
+		
 		in.updateSQL(humanRounds, p1Rounds, p2Rounds, p3Rounds, p4Rounds, drawRounds, round, winner);
 		//Update statistics in the SQL database
 		in.updateStats();
 		System.out.println(""+humanRounds + p1Rounds+ p2Rounds+ p3Rounds+ p4Rounds+ drawRounds+ round+ winner);
+		
 	}
 }
 	
