@@ -300,7 +300,13 @@ public class Game {
 		Scanner sc = new Scanner(System.in);
 		choice = sc.nextInt();
 		//sc.close();
-		return choice;
+		if (choice >0 && choice<6)	{
+			return choice;
+		}
+		else {
+		System.err.println("Invalid input. Please select a number between 1 and 5");
+		return getPlayerChoice();
+		}
 	}
 	
 	

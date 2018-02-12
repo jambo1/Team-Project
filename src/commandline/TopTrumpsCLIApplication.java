@@ -17,7 +17,7 @@ public class TopTrumpsCLIApplication {
 	private static int round, turn, cmd5;
 	private static boolean timer = false; //set to true before hand in
 	private static logWriter log = new logWriter();
-	private static boolean writeGameLogsToFile = true;
+	private static boolean writeGameLogsToFile = false;
 	private static int humanRounds, p1Rounds, p2Rounds, p3Rounds, p4Rounds, drawRounds; 
 	private static int winner;
 	private static Interaction in = new Interaction();
@@ -34,10 +34,10 @@ public class TopTrumpsCLIApplication {
 		//Read file and create the deck
 		createDeck();
 		
-/*		/*
-//		 * uncomment before submission
-//		 */
-//		//if (args[0].equalsIgnoreCase("true")) writeGameLogsToFile=true; // Command line selection
+		
+		
+	 
+		 if (args[0].equalsIgnoreCase("true")) writeGameLogsToFile=true; // Command line selection
 		
 		// State
 		boolean userWantsToQuit = false; // flag to check whether the user wants to quit the application
@@ -421,7 +421,7 @@ public class TopTrumpsCLIApplication {
 		in.updateSQL(humanRounds, p1Rounds, p2Rounds, p3Rounds, p4Rounds, drawRounds, round, winner);
 		//Update statistics in the SQL database
 		in.updateStats();
-		System.out.println(""+humanRounds + p1Rounds+ p2Rounds+ p3Rounds+ p4Rounds+ drawRounds+ round+ winner);
+		//System.out.println(""+humanRounds + p1Rounds+ p2Rounds+ p3Rounds+ p4Rounds+ drawRounds+ round+ winner);
 		
 	}
 }
